@@ -997,7 +997,7 @@ function renderLibDetail(id,t){
   const tc=T_COL[s.tipo]||'#888';const tb=T_BG[s.tipo]||'#eee';
   document.getElementById(t==='v'?'lib-detail-v':'lib-detail-e').innerHTML=
     `<div class="lib-detail"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="lib-type" style="background:${tb};color:${tc}">${s.tipo}</span><h3>${s.name}</h3><span style="margin-left:auto;font-size:11px;color:var(--text2);font-weight:700">${s.carga}</span></div>
-    <p>${s.desc}</p><div class="sec-label">Material</div><div style="margin-bottom:12px">${s.mat.length?s.mat.map(m=>`<span class="mat-tag">📦 ${m}</span>`).join(''):'<span class="mat-tag">Sense material</span>'}</div>
+    <p>${s.desc}</p><div class="sec-label">Material</div><div style="margin-bottom:12px">${s.mat.length?s.mat.map(m=>`<span class="mat-tag">❚█══█❚ ${m}</span>`).join(''):'<span class="mat-tag">Sense material</span>'}</div>
     ${s.ex.length?`<div class="sec-label">Exercicis (${s.ex.length})</div><div class="ex-grid">${s.ex.map(e=>`<div class="ex-item">${e.n}${e.d?`<div class="ex-sub">${e.d}</div>`:''}</div>`).join('')}</div>`:''}
     </div>`;
 }
