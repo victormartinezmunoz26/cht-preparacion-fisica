@@ -24,8 +24,7 @@
   --pink:#993556;--pink-l:#FBEAF0;
   --bg:#F0F2F5;--surface:#fff;--border:rgba(0,0,0,.1);
   --text:#1a1a1a;--text2:#5a5a5a;--text3:#aaa;
-  --radius:12px;--radius-sm:8px;--nav-h:56px;--bot-h:64px;
-  --brand:#C0152A;
+  --radius:12px;--radius-sm:8px;--nav-h:56px;--bot-h:64px;--brand:#C0152A;
 }
 @media(prefers-color-scheme:dark){
   :root{--bg:#0f0f0f;--surface:#1a1a1a;--border:rgba(255,255,255,.08);
@@ -118,8 +117,6 @@ textarea{min-height:70px;resize:vertical;font-size:14px}
 .modal-tabs{display:flex;gap:6px;margin-bottom:16px}
 .modal-tab{flex:1;padding:9px;font-size:12px;font-weight:700;border:2px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;background:var(--bg);color:var(--text2);text-align:center}
 .modal-tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
-.ex-edit-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:6px}
-.ex-edit-row input{margin-bottom:0;font-size:13px}
 .ex-edit-row .ex-del,.mat-edit-row .mat-del{width:36px;height:40px;flex-shrink:0;border:1.5px solid var(--red-b);border-radius:var(--radius-sm);background:var(--red-l);color:var(--red);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
 .mat-edit-row{display:flex;gap:6px;align-items:center;margin-bottom:6px}
 .mat-edit-row input{margin-bottom:0;font-size:13px}
@@ -147,7 +144,6 @@ textarea{min-height:70px;resize:vertical;font-size:14px}
 .cat-chart-block{margin-bottom:14px}
 .cat-chart-title{font-size:12px;font-weight:700;margin-bottom:6px;padding:6px 10px;border-radius:var(--radius-sm)}
 .chart-wrap-sm{position:relative;width:100%;height:160px}
-.chart-wrap{position:relative;width:100%;height:250px;margin-top:8px}
 .legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
 .legend-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2);font-weight:600}
 .legend-sq{width:10px;height:10px;border-radius:3px}
@@ -189,12 +185,11 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
 .week-lbl-btn{flex:1;text-align:center;font-size:13px;font-weight:700;background:none;border:none;cursor:pointer;color:var(--text);padding:4px 8px;border-radius:var(--radius-sm);position:relative}
 .week-lbl-btn:hover{background:var(--bg)}
 .week-lbl-btn.current-week::after{content:'● Setmana actual';display:block;font-size:9px;color:var(--brand);font-weight:700;margin-top:1px}
-/* Dies entrenament entrenador */
+/* Dies entrenament */
 .train-days-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
 .train-day-btn{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);background:var(--bg);color:var(--text2);font-size:10px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .train-day-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
-.scell.train-day{background:rgba(var(--brand-rgb,192,21,42),.04);border-top:2px solid var(--brand)}
-.wday-row.train-day-row{border-left:3px solid var(--brand)}
+/* Configuració */
 .cfg-section{margin-bottom:18px}
 .cfg-section-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--border)}
 .cat-cfg-block{background:var(--bg);border-radius:var(--radius-sm);padding:12px;margin-bottom:8px;border:1px solid var(--border)}
@@ -251,7 +246,7 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
       <div class="topbar-sub">
         <span id="db-dot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#aaa;flex-shrink:0"></span>
         <span id="db-status">Connectant...</span>
-        <button class="refresh-btn" id="refresh-btn" onclick="manualRefresh()" title="Actualitzar">↻</button>
+        <button class="refresh-btn" id="refresh-btn" onclick="manualRefresh()">↻</button>
       </div>
     </div>
   </div>
@@ -271,12 +266,13 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
     <button class="bnav-item" data-tab="configuracio" onclick="setTab('configuracio')"><i class="ti ti-settings"></i><span>Config</span></button>
   </nav>
 
+  <!-- Tab Planificador -->
   <div id="tab-planificador" class="main">
     <div class="card">
       <div class="cat-row" id="cat-row"></div>
       <div class="week-nav" style="position:relative">
         <button class="wbtn" onclick="changeWeek(-1)"><i class="ti ti-chevron-left"></i></button>
-        <button class="week-lbl-btn" id="week-lbl" onclick="toggleCal('victor-cal')" title="Obrir calendari">—</button>
+        <button class="week-lbl-btn" id="week-lbl" onclick="toggleCal('victor-cal')">—</button>
         <button class="wbtn" onclick="changeWeek(1)"><i class="ti ti-chevron-right"></i></button>
         <div id="victor-cal" class="cal-dropdown hidden"></div>
       </div>
@@ -301,11 +297,10 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
     </div>
   </div>
 
+  <!-- Tab Càrregues -->
   <div id="tab-cargas" class="main hidden">
     <div class="card">
-          <div class="card">
-      <div class="cfg-section" style="margin-bottom:0">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
         <div class="sec-label" style="margin:0">Càrrega per categoria</div>
         <div class="week-nav" style="gap:6px">
           <button class="wbtn" onclick="changeWeek(-1);renderCargas()"><i class="ti ti-chevron-left"></i></button>
@@ -327,6 +322,7 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
     </div>
   </div>
 
+  <!-- Tab Biblioteca -->
   <div id="tab-biblioteca" class="main hidden">
     <div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
@@ -338,6 +334,7 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
     <div id="lib-detail-v"></div>
   </div>
 
+  <!-- Tab Exportar -->
   <div id="tab-exportar" class="main hidden">
     <div class="card">
       <div class="sec-label" style="margin-bottom:10px">Exportar</div>
@@ -375,72 +372,51 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
     </div>
   </div>
 
-  <!-- CONFIGURACIÓ -->
+  <!-- Tab Configuració -->
   <div id="tab-configuracio" class="main hidden">
+    <!-- Club -->
     <div class="card">
-      <div class="cfg-section">
-        <div class="cfg-section-title">🏟️ Club</div>
-        <label class="mlbl">Nom del club</label>
-        <input type="text" id="cfg-club-name" placeholder="Ex: Handbol Terrassa">
-        <label class="mlbl">Sigles (badge)</label>
-        <input type="text" id="cfg-club-badge" placeholder="Ex: CHT" maxlength="4" style="text-transform:uppercase">
-        <label class="mlbl">Color principal</label>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-          <input type="color" id="cfg-club-color" style="width:60px;margin-bottom:0">
-          <span style="font-size:12px;color:var(--text2)">Color de la capçalera i accents</span>
-        </div>
-        <button onclick="saveClubConfig()" style="width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">Guardar canvis del club</button>
+      <div class="cfg-section-title">🏟️ Club</div>
+      <label class="mlbl">Nom del club</label>
+      <input type="text" id="cfg-club-name" placeholder="Ex: Handbol Terrassa">
+      <label class="mlbl">Sigles (badge)</label>
+      <input type="text" id="cfg-club-badge" placeholder="Ex: CHT" maxlength="4" style="text-transform:uppercase">
+      <label class="mlbl">Color principal</label>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <input type="color" id="cfg-club-color" style="width:60px;margin-bottom:0">
+        <span style="font-size:12px;color:var(--text2)">Color de la capçalera i accents</span>
       </div>
+      <button onclick="saveClubConfig()" style="width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">Guardar canvis del club</button>
     </div>
 
+    <!-- Aspecte visual -->
     <div class="card">
-      <div class="cfg-section">
-        <div class="cfg-section-title">🎨 Aspecte visual</div>
-
-        <label class="mlbl">Estil general</label>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
-          <button class="style-opt" data-style="default" onclick="setVisualStyle('default',this)"
-            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">
-            ⬜ Estàndard
-          </button>
-          <button class="style-opt" data-style="compact" onclick="setVisualStyle('compact',this)"
-            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">
-            📐 Compacte
-          </button>
-          <button class="style-opt" data-style="rounded" onclick="setVisualStyle('rounded',this)"
-            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">
-            🔵 Arrodonit
-          </button>
-        </div>
-
-        <label class="mlbl">Mida de lletra</label>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
-          <button class="font-opt" data-size="small" onclick="setFontSize('small',this)"
-            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">
-            A petit
-          </button>
-          <button class="font-opt" data-size="medium" onclick="setFontSize('medium',this)"
-            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:13px;font-weight:700;background:var(--bg)">
-            A normal
-          </button>
-          <button class="font-opt" data-size="large" onclick="setFontSize('large',this)"
-            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:15px;font-weight:700;background:var(--bg)">
-            A gran
-          </button>
-        </div>
-
-        <label class="mlbl">Text a la topbar (entrenadors)</label>
-        <input type="text" id="cfg-topbar-sub" placeholder="Ex: Temporada 2024-25">
-
-        <button onclick="saveVisualConfig()" style="width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">Guardar aspecte</button>
+      <div class="cfg-section-title">🎨 Aspecte visual</div>
+      <label class="mlbl">Estil general</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+        <button class="style-opt" data-style="default" onclick="setVisualStyle('default',this)" style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">⬜ Estàndard</button>
+        <button class="style-opt" data-style="compact" onclick="setVisualStyle('compact',this)" style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">📐 Compacte</button>
+        <button class="style-opt" data-style="rounded" onclick="setVisualStyle('rounded',this)" style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">🔵 Arrodonit</button>
       </div>
+      <label class="mlbl">Mida de lletra</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+        <button class="font-opt" data-size="small" onclick="setFontSize('small',this)" style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">A petit</button>
+        <button class="font-opt" data-size="medium" onclick="setFontSize('medium',this)" style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:13px;font-weight:700;background:var(--bg)">A normal</button>
+        <button class="font-opt" data-size="large" onclick="setFontSize('large',this)" style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:15px;font-weight:700;background:var(--bg)">A gran</button>
+      </div>
+      <label class="mlbl">Text a la topbar (entrenadors)</label>
+      <input type="text" id="cfg-topbar-sub" placeholder="Ex: Temporada 2024-25">
+      <button onclick="saveVisualConfig()" style="width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">Guardar aspecte</button>
     </div>
-          <div class="cfg-section-title" style="margin:0;border:none;padding:0">📋 Categories i equips</div>
-          <button onclick="addCategoria()" style="padding:6px 14px;font-size:12px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">+ Categoria</button>
-        </div>
-        <div id="cfg-cats"></div>
-        <button onclick="saveCatsConfig()" style="width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer;margin-top:8px">Guardar categories i equips</button>
+
+    <!-- Categories i equips -->
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div class="cfg-section-title" style="margin:0;border:none;padding:0">📋 Categories i equips</div>
+        <button onclick="addCategoria()" style="padding:6px 14px;font-size:12px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">+ Categoria</button>
       </div>
+      <div id="cfg-cats"></div>
+      <button onclick="saveCatsConfig()" style="width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer;margin-top:8px">Guardar categories i equips</button>
     </div>
   </div>
 </div>
@@ -466,11 +442,10 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
         <div class="card" style="padding:10px 14px">
           <div class="ent-week-nav" style="position:relative">
             <button class="wbtn" onclick="changeEntWeek(-1)"><i class="ti ti-chevron-left"></i></button>
-            <button class="week-lbl-btn" id="ent-week-lbl" onclick="toggleCal('ent-cal')" title="Obrir calendari">—</button>
+            <button class="week-lbl-btn" id="ent-week-lbl" onclick="toggleCal('ent-cal')">—</button>
             <button class="wbtn" onclick="changeEntWeek(1)"><i class="ti ti-chevron-right"></i></button>
             <div id="ent-cal" class="cal-dropdown hidden"></div>
           </div>
-          <!-- Dies d'entrenament -->
           <div style="margin-top:8px">
             <div class="sec-label" style="margin-bottom:6px">Dies d'entrenament del meu equip</div>
             <div class="train-days-row" id="train-days-selector"></div>
@@ -563,7 +538,6 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
 </div>
 
 <script>
-// ── Firebase ──────────────────────────────────────────────────────
 const FB='https://cht-preparacionfisica-default-rtdb.europe-west1.firebasedatabase.app';
 function dbg(msg){try{const p=document.getElementById('dbg-panel');if(p){p.style.display='block';p.textContent=String(msg).slice(0,1200);}console.log(msg);}catch(e){}}
 window.addEventListener('error',e=>dbg('ERROR: '+e.message));
@@ -572,7 +546,6 @@ async function fbSet(path,data){const r=await fetch(FB+path+'.json',{method:'PUT
 async function fbDel(path){const r=await fetch(FB+path+'.json',{method:'DELETE'});if(!r.ok)throw new Error('HTTP '+r.status);}
 async function fbGetAll(){const r=await fetch(FB+'/.json?shallow=false');if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
 
-// ── Config per defecte ────────────────────────────────────────────
 const PIN='7159';
 const DIAS=['Dll','Dm','Dc','Dj','Dv','Ds','Dg'];
 const DIAS_FULL=['Dilluns','Dimarts','Dimecres','Dijous','Divendres','Dissabte','Diumenge'];
@@ -583,30 +556,20 @@ const T_COL={HIIT:'#185FA5',Fuerza:'#534AB7',Funcional:'#854F0B',Carrera:'#3B6D1
 const T_BG={HIIT:'#E6F1FB',Fuerza:'#EEEDFE',Funcional:'#FAEEDA',Carrera:'#EAF3DE',Gym:'#FBEAF0',Libre:'#F0F4FF'};
 const TIPO_CLS={'HIIT 1':'p-hiit','HIIT 2':'p-hiit','Fuerza Piernas':'p-fuerza','Fuerza Torso':'p-fuerza','Funcional 1':'p-funcional','Funcional 2':'p-funcional','Carrera Continua':'p-carrera','Carrera Intervalos Cortos':'p-carrera','Carrera Intervalos Largos':'p-carrera','Sprints Repetidos':'p-carrera','Circuito COD':'p-carrera','Gym Viernes':'p-gym','Descanso':'p-descanso'};
 
-// ── Config dinàmica (s'omple des de Firebase o valors per defecte) ─
-let CFG = {
-  club: { name:'Handbol Terrassa', badge:'CHT', color:'#C0152A' },
-  categories: [
-    { id:'infantil', name:'Infantil', color:'#7C3AED', light:'#F3EFFE',
-      equips:[{id:'im_a',n:'Inf. Masc A',g:'m'},{id:'im_b',n:'Inf. Masc B',g:'m'},{id:'if',n:'Inf. Fem',g:'f'}]},
-    { id:'cadete',   name:'Cadete',   color:'#0369A1', light:'#E0F2FE',
-      equips:[{id:'cm_a',n:'Cad. Masc A',g:'m'},{id:'cm_b',n:'Cad. Masc B',g:'m'},{id:'cf',n:'Cad. Fem',g:'f'}]},
-    { id:'juvenil',  name:'Juvenil',  color:'#047857', light:'#D1FAE5',
-      equips:[{id:'jm_a',n:'Juv. Masc A',g:'m'},{id:'jm_b',n:'Juv. Masc B',g:'m'},{id:'jf',n:'Juv. Fem',g:'f'}]},
-    { id:'senior',   name:'Senior',   color:'#B45309', light:'#FEF3C7',
-      equips:[{id:'sm_a',n:'Sr. Masc A',g:'m'},{id:'sm_b',n:'Sr. Masc B',g:'m'},{id:'sf',n:'Sr. Fem',g:'f'}]}
+let CFG={
+  club:{name:'Handbol Terrassa',badge:'CHT',color:'#C0152A'},
+  categories:[
+    {id:'infantil',name:'Infantil',color:'#7C3AED',light:'#F3EFFE',equips:[{id:'im_a',n:'Inf. Masc A',g:'m'},{id:'im_b',n:'Inf. Masc B',g:'m'},{id:'if',n:'Inf. Fem',g:'f'}]},
+    {id:'cadete',name:'Cadete',color:'#0369A1',light:'#E0F2FE',equips:[{id:'cm_a',n:'Cad. Masc A',g:'m'},{id:'cm_b',n:'Cad. Masc B',g:'m'},{id:'cf',n:'Cad. Fem',g:'f'}]},
+    {id:'juvenil',name:'Juvenil',color:'#047857',light:'#D1FAE5',equips:[{id:'jm_a',n:'Juv. Masc A',g:'m'},{id:'jm_b',n:'Juv. Masc B',g:'m'},{id:'jf',n:'Juv. Fem',g:'f'}]},
+    {id:'senior',name:'Senior',color:'#B45309',light:'#FEF3C7',equips:[{id:'sm_a',n:'Sr. Masc A',g:'m'},{id:'sm_b',n:'Sr. Masc B',g:'m'},{id:'sf',n:'Sr. Fem',g:'f'}]}
   ]
 };
 
-// Helpers accés ràpid
-function getCats(){ return CFG.categories||[]; }
-function getCat(id){ return (CFG.categories||[]).find(c=>c.id===id); }
-function getCatByName(name){ return (CFG.categories||[]).find(c=>c.name===name); }
-function lightColor(hex){
-  // Genera color clar a partir del color principal
-  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
-  return `rgba(${r},${g},${b},0.12)`;
-}
+function getCats(){return CFG.categories||[];}
+function getCat(id){return (CFG.categories||[]).find(c=>c.id===id);}
+function getCatByName(name){return (CFG.categories||[]).find(c=>c.name===name);}
+function lightColor(hex){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return `rgba(${r},${g},${b},0.12)`;}
 
 function applyConfig(){
   const {name,badge,color}=CFG.club;
@@ -614,17 +577,14 @@ function applyConfig(){
   document.getElementById('club-badge').textContent=badge;
   document.documentElement.style.setProperty('--brand',color);
   document.getElementById('topbar').style.background=color;
-  // Actualitza light de cada categoria si no en té
-  CFG.categories.forEach(c=>{ if(!c.light) c.light=lightColor(c.color); });
-  // Actualitza meta theme-color
+  (CFG.categories||[]).forEach(c=>{if(!c.light)c.light=lightColor(c.color);});
   document.querySelector('meta[name=theme-color]').content=color;
 }
 
-// ── State ─────────────────────────────────────────────────────────
 let DB={sessions:{},feedbacks:{},partits:{},traindays:{}};
 let ST={
   mode:'entrenador',tab:'planificador',
-  catIdx:0, weekOff:0, entWeekOff:0,
+  catIdx:0,weekOff:0,entWeekOff:0,
   modal:null,carga:null,modalTab:'biblioteca',
   entEquipo:null,entCat:null,entTab:'setmana',
   expEquipos:{},expTab:'resum',
@@ -632,133 +592,92 @@ let ST={
   catCharts:{},pinVerified:false,expandedDays:{}
 };
 
-// ── Keys ──────────────────────────────────────────────────────────
 function fk(k){return btoa(unescape(encodeURIComponent(String(k)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
 function sk(catName,team,di,wo){return catName+'|'+team+'|'+di+'|'+wo;}
 function gS(k){return DB.sessions[fk(k)];}
 function gF(k){return DB.feedbacks[fk(k)];}
 function gP(k){return DB.partits[fk(k)];}
 
-// ── Toast ─────────────────────────────────────────────────────────
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2200);}
 
-// ── Calendari desplegable ─────────────────────────────────────────
-let _calState = {}; // { calId: { year, month } }
-
+// ── Calendari ─────────────────────────────────────────────────────
+let _calState={};
 function toggleCal(calId){
-  const el = document.getElementById(calId);
-  if(!el) return;
-  if(!el.classList.contains('hidden')){ el.classList.add('hidden'); return; }
-  // Inicialitza estat si cal
-  const now = new Date();
-  if(!_calState[calId]) _calState[calId] = { year: now.getFullYear(), month: now.getMonth() };
-  renderCal(calId);
-  el.classList.remove('hidden');
-  // Tanca en clicar fora
-  setTimeout(()=>{
-    const close = e => { if(!el.contains(e.target)){ el.classList.add('hidden'); document.removeEventListener('click', close); }};
-    document.addEventListener('click', close);
-  }, 50);
+  const el=document.getElementById(calId);if(!el)return;
+  if(!el.classList.contains('hidden')){el.classList.add('hidden');return;}
+  const now=new Date();
+  if(!_calState[calId])_calState[calId]={year:now.getFullYear(),month:now.getMonth()};
+  renderCal(calId);el.classList.remove('hidden');
+  setTimeout(()=>{const close=e=>{if(!el.contains(e.target)){el.classList.add('hidden');document.removeEventListener('click',close);}};document.addEventListener('click',close);},50);
 }
-
 function renderCal(calId){
-  const el = document.getElementById(calId); if(!el) return;
-  const isEnt = calId === 'ent-cal';
-  const {year, month} = _calState[calId];
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-  // Primer dia del mes i quants dies té
-  const firstDay = new Date(year, month, 1);
-  const daysInMonth = new Date(year, month+1, 0).getDate();
-  // Dia de la setmana del primer dia (0=dg → convertim a dll=0)
-  let startDow = firstDay.getDay() - 1; if(startDow < 0) startDow = 6;
-
-  // Setmana seleccionada actual
-  const selOff = isEnt ? ST.entWeekOff : ST.weekOff;
-  const selMon = new Date(); selMon.setDate(selMon.getDate() - selMon.getDay() + 1 + selOff*7);
-  selMon.setHours(0,0,0,0);
-  const selSun = new Date(selMon); selSun.setDate(selMon.getDate()+6);
-
-  const MESOS = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost','Setembre','Octubre','Novembre','Desembre'];
-  const DOWS = ['Dl','Dm','Dc','Dj','Dv','Ds','Dg'];
-
-  let html = `<div class="cal-header">
-    <button onclick="calNav('${calId}',-1)">‹</button>
-    <span>${MESOS[month]} ${year}</span>
-    <button onclick="calNav('${calId}',1)">›</button>
-  </div>
-  <div class="cal-grid">
-    ${DOWS.map(d=>`<div class="cal-dow">${d}</div>`).join('')}`;
-
-  // Buits inicials
-  for(let i=0;i<startDow;i++) html+=`<div></div>`;
-
+  const el=document.getElementById(calId);if(!el)return;
+  const isEnt=calId==='ent-cal';
+  const {year,month}=_calState[calId];
+  const now=new Date();
+  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const firstDay=new Date(year,month,1);
+  const daysInMonth=new Date(year,month+1,0).getDate();
+  let startDow=firstDay.getDay()-1;if(startDow<0)startDow=6;
+  const selOff=isEnt?ST.entWeekOff:ST.weekOff;
+  const selMon=new Date();selMon.setDate(selMon.getDate()-selMon.getDay()+1+selOff*7);selMon.setHours(0,0,0,0);
+  const selSun=new Date(selMon);selSun.setDate(selMon.getDate()+6);
+  const MESOS=['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost','Setembre','Octubre','Novembre','Desembre'];
+  const DOWS=['Dl','Dm','Dc','Dj','Dv','Ds','Dg'];
+  let html=`<div class="cal-header"><button onclick="calNav('${calId}',-1)">‹</button><span>${MESOS[month]} ${year}</span><button onclick="calNav('${calId}',1)">›</button></div><div class="cal-grid">${DOWS.map(d=>`<div class="cal-dow">${d}</div>`).join('')}`;
+  for(let i=0;i<startDow;i++)html+=`<div></div>`;
   for(let d=1;d<=daysInMonth;d++){
-    const date = new Date(year, month, d);
-    const isToday = date.getTime()===today.getTime();
-    const inSelWeek = date >= selMon && date <= selSun;
-    const isWe = date.getDay()===0 || date.getDay()===6;
-    let cls = 'cal-day cur-month';
-    if(isToday) cls+=' today';
-    else if(inSelWeek) cls+=' selected-week';
-    if(isWe && !isToday && !inSelWeek) cls+=' we-day';
+    const date=new Date(year,month,d);
+    const isToday=date.getTime()===today.getTime();
+    const inSelWeek=date>=selMon&&date<=selSun;
+    const isWe=date.getDay()===0||date.getDay()===6;
+    let cls='cal-day cur-month';
+    if(isToday)cls+=' today';else if(inSelWeek)cls+=' selected-week';
+    if(isWe&&!isToday&&!inSelWeek)cls+=' we-day';
     html+=`<div class="${cls}" onclick="calSelectDay('${calId}',${year},${month},${d})">${d}</div>`;
   }
-  html+=`</div>`;
-  el.innerHTML=html;
+  html+=`</div>`;el.innerHTML=html;
 }
-
-function calNav(calId, dir){
-  if(!_calState[calId]) return;
-  let {year, month} = _calState[calId];
-  month += dir;
-  if(month > 11){ month=0; year++; }
-  if(month < 0){ month=11; year--; }
-  _calState[calId] = {year, month};
-  renderCal(calId);
+function calNav(calId,dir){
+  if(!_calState[calId])return;
+  let {year,month}=_calState[calId];month+=dir;
+  if(month>11){month=0;year++;}if(month<0){month=11;year--;}
+  _calState[calId]={year,month};renderCal(calId);
 }
-
-function calSelectDay(calId, year, month, day){
-  // Calcula a quina setmana cau aquest dia
-  const clicked = new Date(year, month, day);
-  const now = new Date(); now.setHours(0,0,0,0);
-  const nowMon = new Date(now); nowMon.setDate(now.getDate()-now.getDay()+1);
-  const clickMon = new Date(clicked); clickMon.setDate(clicked.getDate()-clicked.getDay()+1);
-  const diff = Math.round((clickMon-nowMon)/(7*24*3600*1000));
-  const isEnt = calId==='ent-cal';
-  if(isEnt){ ST.entWeekOff=diff; updateEntLabel(); ST.expandedDays={}; renderEntContent(); }
-  else { ST.weekOff=diff; updateLabels(); renderPlanner(); }
+function calSelectDay(calId,year,month,day){
+  const clicked=new Date(year,month,day);
+  const now=new Date();now.setHours(0,0,0,0);
+  const nowMon=new Date(now);nowMon.setDate(now.getDate()-now.getDay()+1);
+  const clickMon=new Date(clicked);clickMon.setDate(clicked.getDate()-clicked.getDay()+1);
+  const diff=Math.round((clickMon-nowMon)/(7*24*3600*1000));
+  const isEnt=calId==='ent-cal';
+  if(isEnt){ST.entWeekOff=diff;updateEntLabel();ST.expandedDays={};renderEntContent();}
+  else{ST.weekOff=diff;updateLabels();renderPlanner();}
   document.getElementById(calId).classList.add('hidden');
 }
 
 // ── Dies d'entrenament ────────────────────────────────────────────
-// Guardem a Firebase sota /traindays/[fk(equipId)] per compartir amb Víctor
-function getTrainDays(equipId){
-  return DB.traindays?.[fk(equipId)] ?? [];
-}
-async function setTrainDays(equipId, days){
-  if(!DB.traindays) DB.traindays={};
+function getTrainDays(equipId){return DB.traindays?.[fk(equipId)]??[];}
+async function setTrainDays(equipId,days){
+  if(!DB.traindays)DB.traindays={};
   DB.traindays[fk(equipId)]=days;
-  try{ await fbSet('/traindays/'+fk(equipId), days); }catch(e){ dbg('TRAINDAYS ERR: '+e.message); }
+  try{await fbSet('/traindays/'+fk(equipId),days);}catch(e){dbg('TRAINDAYS ERR: '+e.message);}
 }
 function renderTrainDaysSelector(){
-  if(!ST.entEquipo) return;
-  const days = getTrainDays(ST.entEquipo);
-  document.getElementById('train-days-selector').innerHTML =
-    DIAS.map((d,i)=>`<button class="train-day-btn${days.includes(i)?' active':''}"
-      onclick="toggleTrainDay(${i},this)">${d}</button>`).join('');
+  if(!ST.entEquipo)return;
+  const days=getTrainDays(ST.entEquipo);
+  document.getElementById('train-days-selector').innerHTML=
+    DIAS.map((d,i)=>`<button class="train-day-btn${days.includes(i)?' active':''}" onclick="toggleTrainDay(${i},this)">${d}</button>`).join('');
 }
-async function toggleTrainDay(di, btn){
-  if(!ST.entEquipo) return;
-  const days = [...getTrainDays(ST.entEquipo)];
-  const idx = days.indexOf(di);
-  if(idx>=0) days.splice(idx,1); else days.push(di);
-  await setTrainDays(ST.entEquipo, days);
+async function toggleTrainDay(di,btn){
+  if(!ST.entEquipo)return;
+  const days=[...getTrainDays(ST.entEquipo)];
+  const idx=days.indexOf(di);
+  if(idx>=0)days.splice(idx,1);else days.push(di);
+  await setTrainDays(ST.entEquipo,days);
   btn.className='train-day-btn'+(days.includes(di)?' active':'');
   renderEntContent();
-  // Actualitza el planificador de Víctor si està obert
-  if(ST.mode==='victor') renderPlanner();
+  if(ST.mode==='victor')renderPlanner();
 }
 
 // ── Week labels ───────────────────────────────────────────────────
@@ -772,25 +691,18 @@ function updateLabels(){
   const l=wLabel(ST.weekOff);
   ['c-week-lbl','exp-week-lbl'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=l;});
   const btn=document.getElementById('week-lbl');
-  if(btn){
-    btn.textContent=l;
-    btn.className='week-lbl-btn'+(ST.weekOff===0?' current-week':'');
-  }
+  if(btn){btn.textContent=l;btn.className='week-lbl-btn'+(ST.weekOff===0?' current-week':'');}
 }
 function updateEntLabel(){
   const el=document.getElementById('ent-week-lbl');
-  if(el){
-    el.textContent=wLabel(ST.entWeekOff);
-    el.className='week-lbl-btn'+(ST.entWeekOff===0?' current-week':'');
-  }
+  if(el){el.textContent=wLabel(ST.entWeekOff);el.className='week-lbl-btn'+(ST.entWeekOff===0?' current-week':'');}
 }
 
-// ── Render helper ─────────────────────────────────────────────────
+// ── Render ────────────────────────────────────────────────────────
 function renderAll(){
   if(ST.mode==='victor'){renderPlanner();renderFbList();}
   else if(ST.entEquipo){renderEntContent();}
-  // Actualitza biblioteca entrenador si està oberta
-  if(ST.entTab==='biblioteca') renderBiblioteca('e');
+  if(ST.entTab==='biblioteca')renderBiblioteca('e');
 }
 
 // ── SSE ───────────────────────────────────────────────────────────
@@ -830,9 +742,8 @@ async function manualRefresh(){
   const btn=document.getElementById('refresh-btn');btn.classList.add('spinning');
   try{
     const data=await fbGetAll();
-    DB.sessions=(data&&data.sessions)||{};
-    DB.feedbacks=(data&&data.feedbacks)||{};
-    DB.partits=(data&&data.partits)||{};
+    DB.sessions=(data?.sessions)||{};DB.feedbacks=(data?.feedbacks)||{};
+    DB.partits=(data?.partits)||{};DB.traindays=(data?.traindays)||{};
     if(data?.biblioteca)loadLibreFromDB(data.biblioteca);
     if(data?.config)loadConfig(data.config);
     setConnected();toast('✅ Dades actualitzades');renderAll();
@@ -841,77 +752,46 @@ async function manualRefresh(){
 }
 
 // ── Opcions visuals ───────────────────────────────────────────────
-const VISUAL_STYLES = {
-  default:  { radius:'12px', radiusSm:'8px',  spacing:'14px' },
-  compact:  { radius:'6px',  radiusSm:'4px',  spacing:'8px'  },
-  rounded:  { radius:'20px', radiusSm:'14px', spacing:'14px' }
-};
-const FONT_SIZES = { small:'13px', medium:'15px', large:'17px' };
-
+const VISUAL_STYLES={default:{radius:'12px',radiusSm:'8px'},compact:{radius:'6px',radiusSm:'4px'},rounded:{radius:'20px',radiusSm:'14px'}};
+const FONT_SIZES={small:'13px',medium:'15px',large:'17px'};
+let _visualCfg={style:'default',fontSize:'medium',topbarSub:''};
 function applyVisualConfig(cfg){
-  if(!cfg) return;
-  const style = VISUAL_STYLES[cfg.style||'default'];
-  document.documentElement.style.setProperty('--radius', style.radius);
-  document.documentElement.style.setProperty('--radius-sm', style.radiusSm);
-  // Mida de lletra base
-  document.body.style.fontSize = FONT_SIZES[cfg.fontSize||'medium'];
-  // Text topbar sub
-  if(cfg.topbarSub){
-    const sub = document.getElementById('db-status');
-    if(sub && !sub._sse_set) sub.dataset.custom = cfg.topbarSub;
-  }
-  // Marca els botons actius
-  document.querySelectorAll('.style-opt').forEach(b=>
-    b.style.borderColor = b.dataset.style===(cfg.style||'default') ? 'var(--brand)' : 'var(--border)');
-  document.querySelectorAll('.font-opt').forEach(b=>
-    b.style.borderColor = b.dataset.size===(cfg.fontSize||'medium') ? 'var(--brand)' : 'var(--border)');
+  if(!cfg)return;
+  const style=VISUAL_STYLES[cfg.style||'default'];
+  document.documentElement.style.setProperty('--radius',style.radius);
+  document.documentElement.style.setProperty('--radius-sm',style.radiusSm);
+  document.body.style.fontSize=FONT_SIZES[cfg.fontSize||'medium'];
+  document.querySelectorAll('.style-opt').forEach(b=>b.style.borderColor=b.dataset.style===(cfg.style||'default')?'var(--brand)':'var(--border)');
+  document.querySelectorAll('.font-opt').forEach(b=>b.style.borderColor=b.dataset.size===(cfg.fontSize||'medium')?'var(--brand)':'var(--border)');
 }
-
-let _visualCfg = { style:'default', fontSize:'medium', topbarSub:'' };
-
-function setVisualStyle(s, btn){
-  _visualCfg.style = s;
-  applyVisualConfig(_visualCfg);
-}
-function setFontSize(s, btn){
-  _visualCfg.fontSize = s;
-  applyVisualConfig(_visualCfg);
-}
+function setVisualStyle(s){_visualCfg.style=s;applyVisualConfig(_visualCfg);}
+function setFontSize(s){_visualCfg.fontSize=s;applyVisualConfig(_visualCfg);}
 async function saveVisualConfig(){
-  _visualCfg.topbarSub = document.getElementById('cfg-topbar-sub').value.trim();
-  applyVisualConfig(_visualCfg);
-  toast('✅ Aspecte guardat');
-  try{ await fbSet('/config/visual', _visualCfg); }catch(e){ dbg('VISUAL CFG ERR: '+e.message); }
+  _visualCfg.topbarSub=document.getElementById('cfg-topbar-sub').value.trim();
+  applyVisualConfig(_visualCfg);toast('✅ Aspecte guardat');
+  try{await fbSet('/config/visual',_visualCfg);}catch(e){dbg('VISUAL ERR: '+e.message);}
 }
 
-// ── Config — càrrega i guardat ────────────────────────────────────
+// ── Config ────────────────────────────────────────────────────────
 function loadConfig(cfg){
-  if(!cfg) return;
-  if(cfg.club) CFG.club={...CFG.club,...cfg.club};
+  if(!cfg)return;
+  if(cfg.club)CFG.club={...CFG.club,...cfg.club};
   if(cfg.categories&&Array.isArray(cfg.categories)&&cfg.categories.length){
-    CFG.categories=cfg.categories.map(c=>({
-      ...c, light:c.light||lightColor(c.color||'#888'),
-      equips:Array.isArray(c.equips)?c.equips.map(e=>({...e})):[]
-    }));
+    CFG.categories=cfg.categories.map(c=>({...c,light:c.light||lightColor(c.color||'#888'),equips:Array.isArray(c.equips)?c.equips.map(e=>({...e})):[]}));
   }
-  if(cfg.visual){ _visualCfg={..._visualCfg,...cfg.visual}; applyVisualConfig(_visualCfg); }
+  if(cfg.visual){_visualCfg={..._visualCfg,...cfg.visual};applyVisualConfig(_visualCfg);}
   applyConfig();
-  if(ST.catIdx>=CFG.categories.length) ST.catIdx=0;
+  if(ST.catIdx>=CFG.categories.length)ST.catIdx=0;
 }
-
 async function saveClubConfig(){
   const name=document.getElementById('cfg-club-name').value.trim();
   const badge=document.getElementById('cfg-club-badge').value.trim().toUpperCase();
   const color=document.getElementById('cfg-club-color').value;
   if(!name||!badge){toast('⚠️ Omple el nom i les sigles');return;}
-  CFG.club={name,badge,color};
-  applyConfig();
-  toast('✅ Club actualitzat');
-  try{await fbSet('/config/club',CFG.club);}catch(e){dbg('CFG club ERR: '+e.message);}
+  CFG.club={name,badge,color};applyConfig();toast('✅ Club actualitzat');
+  try{await fbSet('/config/club',CFG.club);}catch(e){dbg('CFG ERR: '+e.message);}
 }
-
 async function saveCatsConfig(){
-  // Llegeix l'estat actual del DOM de configuració
   const blocks=document.getElementById('cfg-cats').querySelectorAll('.cat-cfg-block');
   const newCats=[];
   blocks.forEach(block=>{
@@ -926,101 +806,59 @@ async function saveCatsConfig(){
       const g=row.querySelector('.g-toggle').dataset.g;
       if(n)equips.push({id:eqId||('eq_'+Date.now()+'_'+Math.random().toString(36).slice(2,6)),n,g});
     });
-    newCats.push({id:catId||('cat_'+Date.now()+'_'+Math.random().toString(36).slice(2,6)),name:catName,color:catColor,light:lightColor(catColor),equips});
+    newCats.push({id:catId||('cat_'+Date.now()),name:catName,color:catColor,light:lightColor(catColor),equips});
   });
   if(!newCats.length){toast('⚠️ Cal tenir almenys una categoria');return;}
-  CFG.categories=newCats;
-  if(ST.catIdx>=CFG.categories.length)ST.catIdx=0;
-  applyConfig();
-  initCatRow();
-  toast('✅ Categories i equips guardats');
-  try{await fbSet('/config/categories',CFG.categories);}catch(e){dbg('CFG cats ERR: '+e.message);}
+  CFG.categories=newCats;if(ST.catIdx>=CFG.categories.length)ST.catIdx=0;
+  applyConfig();initCatRow();toast('✅ Categories i equips guardats');
+  try{await fbSet('/config/categories',CFG.categories);}catch(e){dbg('CATS ERR: '+e.message);}
 }
-
 function renderConfigTab(){
   const {name,badge,color}=CFG.club;
   document.getElementById('cfg-club-name').value=name;
   document.getElementById('cfg-club-badge').value=badge;
   document.getElementById('cfg-club-color').value=color;
   document.getElementById('cfg-topbar-sub').value=_visualCfg.topbarSub||'';
-  applyVisualConfig(_visualCfg);
-  renderCfgCats();
+  applyVisualConfig(_visualCfg);renderCfgCats();
 }
-
 function renderCfgCats(){
-  const cont=document.getElementById('cfg-cats');
-  cont.innerHTML=CFG.categories.map(cat=>`
+  document.getElementById('cfg-cats').innerHTML=CFG.categories.map(cat=>`
     <div class="cat-cfg-block" data-cat-id="${cat.id}">
       <div class="cat-cfg-header">
         <div class="color-preview" style="background:${cat.color}"></div>
-        <input type="color" class="cat-color-input" value="${cat.color}"
-          style="width:40px;height:34px;padding:2px 4px;margin-bottom:0;flex-shrink:0"
-          onchange="this.previousElementSibling.style.background=this.value">
-        <input type="text" class="cat-name-input" value="${cat.name}"
-          placeholder="Nom categoria" style="flex:1;margin-bottom:0;font-weight:700">
+        <input type="color" class="cat-color-input" value="${cat.color}" style="width:40px;height:34px;padding:2px 4px;margin-bottom:0;flex-shrink:0" onchange="this.previousElementSibling.style.background=this.value">
+        <input type="text" class="cat-name-input" value="${cat.name}" placeholder="Nom categoria" style="flex:1;margin-bottom:0;font-weight:700">
         <button onclick="removeCategoria(this)" style="width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--red-b);border-radius:var(--radius-sm);background:var(--red-l);color:var(--red);cursor:pointer;font-size:16px">×</button>
       </div>
-      <div class="eq-list">
-        ${cat.equips.map(eq=>`
-          <div class="eq-cfg-row" data-eq-id="${eq.id}">
-            <input type="text" value="${eq.n}" placeholder="Nom equip" style="flex:1">
-            <button class="g-toggle ${eq.g}" data-g="${eq.g}" onclick="toggleGender(this)">${eq.g==='m'?'M':'F'}</button>
-            <button class="del-btn" onclick="this.closest('.eq-cfg-row').remove()">×</button>
-          </div>`).join('')}
+      <div class="eq-list">${(cat.equips||[]).map(eq=>`
+        <div class="eq-cfg-row" data-eq-id="${eq.id}">
+          <input type="text" value="${eq.n}" placeholder="Nom equip" style="flex:1">
+          <button class="g-toggle ${eq.g}" data-g="${eq.g}" onclick="toggleGender(this)">${eq.g==='m'?'M':'F'}</button>
+          <button class="del-btn" onclick="this.closest('.eq-cfg-row').remove()">×</button>
+        </div>`).join('')}
       </div>
       <button class="add-eq-btn" onclick="addEquip(this)">+ Afegir equip</button>
     </div>`).join('');
 }
-
 function addCategoria(){
   const cont=document.getElementById('cfg-cats');
-  const div=document.createElement('div');
-  div.className='cat-cfg-block';
-  div.dataset.catId='cat_'+Date.now();
-  div.innerHTML=`
-    <div class="cat-cfg-header">
-      <div class="color-preview" style="background:#888"></div>
-      <input type="color" class="cat-color-input" value="#888888"
-        style="width:40px;height:34px;padding:2px 4px;margin-bottom:0;flex-shrink:0"
-        onchange="this.previousElementSibling.style.background=this.value">
-      <input type="text" class="cat-name-input" value="" placeholder="Nom categoria" style="flex:1;margin-bottom:0;font-weight:700">
-      <button onclick="removeCategoria(this)" style="width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--red-b);border-radius:var(--radius-sm);background:var(--red-l);color:var(--red);cursor:pointer;font-size:16px">×</button>
-    </div>
-    <div class="eq-list"></div>
-    <button class="add-eq-btn" onclick="addEquip(this)">+ Afegir equip</button>`;
+  const div=document.createElement('div');div.className='cat-cfg-block';div.dataset.catId='cat_'+Date.now();
+  div.innerHTML=`<div class="cat-cfg-header"><div class="color-preview" style="background:#888"></div><input type="color" class="cat-color-input" value="#888888" style="width:40px;height:34px;padding:2px 4px;margin-bottom:0;flex-shrink:0" onchange="this.previousElementSibling.style.background=this.value"><input type="text" class="cat-name-input" value="" placeholder="Nom categoria" style="flex:1;margin-bottom:0;font-weight:700"><button onclick="removeCategoria(this)" style="width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--red-b);border-radius:var(--radius-sm);background:var(--red-l);color:var(--red);cursor:pointer;font-size:16px">×</button></div><div class="eq-list"></div><button class="add-eq-btn" onclick="addEquip(this)">+ Afegir equip</button>`;
   cont.appendChild(div);
 }
-
-function removeCategoria(btn){
-  if(!confirm('Eliminar aquesta categoria? Les sessions programades no s\'esborraran.'))return;
-  btn.closest('.cat-cfg-block').remove();
-}
-
+function removeCategoria(btn){if(!confirm('Eliminar aquesta categoria?'))return;btn.closest('.cat-cfg-block').remove();}
 function addEquip(btn){
-  const block=btn.closest('.cat-cfg-block');
-  const eqList=block.querySelector('.eq-list');
-  const row=document.createElement('div');
-  row.className='eq-cfg-row';
-  row.dataset.eqId='eq_'+Date.now();
-  row.innerHTML=`<input type="text" value="" placeholder="Nom equip" style="flex:1">
-    <button class="g-toggle m" data-g="m" onclick="toggleGender(this)">M</button>
-    <button class="del-btn" onclick="this.closest('.eq-cfg-row').remove()">×</button>`;
-  eqList.appendChild(row);
+  const row=document.createElement('div');row.className='eq-cfg-row';row.dataset.eqId='eq_'+Date.now();
+  row.innerHTML=`<input type="text" value="" placeholder="Nom equip" style="flex:1"><button class="g-toggle m" data-g="m" onclick="toggleGender(this)">M</button><button class="del-btn" onclick="this.closest('.eq-cfg-row').remove()">×</button>`;
+  btn.closest('.cat-cfg-block').querySelector('.eq-list').appendChild(row);
 }
-
-function toggleGender(btn){
-  const newG=btn.dataset.g==='m'?'f':'m';
-  btn.dataset.g=newG;
-  btn.className='g-toggle '+newG;
-  btn.textContent=newG==='m'?'M':'F';
-}
+function toggleGender(btn){const g=btn.dataset.g==='m'?'f':'m';btn.dataset.g=g;btn.className='g-toggle '+g;btn.textContent=g==='m'?'M':'F';}
 
 // ── PIN ───────────────────────────────────────────────────────────
 function tryPin(){
   if(document.getElementById('pin-input').value===PIN){
     ST.pinVerified=true;sessionStorage.setItem('cht_pin','1');
-    document.getElementById('pin-modal').classList.add('hidden');
-    activateVictor();
+    document.getElementById('pin-modal').classList.add('hidden');activateVictor();
   }else{
     document.getElementById('pin-error').textContent='PIN incorrecte';
     document.getElementById('pin-input').value='';document.getElementById('pin-input').focus();
@@ -1048,7 +886,7 @@ function setMode(m){
   renderEntSelector();
 }
 
-// ── Tabs Víctor ───────────────────────────────────────────────────
+// ── Tabs ──────────────────────────────────────────────────────────
 function setTab(t){
   ST.tab=t;
   ['planificador','cargas','biblioteca','exportar','configuracio'].forEach(x=>
@@ -1059,8 +897,6 @@ function setTab(t){
   if(t==='exportar'){renderExpCatSelect();renderExpEquipos();renderActiveExport();}
   if(t==='configuracio')renderConfigTab();
 }
-
-// ── Tabs Entrenador ───────────────────────────────────────────────
 function setEntTab(t){
   ST.entTab=t;
   document.getElementById('etab-setmana-content').classList.toggle('hidden',t!=='setmana');
@@ -1076,22 +912,18 @@ function setEntTab(t){
   if(t==='biblioteca')renderBiblioteca('e');
 }
 
-// ── Category ──────────────────────────────────────────────────────
 function setCatIdx(i){ST.catIdx=i;initCatRow();renderPlanner();}
 function initCatRow(){
   document.getElementById('cat-row').innerHTML=getCats().map((c,i)=>{
     const active=i===ST.catIdx;
-    return `<button class="cat-pill" onclick="setCatIdx(${i})"
-      style="background:${active?c.color:c.light};color:${active?'#fff':c.color};border-color:${active?c.color:'transparent'}">${c.name}</button>`;
+    return `<button class="cat-pill" onclick="setCatIdx(${i})" style="background:${active?c.color:c.light};color:${active?'#fff':c.color};border-color:${active?c.color:'transparent'}">${c.name}</button>`;
   }).join('');
 }
 function currentCat(){return getCats()[ST.catIdx]||getCats()[0];}
-
-// ── Week ──────────────────────────────────────────────────────────
 function changeWeek(d){ST.weekOff+=d;updateLabels();renderPlanner();}
 function changeEntWeek(d){ST.entWeekOff+=d;updateEntLabel();ST.expandedDays={};renderEntContent();}
 
-// ── Exportar tabs ─────────────────────────────────────────────────
+// ── Exportar ──────────────────────────────────────────────────────
 function setExpTab(t){
   ST.expTab=t;
   ['resum','partits','feedback'].forEach(x=>{
@@ -1107,10 +939,74 @@ function renderActiveExport(){
   else if(ST.expTab==='feedback')renderFeedbackExport();
 }
 function renderExpCatSelect(){
-  const sel=document.getElementById('exp-cat');
-  const cur=sel.value;
+  const sel=document.getElementById('exp-cat');const cur=sel.value;
   sel.innerHTML=getCats().map(c=>`<option value="${c.name}">${c.name}</option>`).join('');
   if(cur&&getCats().find(c=>c.name===cur))sel.value=cur;
+}
+function renderExpEquipos(){
+  const catName=document.getElementById('exp-cat').value;
+  const cat=getCatByName(catName);if(!cat)return;
+  if(!ST.expEquipos[catName])ST.expEquipos[catName]={};
+  document.getElementById('exp-equipos').innerHTML=cat.equips.map(eq=>{
+    const sel=ST.expEquipos[catName][eq.n]!==false;
+    return `<button class="eq-btn${sel?' active':''}" onclick="toggleExpEq('${catName}','${eq.n}',this)">${eq.n}</button>`;
+  }).join('');
+}
+function toggleExpEq(cat,name,btn){
+  if(!ST.expEquipos[cat])ST.expEquipos[cat]={};
+  ST.expEquipos[cat][name]=ST.expEquipos[cat][name]===false?true:false;
+  btn.className='eq-btn'+(ST.expEquipos[cat][name]!==false?' active':'');
+}
+function renderExport(){
+  const catName=document.getElementById('exp-cat')?.value;const wo=ST.weekOff;
+  const cat=getCatByName(catName);if(!cat)return;
+  let txt=`🏐 *${CFG.club.name.toUpperCase()} — PREPARACIÓ FÍSICA*\n📋 Categoria: *${catName}*\n📅 Setmana: ${wLabel(wo)}\n━━━━━━━━━━━━━━━━━━\n\n`;
+  cat.equips.forEach(eq=>{
+    if(ST.expEquipos[catName]&&ST.expEquipos[catName][eq.n]===false)return;
+    txt+=`*${eq.n}*\n`;let hasSes=false;
+    DIAS_FULL.forEach((dia,di)=>{
+      const key=sk(catName,eq.n,di,wo);const s=gS(key);const isP=gP(key);
+      if(isP){hasSes=true;txt+=`  ${dia}: 🤾 PARTIT\n`;}
+      else if(s){hasSes=true;txt+=`  ${dia}: ${{baja:'🟢',media:'🟡',alta:'🟠',max:'🔴'}[s.carga]} ${s.tipo}\n`;if(s.nota)txt+=`    📌 ${s.nota}\n`;}
+    });
+    if(!hasSes)txt+=`  Sense sessions programades\n`;txt+='\n';
+  });
+  txt+=`━━━━━━━━━━━━━━━━━━\n_Víctor Martínez Muñoz · Preparador Físic_`;
+  document.getElementById('export-box').textContent=txt;
+}
+function renderPartitsExport(){
+  const wo=ST.weekOff;const amb=[];const sense=[];
+  getCats().forEach(cat=>{(cat.equips||[]).forEach(eq=>{let ok=false;WE.forEach(di=>{if(gP(sk(cat.name,eq.n,di,wo)))ok=true;});(ok?amb:sense).push({cat:cat.name,name:eq.n});});});
+  let txt=`🤾 *PARTITS CAP DE SETMANA*\n📅 Setmana: ${wLabel(wo)}\n━━━━━━━━━━━━━━━━━━\n\n✅ *HAN MARCAT PARTIT (${amb.length})*\n`;
+  if(amb.length)amb.forEach(e=>txt+=`  · ${e.cat} — ${e.name}\n`);else txt+=`  Cap equip\n`;
+  txt+=`\n❌ *SENSE PARTIT MARCAT (${sense.length})*\n`;
+  if(sense.length)sense.forEach(e=>txt+=`  · ${e.cat} — ${e.name}\n`);else txt+=`  Tots han marcat ✅\n`;
+  txt+=`\n━━━━━━━━━━━━━━━━━━\n_Víctor Martínez Muñoz · Preparador Físic_`;
+  document.getElementById('partits-box').textContent=txt;
+}
+function renderFeedbackExport(){
+  const wo=ST.weekOff;let txt=`✅ *COMPLIMENT DE FEEDBACK*\n📅 Setmana: ${wLabel(wo)}\n━━━━━━━━━━━━━━━━━━\n\n`;
+  let totalSes=0,totalFb=0;
+  getCats().forEach(cat=>{
+    txt+=`*${cat.name}*\n`;
+    (cat.equips||[]).forEach(eq=>{
+      let sessions=0,feedback=0;
+      for(let di=0;di<7;di++){const key=sk(cat.name,eq.n,di,wo);const s=gS(key);const fb=gF(key);if(gP(key))continue;if(s){sessions++;if(fb&&fb.status)feedback++;}}
+      totalSes+=sessions;totalFb+=feedback;
+      const pct=sessions>0?Math.round(feedback/sessions*100):null;
+      const icon=pct===null?'⚪':pct===100?'✅':pct>=50?'⚠️':'❌';
+      txt+=`  ${icon} ${eq.n}: ${pct===null?'Sense sessions':`${feedback}/${sessions} (${pct}%)`}\n`;
+    });txt+='\n';
+  });
+  const pctG=totalSes>0?Math.round(totalFb/totalSes*100):0;
+  txt+=`━━━━━━━━━━━━━━━━━━\n📊 *Global: ${totalFb}/${totalSes} (${pctG}%)*\n_Víctor Martínez Muñoz · Preparador Físic_`;
+  document.getElementById('feedback-box').textContent=txt;
+}
+function copyBox(boxId,btnId){
+  navigator.clipboard.writeText(document.getElementById(boxId).textContent).then(()=>{
+    const btn=document.getElementById(btnId);btn.className='copy-btn done';btn.innerHTML='<i class="ti ti-check"></i> Copiat!';
+    setTimeout(()=>{btn.className='copy-btn';btn.innerHTML='<i class="ti ti-copy"></i> Copiar text';},2500);
+  });
 }
 
 // ── Modal tabs ────────────────────────────────────────────────────
@@ -1122,21 +1018,16 @@ function setModalTab(t){
   document.getElementById('mpanel-libre').classList.toggle('hidden',t!=='libre');
 }
 function populateTipoSelect(){
-  const sel=document.getElementById('m-tipo');
-  const cur=sel.value;
-  sel.innerHTML='<option value="">— Seleccionar —</option>'+
-    BIBLIOTECA.map(b=>`<option value="${b.name}">${b.name}</option>`).join('');
+  const sel=document.getElementById('m-tipo');const cur=sel.value;
+  sel.innerHTML='<option value="">— Seleccionar —</option>'+BIBLIOTECA.map(b=>`<option value="${b.name}">${b.name}</option>`).join('');
   if(cur)sel.value=cur;
 }
-
-// ── Modal sessió ──────────────────────────────────────────────────
 function openModal(catName,team,di,wo){
   const key=sk(catName,team,di,wo);const ex=gS(key);
   ST.modal={catName,team,di,wo,key};
   document.getElementById('m-title').textContent=ex?'Editar sessió':'Afegir sessió';
   document.getElementById('m-sub').textContent=team+' — '+DIAS_FULL[di];
-  const isLibre=ex&&ex.esLliure;
-  setModalTab(isLibre?'libre':'biblioteca');
+  const isLibre=ex&&ex.esLliure;setModalTab(isLibre?'libre':'biblioteca');
   populateTipoSelect();
   document.getElementById('m-tipo').value=ex&&!isLibre?ex.tipo:'';
   document.getElementById('m-libre-titol').value=ex&&isLibre?(ex.tipo||''):'';
@@ -1164,38 +1055,24 @@ async function doSaveSession(){
     if(!tipo){toast('⚠️ Selecciona el tipus');return;}
     data={tipo,carga:ST.carga,nota:document.getElementById('m-nota').value||''};
   }
-  const key=ST.modal.key;
-  DB.sessions[fk(key)]=data;
+  const key=ST.modal.key;DB.sessions[fk(key)]=data;
   closeModal();renderPlanner();toast('✅ Sessió guardada');
   try{await fbSet('/sessions/'+fk(key),data);}catch(e){toast('⚠️ Guardat localment.');}
 }
 async function doDelSession(){
-  const key=ST.modal.key;
-  delete DB.sessions[fk(key)];delete DB.feedbacks[fk(key)];
+  const key=ST.modal.key;delete DB.sessions[fk(key)];delete DB.feedbacks[fk(key)];
   closeModal();renderPlanner();toast('🗑️ Sessió eliminada');
   try{await fbDel('/sessions/'+fk(key));await fbDel('/feedbacks/'+fk(key));}catch(e){dbg('DEL ERR: '+e.message);}
 }
 
 // ── Biblioteca ────────────────────────────────────────────────────
 let BIBLIOTECA=[
-  {id:'hiit1',name:'HIIT 1',tipo:'HIIT',sub:'Individual',carga:'Alta-Màxima',mat:[],
-   desc:'3 sèries de 40" treball / 20" descans.',
-   ex:[{n:'Sentadella amb salt',d:''},{n:'Escalador',d:''},{n:'Soldadets',d:''},{n:'Planxa lateral',d:'40"'},{n:'Zancada amb salt',d:''},{n:'Flexions diamant',d:''},{n:'Elevació isquios',d:''}]},
-  {id:'hiit2',name:'HIIT 2',tipo:'HIIT',sub:'Parelles',carga:'Alta-Màxima',mat:['Pilota medicinal','Cons'],
-   desc:"Treball per parelles. 3 sèries de 40\"/20\".",
-   ex:[{n:'Planxa picar mà',d:''},{n:'Flexions tocar mà',d:''},{n:'Passada medicinal',d:''},{n:'Squat agafats',d:''},{n:'Caigudes nòrdiques',d:''},{n:'Mirall COD',d:''}]},
-  {id:'fp',name:'Força cames',tipo:'Fuerza',sub:'Cames',carga:'Mitjana-Alta',mat:['Gomes llargues','Barra llarga','Discs x8','Fitball'],
-   desc:'Circuit de força del tren inferior. 3x10.',
-   ex:[{n:'Sentadelles',d:'3x10'},{n:'Hip thrust',d:'3x10'},{n:'Salts unilaterals',d:''},{n:'Caigudes nòrdiques',d:''}]},
-  {id:'ft',name:'Força tors',tipo:'Fuerza',sub:'Tors',carga:'Mitjana-Alta',mat:['TRX','Gomes llargues','Barra llarga','Discs x5'],
-   desc:'Circuit de força del tren superior i core. 3x10.',
-   ex:[{n:'Landmine rotation',d:'3x10'},{n:'Tríceps TRX',d:'3x10'},{n:'Face pull goma',d:'3x10'},{n:'Flexions obertes',d:'3x10'}]},
-  {id:'fn1',name:'Funcional 1',tipo:'Funcional',sub:'Sessió 1',carga:'Mitjana',mat:['TRX','Gomes','Barra','Pilota medicinal'],
-   desc:'Entrenament funcional complet. 3x10.',
-   ex:[{n:'Salts unilaterals',d:'3x10'},{n:'Isquio unilateral',d:'3x10'},{n:'Rem TRX',d:'3x10'},{n:'Abdominals',d:'3x10'}]},
-  {id:'fn2',name:'Funcional 2',tipo:'Funcional',sub:'Sessió 2',carga:'Mitjana',mat:['TRX','Gomes','Barra','Pilota medicinal'],
-   desc:'Focus en rotació i potència.',
-   ex:[{n:'Landmine rotation',d:'3x10'},{n:'Pont gluti',d:'3x10'},{n:'Planxa inestable',d:''},{n:'Llançament medicinal',d:''}]},
+  {id:'hiit1',name:'HIIT 1',tipo:'HIIT',sub:'Individual',carga:'Alta-Màxima',mat:[],desc:'3 sèries de 40" treball / 20" descans.',ex:[{n:'Sentadella amb salt',d:''},{n:'Escalador',d:''},{n:'Soldadets',d:''},{n:'Planxa lateral',d:'40"'},{n:'Zancada amb salt',d:''},{n:'Flexions diamant',d:''},{n:'Elevació isquios',d:''}]},
+  {id:'hiit2',name:'HIIT 2',tipo:'HIIT',sub:'Parelles',carga:'Alta-Màxima',mat:['Pilota medicinal','Cons'],desc:"Treball per parelles. 3 sèries de 40\"/20\".",ex:[{n:'Planxa picar mà',d:''},{n:'Flexions tocar mà',d:''},{n:'Passada medicinal',d:''},{n:'Squat agafats',d:''},{n:'Caigudes nòrdiques',d:''},{n:'Mirall COD',d:''}]},
+  {id:'fp',name:'Força cames',tipo:'Fuerza',sub:'Cames',carga:'Mitjana-Alta',mat:['Gomes llargues','Barra llarga','Discs x8','Fitball'],desc:'Circuit de força del tren inferior. 3x10.',ex:[{n:'Sentadelles',d:'3x10'},{n:'Hip thrust',d:'3x10'},{n:'Salts unilaterals',d:''},{n:'Caigudes nòrdiques',d:''}]},
+  {id:'ft',name:'Força tors',tipo:'Fuerza',sub:'Tors',carga:'Mitjana-Alta',mat:['TRX','Gomes llargues','Barra llarga','Discs x5'],desc:'Circuit de força del tren superior i core. 3x10.',ex:[{n:'Landmine rotation',d:'3x10'},{n:'Tríceps TRX',d:'3x10'},{n:'Face pull goma',d:'3x10'},{n:'Flexions obertes',d:'3x10'}]},
+  {id:'fn1',name:'Funcional 1',tipo:'Funcional',sub:'Sessió 1',carga:'Mitjana',mat:['TRX','Gomes','Barra','Pilota medicinal'],desc:'Entrenament funcional complet. 3x10.',ex:[{n:'Salts unilaterals',d:'3x10'},{n:'Isquio unilateral',d:'3x10'},{n:'Rem TRX',d:'3x10'},{n:'Abdominals',d:'3x10'}]},
+  {id:'fn2',name:'Funcional 2',tipo:'Funcional',sub:'Sessió 2',carga:'Mitjana',mat:['TRX','Gomes','Barra','Pilota medicinal'],desc:'Focus en rotació i potència.',ex:[{n:'Landmine rotation',d:'3x10'},{n:'Pont gluti',d:'3x10'},{n:'Planxa inestable',d:''},{n:'Llançament medicinal',d:''}]},
   {id:'cc',name:'Carrera contínua',tipo:'Carrera',sub:'Aeròbica',carga:'Baixa-Mitjana',mat:[],desc:'75-85% VO2max. 15-25 minuts.',ex:[{n:'Carrera contínua',d:'15-25 min'}]},
   {id:'ci',name:'Intervals curts',tipo:'Carrera',sub:'Anaeròbica',carga:'Alta',mat:[],desc:'Sprints 20-30". 8-12 intervals.',ex:[{n:'Sprint 20-30"',d:'8-12 reps'},{n:'Recuperació',d:'30" baix'}]},
   {id:'cl',name:'Intervals llargs',tipo:'Carrera',sub:'Anaeròbica',carga:'Alta',mat:[],desc:'Intervals 2-3 min. 4-6 sèries.',ex:[{n:'Esforç 2-3 min',d:'4-6 sèries'},{n:'Recuperació',d:'3 min baix'}]},
@@ -1220,37 +1097,45 @@ function openBibModal(id){
   document.getElementById('bib-modal-overlay').classList.remove('hidden');
 }
 function closeBibModal(){document.getElementById('bib-modal-overlay').classList.add('hidden');_bibEditId=null;}
-function addMatRow(val=''){const row=document.createElement('div');row.className='mat-edit-row';row.innerHTML=`<input type="text" placeholder="Ex: TRX" value="${String(val).replace(/"/g,'&quot;')}"><button class="mat-del" onclick="this.parentElement.remove()">×</button>`;document.getElementById('bm-mat-list').appendChild(row);}
+function addMatRow(val=''){
+  const row=document.createElement('div');row.className='mat-edit-row';
+  row.innerHTML=`<input type="text" placeholder="Ex: TRX" value="${String(val).replace(/"/g,'&quot;')}"><button class="mat-del" onclick="this.parentElement.remove()">×</button>`;
+  document.getElementById('bm-mat-list').appendChild(row);
+}
 function addExRow(n='',d='',gif=''){
   const row=document.createElement('div');row.className='ex-edit-row';
   row.style.cssText='flex-wrap:wrap;gap:6px;margin-bottom:10px;padding:8px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border)';
-  row.innerHTML=`
-    <div style="display:flex;gap:6px;width:100%">
-      <input type="text" placeholder="Nom exercici" style="flex:1.5;margin-bottom:0;font-size:13px" value="${String(n).replace(/"/g,'&quot;')}">
-      <input type="text" placeholder="Detall (sèries, temps...)" style="flex:1;margin-bottom:0;font-size:13px" value="${String(d).replace(/"/g,'&quot;')}">
-      <button class="ex-del" onclick="this.closest('.ex-edit-row').remove()">×</button>
-    </div>
-    <div style="display:flex;gap:6px;align-items:center;width:100%;margin-top:4px">
-      <input type="text" class="ex-gif-url" placeholder="URL del GIF (opcional) — copia l'enllaç directe del GIF" style="flex:1;margin-bottom:0;font-size:12px" value="${String(gif).replace(/"/g,'&quot;')}" oninput="previewGif(this)">
-    </div>
-    ${gif?`<div class="gif-preview" style="width:100%;margin-top:6px"><img src="${gif}" style="width:100%;max-height:160px;object-fit:contain;border-radius:6px;background:#000" onerror="this.style.display='none'"></div>`:'<div class="gif-preview" style="width:100%"></div>'}`;
+  row.innerHTML=`<div style="display:flex;gap:6px;width:100%">
+    <input type="text" placeholder="Nom exercici" style="flex:1.5;margin-bottom:0;font-size:13px" value="${String(n).replace(/"/g,'&quot;')}">
+    <input type="text" placeholder="Detall (sèries, temps...)" style="flex:1;margin-bottom:0;font-size:13px" value="${String(d).replace(/"/g,'&quot;')}">
+    <button class="ex-del" onclick="this.closest('.ex-edit-row').remove()">×</button>
+  </div>
+  <div style="display:flex;gap:6px;align-items:center;width:100%;margin-top:4px">
+    <input type="text" class="ex-gif-url" placeholder="URL del GIF (opcional)" style="flex:1;margin-bottom:0;font-size:12px" value="${String(gif).replace(/"/g,'&quot;')}" oninput="previewGif(this)">
+  </div>
+  ${gif?`<div class="gif-preview" style="width:100%;margin-top:6px"><img src="${gif}" style="width:100%;max-height:160px;object-fit:contain;border-radius:6px;background:#000" onerror="this.style.display='none'"></div>`:'<div class="gif-preview" style="width:100%"></div>'}`;
   document.getElementById('bm-ex-list').appendChild(row);
 }
 function previewGif(input){
   const preview=input.closest('.ex-edit-row').querySelector('.gif-preview');
   const url=input.value.trim();
-  if(url){preview.innerHTML=`<img src="${url}" style="width:100%;max-height:160px;object-fit:contain;border-radius:6px;background:#000;margin-top:6px" onerror="this.style.display='none'">`;}
-  else{preview.innerHTML='';}
+  if(url)preview.innerHTML=`<img src="${url}" style="width:100%;max-height:160px;object-fit:contain;border-radius:6px;background:#000;margin-top:6px" onerror="this.style.display='none'">`;
+  else preview.innerHTML='';
 }
 async function doSaveBib(){
   const name=document.getElementById('bm-name').value.trim();if(!name){toast('⚠️ Escriu un nom');return;}
   const id=_bibEditId||('bib_'+Date.now());
-  const entry={id,name,tipo:document.getElementById('bm-tipo').value,sub:document.getElementById('bm-sub').value.trim(),carga:document.getElementById('bm-carga').value.trim(),desc:document.getElementById('bm-desc').value.trim(),
+  const entry={id,name,
+    tipo:document.getElementById('bm-tipo').value,
+    sub:document.getElementById('bm-sub').value.trim(),
+    carga:document.getElementById('bm-carga').value.trim(),
+    desc:document.getElementById('bm-desc').value.trim(),
     mat:[...document.getElementById('bm-mat-list').querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean),
     ex:[...document.getElementById('bm-ex-list').querySelectorAll('.ex-edit-row')].map(row=>{
       const ins=[...row.querySelectorAll('input[type=text]')];
       return{n:ins[0]?.value.trim()||'',d:ins[1]?.value.trim()||'',gif:ins[2]?.value.trim()||''};
-    }).filter(e=>e.n)};
+    }).filter(e=>e.n)
+  };
   const idx=BIBLIOTECA.findIndex(x=>x.id===id);if(idx>=0)BIBLIOTECA[idx]=entry;else BIBLIOTECA.push(entry);
   closeBibModal();renderBiblioteca('v');toast('✅ Sessió guardada');
   try{await fbSet('/biblioteca/'+id,entry);}catch(e){dbg('BIB ERR: '+e.message);}
@@ -1261,24 +1146,27 @@ async function doDelBib(){
   closeBibModal();renderBiblioteca('v');toast('🗑️ Sessió eliminada');
   try{await fbDel('/biblioteca/'+id);}catch(e){dbg('BIB DEL ERR: '+e.message);}
 }
-function saveLibreToLibrary(titol,desc){const id='libre_'+Date.now();const entry={id,name:titol,tipo:'Libre',sub:'Sessió lliure',carga:'—',mat:[],desc,ex:[]};BIBLIOTECA.push(entry);toast('📚 Afegida a la Biblioteca!');fbSet('/biblioteca/'+id,entry).catch(()=>{});}
+function saveLibreToLibrary(titol,desc){
+  const id='libre_'+Date.now();
+  const entry={id,name:titol,tipo:'Libre',sub:'Sessió lliure',carga:'—',mat:[],desc,ex:[]};
+  BIBLIOTECA.push(entry);toast('📚 Afegida a la Biblioteca!');
+  fbSet('/biblioteca/'+id,entry).catch(()=>{});
+}
 function loadLibreFromDB(bibData){
   if(!bibData)return;
   Object.values(bibData).forEach(entry=>{
     if(!entry||!entry.id)return;
-    // Assegura camps obligatoris per evitar errors
     const safe={mat:[],ex:[],...entry};
     safe.mat=Array.isArray(safe.mat)?safe.mat:[];
     safe.ex=Array.isArray(safe.ex)?safe.ex:[];
     const idx=BIBLIOTECA.findIndex(b=>b.id===safe.id);
-    if(idx>=0) BIBLIOTECA[idx]=safe;
-    else BIBLIOTECA.push(safe);
+    if(idx>=0)BIBLIOTECA[idx]=safe;else BIBLIOTECA.push(safe);
   });
 }
-
 function renderBiblioteca(t){
   const gid=t==='v'?'lib-grid-v':'lib-grid-e';const sel=t==='v'?ST.libSelV:ST.libSelE;
-  document.getElementById(gid).innerHTML=BIBLIOTECA.map(s=>{
+  const el=document.getElementById(gid);if(!el)return;
+  el.innerHTML=BIBLIOTECA.map(s=>{
     const tc=T_COL[s.tipo]||'#888';const tb=T_BG[s.tipo]||'#eee';
     const editBtn=t==='v'?`<button onclick="event.stopPropagation();openBibModal('${s.id}')" style="margin-top:6px;width:100%;padding:4px;font-size:10px;font-weight:700;border:1.5px solid ${tc};border-radius:4px;background:transparent;color:${tc};cursor:pointer">✏️ Editar</button>`:'';
     return `<div class="lib-card${sel===s.id?' sel':''}" style="background:${tb};color:${tc}" onclick="selLib('${s.id}','${t}')"><div class="lib-type" style="background:rgba(0,0,0,.1);color:${tc}">${s.tipo}</div><div class="lib-name">${s.name}</div><div class="lib-meta">${s.sub} · ${s.carga}</div>${editBtn}</div>`;
@@ -1289,11 +1177,18 @@ function selLib(id,t){if(t==='v')ST.libSelV=id;else ST.libSelE=id;renderBibliote
 function renderLibDetail(id,t){
   const s=BIBLIOTECA.find(x=>x.id===id);if(!s)return;
   const tc=T_COL[s.tipo]||'#888';const tb=T_BG[s.tipo]||'#eee';
-  document.getElementById(t==='v'?'lib-detail-v':'lib-detail-e').innerHTML=
-    `<div class="lib-detail"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="lib-type" style="background:${tb};color:${tc}">${s.tipo}</span><h3>${s.name}</h3><span style="margin-left:auto;font-size:11px;color:var(--text2);font-weight:700">${s.carga}</span></div>
-    <p>${s.desc}</p>    <div class="sec-label">Material</div><div style="margin-bottom:12px">${(s.mat||[]).length?(s.mat||[]).map(m=>`<span class="mat-tag">📦 ${m}</span>`).join(''):'<span class="mat-tag">Sense material</span>'}</div>
-    ${(s.ex||[]).length?`<div class="sec-label">Exercicis (${(s.ex||[]).length})</div><div class="ex-grid">${(s.ex||[]).map(e=>`<div class="ex-item">${e.n}${e.d?`<div class="ex-sub">${e.d}</div>`:''}${e.gif?`<img src="${e.gif}" style="width:100%;margin-top:6px;border-radius:4px;max-height:120px;object-fit:contain;background:#000" onerror="this.style.display='none'">`:''}</div>`).join('')}</div>`:''}
-    </div>`;
+  const el=document.getElementById(t==='v'?'lib-detail-v':'lib-detail-e');if(!el)return;
+  el.innerHTML=`<div class="lib-detail">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <span class="lib-type" style="background:${tb};color:${tc}">${s.tipo}</span>
+      <h3>${s.name}</h3>
+      <span style="margin-left:auto;font-size:11px;color:var(--text2);font-weight:700">${s.carga}</span>
+    </div>
+    <p>${s.desc||''}</p>
+    <div class="sec-label">Material</div>
+    <div style="margin-bottom:12px">${(s.mat||[]).length?(s.mat||[]).map(m=>`<span class="mat-tag">📦 ${m}</span>`).join(''):'<span class="mat-tag">Sense material</span>'}</div>
+    ${(s.ex||[]).length?`<div class="sec-label">Exercicis (${s.ex.length})</div><div class="ex-grid">${s.ex.map(e=>`<div class="ex-item">${e.n}${e.d?`<div class="ex-sub">${e.d}</div>`:''}${e.gif?`<img src="${e.gif}" style="width:100%;margin-top:6px;border-radius:4px;max-height:120px;object-fit:contain;background:#000" onerror="this.style.display='none'">`:''}</div>`).join('')}</div>`:''}
+  </div>`;
 }
 
 // ── Planner ───────────────────────────────────────────────────────
@@ -1301,19 +1196,22 @@ function renderPlanner(){
   const cat=currentCat();if(!cat)return;
   const wo=ST.weekOff;updateLabels();
   let tot=0,comp=0,fbct=0,csum=0;
-  const cols=`106px repeat(7,1fr)`;
+  const cols='106px repeat(7,1fr)';
   let html=`<div class="pgrid-header" style="grid-template-columns:${cols}">
     <div class="ghc" style="color:${cat.color}">${cat.name}</div>
     ${DIAS.map((d,i)=>`<div class="ghc${WE.includes(i)?' we':''}">${d}</div>`).join('')}
   </div>`;
-  cat.equips.forEach(eq=>{
+  (cat.equips||[]).forEach(eq=>{
+    const trainDays=getTrainDays(cat.name+'|'+eq.n);
     html+=`<div class="trow" style="grid-template-columns:${cols};border-left:3px solid ${cat.color}">
       <div class="tname">${eq.n}<span class="gbadge b${eq.g}">${eq.g==='m'?'M':'F'}</span></div>`;
     for(let di=0;di<7;di++){
       const key=sk(cat.name,eq.n,di,wo);
       const s=gS(key);const fb=gF(key);const isP=gP(key);const isWE=WE.includes(di);
+      const isTrain=trainDays.includes(di);
       if(s){tot++;csum+=CV[s.carga];if(fb){fbct++;if(fb.status==='ok')comp++;}}
-      html+=`<div class="scell${isWE?' we-cell':''}" onclick="openModal('${cat.name}','${eq.n}',${di},${wo})">`;
+      const cellStyle=isTrain&&!isWE?`border-top:2px solid ${cat.color};background:${cat.light}`:'';
+      html+=`<div class="scell${isWE?' we-cell':''}" style="${cellStyle}" onclick="openModal('${cat.name}','${eq.n}',${di},${wo})">`;
       if(isP){html+=`<div class="spill p-partido">🤾 Partit</div>`;}
       else if(s){
         const sd=fb?{ok:'✓',parcial:'~',no:'✗'}[fb.status]||'':'';
@@ -1337,7 +1235,7 @@ function renderFbList(){
   const el=document.getElementById('fb-list');if(!el)return;
   const cat=currentCat();if(!cat)return;
   const wo=ST.weekOff;const items=[];
-  cat.equips.forEach(eq=>DIAS_FULL.forEach((dia,di)=>{
+  (cat.equips||[]).forEach(eq=>DIAS_FULL.forEach((dia,di)=>{
     const key=sk(cat.name,eq.n,di,wo);const s=gS(key);const fb=gF(key);
     if(s&&fb&&fb.status){
       const lbl={ok:'✅ Completada',parcial:'⚠️ Parcial',no:'❌ No realitzada'}[fb.status];
@@ -1347,20 +1245,16 @@ function renderFbList(){
   el.innerHTML=items.length?items.join(''):'<span style="font-size:12px;color:var(--text3)">Sense feedback aquesta setmana.</span>';
   renderHorarisResum();
 }
-
 function renderHorarisResum(){
   const el=document.getElementById('horaris-resum');if(!el)return;
   const cat=currentCat();if(!cat)return;
   let html='';
-  cat.equips.forEach(eq=>{
+  (cat.equips||[]).forEach(eq=>{
     const days=getTrainDays(cat.name+'|'+eq.n);
-    if(!days.length) return;
+    if(!days.length)return;
     html+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
       <span style="font-size:11px;font-weight:700;min-width:90px">${eq.n}</span>
-      ${DIAS.map((d,i)=>`<span style="font-size:10px;padding:2px 7px;border-radius:10px;font-weight:700;
-        background:${days.includes(i)?cat.color:'var(--bg)'};
-        color:${days.includes(i)?'#fff':'var(--text3)'};
-        border:1px solid ${days.includes(i)?cat.color:'var(--border)'}">${d}</span>`).join('')}
+      ${DIAS.map((d,i)=>`<span style="font-size:10px;padding:2px 7px;border-radius:10px;font-weight:700;background:${days.includes(i)?cat.color:'var(--bg)'};color:${days.includes(i)?'#fff':'var(--text3)'};border:1px solid ${days.includes(i)?cat.color:'var(--border)'}">${d}</span>`).join('')}
     </div>`;
   });
   el.innerHTML=html||'<span style="font-size:12px;color:var(--text3)">Cap entrenador ha marcat els seus dies encara.</span>';
@@ -1374,7 +1268,7 @@ function renderCargas(){
   const resumen={};
   getCats().forEach(cat=>{
     const labels=[];const data=[];const bgColors=[];let catSum=0,catCnt=0;
-    cat.equips.forEach(eq=>{
+    (cat.equips||[]).forEach(eq=>{
       let sum=0,cnt=0;
       for(let di=0;di<5;di++){const s=gS(sk(cat.name,eq.n,di,ST.weekOff));if(s){sum+=CV[s.carga];cnt++;}}
       labels.push(eq.n);data.push(sum);
@@ -1385,9 +1279,12 @@ function renderCargas(){
     const avgCat=catCnt>0?Math.round(catSum/catCnt*10)/10:0;
     const lblCat=avgCat===0?'Sense dades':avgCat<=1.5?'Baixa':avgCat<=2.5?'Mitjana':avgCat<=3.5?'Alta':'Màxima';
     const block=document.createElement('div');block.className='cat-chart-block';
-    block.innerHTML=`<div class="cat-chart-title" style="background:${cat.light};color:${cat.color}">${cat.name} <span style="font-weight:400;font-size:11px;margin-left:6px">Càrrega mitja: ${lblCat}</span></div><div class="chart-wrap-sm"><canvas id="chart-${cat.id}"></canvas></div>`;
+    block.innerHTML=`<div class="cat-chart-title" style="background:${cat.light};color:${cat.color}">${cat.name} <span style="font-weight:400;font-size:11px;margin-left:6px">Mitja: ${lblCat}</span></div><div class="chart-wrap-sm"><canvas id="chart-${cat.id}"></canvas></div>`;
     container.appendChild(block);
-    ST.catCharts[cat.id]=new Chart(document.getElementById('chart-'+cat.id),{type:'bar',data:{labels,datasets:[{data,backgroundColor:bgColors,borderColor:bgColors,borderWidth:1,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:9},autoSkip:false},grid:{display:false}},y:{min:0,max:20,ticks:{stepSize:5,font:{size:9}},grid:{color:'rgba(128,128,128,.08)'}}}}});
+    ST.catCharts[cat.id]=new Chart(document.getElementById('chart-'+cat.id),{
+      type:'bar',data:{labels,datasets:[{data,backgroundColor:bgColors,borderColor:bgColors,borderWidth:1,borderRadius:4}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:9},autoSkip:false},grid:{display:false}},y:{min:0,max:20,ticks:{stepSize:5,font:{size:9}},grid:{color:'rgba(128,128,128,.08)'}}}}
+    });
     resumen[cat.id]={cat,sum:catSum,cnt:catCnt};
   });
   document.getElementById('carga-resumen').innerHTML=Object.values(resumen).map(({cat,sum,cnt})=>{
@@ -1397,82 +1294,12 @@ function renderCargas(){
   }).join('');
 }
 
-// ── Exportar ──────────────────────────────────────────────────────
-function renderExpEquipos(){
-  const catName=document.getElementById('exp-cat').value;
-  const cat=getCatByName(catName);if(!cat)return;
-  if(!ST.expEquipos[catName])ST.expEquipos[catName]={};
-  document.getElementById('exp-equipos').innerHTML=cat.equips.map(eq=>{
-    const sel=ST.expEquipos[catName][eq.n]!==false;
-    return `<button class="eq-btn${sel?' active':''}" onclick="toggleExpEq('${catName}','${eq.n}',this)">${eq.n}</button>`;
-  }).join('');
-}
-function toggleExpEq(cat,name,btn){
-  if(!ST.expEquipos[cat])ST.expEquipos[cat]={};
-  ST.expEquipos[cat][name]=ST.expEquipos[cat][name]===false?true:false;
-  btn.className='eq-btn'+(ST.expEquipos[cat][name]!==false?' active':'');
-}
-function renderExport(){
-  const catName=document.getElementById('exp-cat')?.value;const wo=ST.weekOff;
-  const cat=getCatByName(catName);if(!cat)return;
-  let txt=`🏐 *${CFG.club.name.toUpperCase()} — PREPARACIÓ FÍSICA*\n📋 Categoria: *${catName}*\n📅 Setmana: ${wLabel(wo)}\n━━━━━━━━━━━━━━━━━━\n\n`;
-  cat.equips.forEach(eq=>{
-    if(ST.expEquipos[catName]&&ST.expEquipos[catName][eq.n]===false)return;
-    txt+=`*${eq.n}*\n`;let hasSes=false;
-    DIAS_FULL.forEach((dia,di)=>{
-      const key=sk(catName,eq.n,di,wo);const s=gS(key);const isP=gP(key);
-      if(isP){hasSes=true;txt+=`  ${dia}: 🤾 PARTIT\n`;}
-      else if(s){hasSes=true;txt+=`  ${dia}: ${{baja:'🟢',media:'🟡',alta:'🟠',max:'🔴'}[s.carga]} ${s.tipo}\n`;if(s.nota)txt+=`    📌 ${s.nota}\n`;if(s.desc)txt+=`    📝 ${s.desc}\n`;}
-    });
-    if(!hasSes)txt+=`  Sense sessions programades\n`;txt+='\n';
-  });
-  txt+=`━━━━━━━━━━━━━━━━━━\n_Víctor Martínez Muñoz · Preparador Físic_`;
-  document.getElementById('export-box').textContent=txt;
-}
-function renderPartitsExport(){
-  const wo=ST.weekOff;const amb=[];const sense=[];
-  getCats().forEach(cat=>{cat.equips.forEach(eq=>{let tePartit=false;WE.forEach(di=>{if(gP(sk(cat.name,eq.n,di,wo)))tePartit=true;});(tePartit?amb:sense).push({cat:cat.name,name:eq.n});});});
-  let txt=`🤾 *PARTITS CAP DE SETMANA*\n📅 Setmana: ${wLabel(wo)}\n━━━━━━━━━━━━━━━━━━\n\n`;
-  txt+=`✅ *HAN MARCAT PARTIT (${amb.length})*\n`;
-  if(amb.length)amb.forEach(e=>txt+=`  · ${e.cat} — ${e.name}\n`);else txt+=`  Cap equip\n`;
-  txt+=`\n❌ *SENSE PARTIT MARCAT (${sense.length})*\n`;
-  if(sense.length)sense.forEach(e=>txt+=`  · ${e.cat} — ${e.name}\n`);else txt+=`  Tots han marcat ✅\n`;
-  txt+=`\n━━━━━━━━━━━━━━━━━━\n_Víctor Martínez Muñoz · Preparador Físic_`;
-  document.getElementById('partits-box').textContent=txt;
-}
-function renderFeedbackExport(){
-  const wo=ST.weekOff;let txt=`✅ *COMPLIMENT DE FEEDBACK*\n📅 Setmana: ${wLabel(wo)}\n━━━━━━━━━━━━━━━━━━\n\n`;
-  let totalSes=0,totalFb=0;
-  getCats().forEach(cat=>{
-    txt+=`*${cat.name}*\n`;
-    cat.equips.forEach(eq=>{
-      let sessions=0,feedback=0;
-      for(let di=0;di<7;di++){const key=sk(cat.name,eq.n,di,wo);const s=gS(key);const fb=gF(key);if(gP(key))continue;if(s){sessions++;if(fb&&fb.status)feedback++;}}
-      totalSes+=sessions;totalFb+=feedback;
-      const pct=sessions>0?Math.round(feedback/sessions*100):null;
-      const icon=pct===null?'⚪':pct===100?'✅':pct>=50?'⚠️':'❌';
-      txt+=`  ${icon} ${eq.n}: ${pct===null?'Sense sessions':`${feedback}/${sessions} (${pct}%)`}\n`;
-    });txt+='\n';
-  });
-  const pctG=totalSes>0?Math.round(totalFb/totalSes*100):0;
-  txt+=`━━━━━━━━━━━━━━━━━━\n📊 *Global: ${totalFb}/${totalSes} (${pctG}%)*\n_Víctor Martínez Muñoz · Preparador Físic_`;
-  document.getElementById('feedback-box').textContent=txt;
-}
-function copyBox(boxId,btnId){
-  navigator.clipboard.writeText(document.getElementById(boxId).textContent).then(()=>{
-    const btn=document.getElementById(btnId);btn.className='copy-btn done';btn.innerHTML='<i class="ti ti-check"></i> Copiat!';
-    setTimeout(()=>{btn.className='copy-btn';btn.innerHTML='<i class="ti ti-copy"></i> Copiar text';},2500);
-  });
-}
-
 // ── Entrenador ────────────────────────────────────────────────────
 function renderEntSelector(){
   document.getElementById('ent-selector').innerHTML=getCats().flatMap(cat=>
     (cat.equips||[]).map(eq=>{
       const id=cat.name+'|'+eq.n;const active=ST.entEquipo===id;
-      return `<button class="eq-btn${active?' active':''}"
-        style="${active?`background:${cat.color};border-color:${cat.color};color:#fff`:`color:${cat.color};border-color:${cat.light}`}"
-        onclick="selEntEquipo('${cat.name}','${eq.n}')">${eq.n}</button>`;
+      return `<button class="eq-btn${active?' active':''}" style="${active?`background:${cat.color};border-color:${cat.color};color:#fff`:`color:${cat.color};border-color:${cat.light}`}" onclick="selEntEquipo('${cat.name}','${eq.n}')">${eq.n}</button>`;
     })
   ).join('');
 }
@@ -1489,32 +1316,52 @@ function renderEntContent(){
   const [catName,team]=ST.entEquipo.split('|');const wo=ST.entWeekOff;
   const cat=getCatByName(catName)||{color:'#C0152A',light:'#FDEAEA',name:catName};
   updateEntLabel();
-  let html=`<div class="card" style="border-top:3px solid ${cat.color}"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div><span style="font-size:15px;font-weight:700">${team}</span><span style="font-size:11px;color:${cat.color};font-weight:700;margin-left:8px;background:${cat.light};padding:2px 8px;border-radius:10px">${catName}</span></div><span style="font-size:11px;color:var(--text2)">${wLabel(wo)}</span></div>`;
-  const trainDays = getTrainDays(ST.entEquipo);
+  const trainDays=getTrainDays(ST.entEquipo);
+  let html=`<div class="card" style="border-top:3px solid ${cat.color}">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div><span style="font-size:15px;font-weight:700">${team}</span>
+        <span style="font-size:11px;color:${cat.color};font-weight:700;margin-left:8px;background:${cat.light};padding:2px 8px;border-radius:10px">${catName}</span>
+      </div>
+      <span style="font-size:11px;color:var(--text2)">${wLabel(wo)}</span>
+    </div>`;
   for(let di=0;di<7;di++){
-    const dia=DIAS_FULL[di];const isWE=WE.includes(di);
-    const isTrainDay = trainDays.includes(di);
+    const dia=DIAS_FULL[di];const isWE=WE.includes(di);const isTrainDay=trainDays.includes(di);
     const key=sk(catName,team,di,wo);const s=gS(key);const fb=gF(key);const isP=gP(key);
     const keyId=fk(key);const expanded=!!ST.expandedDays[keyId];
-    const rowStyle = isTrainDay && !isWE
-      ? `border-left:3px solid ${cat.color};padding-left:8px;background:${cat.light}`
-      : '';
-    html+=`<div class="wday-row" style="${rowStyle}"><div class="wday-top"><span class="wday-name${isWE?' we':''}">${dia}${isTrainDay&&!isWE?` <span style="font-size:9px;background:${cat.color};color:#fff;padding:1px 5px;border-radius:8px;margin-left:3px">Entren</span>`:''}</span>`;
+    const rowStyle=isTrainDay&&!isWE?`border-left:3px solid ${cat.color};padding-left:8px;background:${cat.light}`:'';
+    html+=`<div class="wday-row" style="${rowStyle}"><div class="wday-top">
+      <span class="wday-name${isWE?' we':''}">${dia}${isTrainDay&&!isWE?` <span style="font-size:9px;background:${cat.color};color:#fff;padding:1px 5px;border-radius:8px;margin-left:3px">Entren</span>`:''}</span>`;
     if(isP){html+=`<span class="spill p-partido" style="flex:none;padding:4px 10px;font-size:11px">🤾 Partit</span><button class="partido-btn active" style="margin-left:auto" onclick="togglePartit('${catName}','${team}',${di},${wo})">✅ Treure</button>`;}
     else if(isWE){html+=`<span style="font-size:11px;color:var(--text3);font-style:italic">Cap activitat</span><button class="partido-btn" style="margin-left:auto" onclick="togglePartit('${catName}','${team}',${di},${wo})">🤾 Marcar partit</button>`;}
     else if(s){
       const cls=s.esLliure?'p-libre':(TIPO_CLS[s.tipo]||'p-descanso');
-      html+=`<span class="spill ${cls}" style="flex:none;padding:4px 10px;font-size:11px">${s.tipo}</span><button class="expand-btn" onclick="toggleDayDetail('${keyId}')" style="margin-left:6px">${expanded?'▲ Tancar':'▼ Detalls'}</button><div style="margin-left:auto;display:flex;gap:4px"><button class="fbbtn${fb&&fb.status==='ok'?' ok':''}" onclick="setFb('${catName}','${team}',${di},${wo},'ok')">✅</button><button class="fbbtn${fb&&fb.status==='parcial'?' parcial':''}" onclick="setFb('${catName}','${team}',${di},${wo},'parcial')">⚠️</button><button class="fbbtn${fb&&fb.status==='no'?' no':''}" onclick="setFb('${catName}','${team}',${di},${wo},'no')">❌</button></div>`;
+      html+=`<span class="spill ${cls}" style="flex:none;padding:4px 10px;font-size:11px">${s.tipo}</span>
+        <button class="expand-btn" onclick="toggleDayDetail('${keyId}')" style="margin-left:6px">${expanded?'▲ Tancar':'▼ Detalls'}</button>
+        <div style="margin-left:auto;display:flex;gap:4px">
+          <button class="fbbtn${fb&&fb.status==='ok'?' ok':''}" onclick="setFb('${catName}','${team}',${di},${wo},'ok')">✅</button>
+          <button class="fbbtn${fb&&fb.status==='parcial'?' parcial':''}" onclick="setFb('${catName}','${team}',${di},${wo},'parcial')">⚠️</button>
+          <button class="fbbtn${fb&&fb.status==='no'?' no':''}" onclick="setFb('${catName}','${team}',${di},${wo},'no')">❌</button>
+        </div>`;
     }else{html+=`<span style="font-size:11px;color:var(--text3)">Sense sessió</span>`;}
     html+='</div>';
     if(s&&expanded){
       html+=`<div class="session-detail">`;
       if(s.nota)html+=`<div class="session-detail-title">📌 Nota</div><div style="font-size:12px;margin-bottom:10px;font-style:italic">${s.nota}</div>`;
       if(s.esLliure&&s.desc)html+=`<div class="session-detail-title">📝 Prescripció</div><div style="font-size:12px;margin-bottom:10px;white-space:pre-wrap">${s.desc}</div>`;
-      if(!s.esLliure){const lib=BIBLIOTECA.find(l=>l.name===s.tipo);if(lib){if(lib.desc)html+=`<div class="session-detail-title">ℹ️ Descripció</div><div style="font-size:12px;color:var(--text2);margin-bottom:10px">${lib.desc}</div>`;if(lib.mat.length)html+=`<div class="session-detail-title">🎒 Material</div><div style="margin-bottom:10px">${lib.mat.map(m=>`<span class="mat-tag">📦 ${m}</span>`).join('')}</div>`;if(lib.ex.length)html+=`<div class="session-detail-title">💪 Exercicis</div><div class="ex-grid">${lib.ex.map(e=>`<div class="ex-item">${e.n}${e.d?`<div class="ex-sub">${e.d}</div>`:''}${e.gif?`<img src="${e.gif}" style="width:100%;margin-top:6px;border-radius:4px;max-height:120px;object-fit:contain;background:#000" onerror="this.style.display='none'">`:''}</div>`).join('')}</div>`;}}
+      if(!s.esLliure){
+        const lib=BIBLIOTECA.find(l=>l.name===s.tipo);
+        if(lib){
+          if(lib.desc)html+=`<div class="session-detail-title">ℹ️ Descripció</div><div style="font-size:12px;color:var(--text2);margin-bottom:10px">${lib.desc}</div>`;
+          if((lib.mat||[]).length)html+=`<div class="session-detail-title">🎒 Material</div><div style="margin-bottom:10px">${lib.mat.map(m=>`<span class="mat-tag">📦 ${m}</span>`).join('')}</div>`;
+          if((lib.ex||[]).length)html+=`<div class="session-detail-title">💪 Exercicis</div><div class="ex-grid">${lib.ex.map(e=>`<div class="ex-item">${e.n}${e.d?`<div class="ex-sub">${e.d}</div>`:''}${e.gif?`<img src="${e.gif}" style="width:100%;margin-top:6px;border-radius:4px;max-height:120px;object-fit:contain;background:#000" onerror="this.style.display='none'">`:''}</div>`).join('')}</div>`;
+        }
+      }
       html+=`</div>`;
     }
-    if(s&&!isWE&&fb&&fb.status){const nid='fbn-'+keyId;html+=`<textarea class="fb-note" id="${nid}" placeholder="Nota per a Víctor...">${fb.note||''}</textarea><button class="save-note-btn" onclick="saveFbNote('${catName}','${team}',${di},${wo})">Guardar nota</button>`;}
+    if(s&&!isWE&&fb&&fb.status){
+      const nid='fbn-'+keyId;
+      html+=`<textarea class="fb-note" id="${nid}" placeholder="Nota per a Víctor...">${fb.note||''}</textarea><button class="save-note-btn" onclick="saveFbNote('${catName}','${team}',${di},${wo})">Guardar nota</button>`;
+    }
     html+='</div>';
   }
   html+='</div>';cont.innerHTML=html;
@@ -1526,8 +1373,9 @@ async function togglePartit(catName,team,di,wo){
   try{if(current)await fbDel('/partits/'+fk(key));else await fbSet('/partits/'+fk(key),true);}catch(e){dbg('togglePartit ERR: '+e.message);}
 }
 async function setFb(catName,team,di,wo,status){
-  const key=sk(catName,team,di,wo);const prev=gF(key)||{};const data={status,note:prev.note||''};
-  DB.feedbacks[fk(key)]=data;renderEntContent();toast('✅ Feedback guardat');
+  const key=sk(catName,team,di,wo);const prev=gF(key)||{};
+  const data={status,note:prev.note||''};DB.feedbacks[fk(key)]=data;
+  renderEntContent();toast('✅ Feedback guardat');
   try{await fbSet('/feedbacks/'+fk(key),data);}catch(e){dbg('setFb ERR: '+e.message);}
 }
 async function saveFbNote(catName,team,di,wo){
@@ -1540,11 +1388,9 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(
 
 // ── Init ──────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',async ()=>{
-  // Carrega config de Firebase primer
   try{
     const data=await fbGetAll();
-    if(data?.config)loadConfig(data.config);
-    else applyConfig();
+    if(data?.config)loadConfig(data.config);else applyConfig();
     if(data?.biblioteca)loadLibreFromDB(data.biblioteca);
     DB.sessions=(data?.sessions)||{};
     DB.feedbacks=(data?.feedbacks)||{};
@@ -1552,11 +1398,8 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     DB.traindays=(data?.traindays)||{};
     setConnected();
   }catch(e){applyConfig();setDisconnected();}
-
   updateLabels();updateEntLabel();
   initCatRow();renderEntSelector();renderPlanner();
-
-  // SSE per actualitzacions en temps real
   openSSE('sessions');openSSE('feedbacks');openSSE('partits');openSSE('traindays');
 });
 </script>
