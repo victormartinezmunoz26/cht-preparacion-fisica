@@ -10,7 +10,8 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>CHT — Preparació Física</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{
@@ -172,7 +173,28 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
 .expand-btn{padding:5px 10px;font-size:10px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;background:var(--bg);color:var(--text2);font-weight:700;white-space:nowrap;flex-shrink:0}
 .session-detail{background:var(--bg);border-radius:var(--radius-sm);padding:12px;margin-top:8px;border:1px solid var(--border)}
 .session-detail-title{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-/* Configuració */
+/* Calendari */
+.cal-dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%);z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;box-shadow:0 8px 30px rgba(0,0,0,.15);width:280px;margin-top:4px}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-header span{font-size:13px;font-weight:700}
+.cal-header button{background:none;border:none;cursor:pointer;color:var(--text2);font-size:16px;padding:4px 8px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dow{font-size:9px;font-weight:700;color:var(--text3);text-align:center;padding:3px 0}
+.cal-day{font-size:11px;text-align:center;padding:5px 2px;border-radius:4px;cursor:pointer;color:var(--text2)}
+.cal-day:hover{background:var(--bg)}
+.cal-day.cur-month{color:var(--text)}
+.cal-day.today{background:var(--brand);color:#fff;font-weight:700}
+.cal-day.selected-week{background:var(--blue-l);color:var(--brand);font-weight:700}
+.cal-day.we-day{color:var(--amber-b)}
+.week-lbl-btn{flex:1;text-align:center;font-size:13px;font-weight:700;background:none;border:none;cursor:pointer;color:var(--text);padding:4px 8px;border-radius:var(--radius-sm);position:relative}
+.week-lbl-btn:hover{background:var(--bg)}
+.week-lbl-btn.current-week::after{content:'● Setmana actual';display:block;font-size:9px;color:var(--brand);font-weight:700;margin-top:1px}
+/* Dies entrenament entrenador */
+.train-days-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.train-day-btn{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);background:var(--bg);color:var(--text2);font-size:10px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.train-day-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.scell.train-day{background:rgba(var(--brand-rgb,192,21,42),.04);border-top:2px solid var(--brand)}
+.wday-row.train-day-row{border-left:3px solid var(--brand)}
 .cfg-section{margin-bottom:18px}
 .cfg-section-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--border)}
 .cat-cfg-block{background:var(--bg);border-radius:var(--radius-sm);padding:12px;margin-bottom:8px;border:1px solid var(--border)}
@@ -207,6 +229,9 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
 
 <div id="pin-modal" class="pin-overlay hidden">
   <div class="pin-box">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:4px">
+      <button onclick="document.getElementById('pin-modal').classList.add('hidden')" style="background:none;border:none;font-size:22px;color:var(--text3);cursor:pointer;line-height:1">×</button>
+    </div>
     <div class="pin-icon">🔐</div>
     <div class="pin-title">Mode Víctor</div>
     <div class="pin-sub">Introdueix el PIN per accedir al planificador</div>
@@ -249,10 +274,11 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
   <div id="tab-planificador" class="main">
     <div class="card">
       <div class="cat-row" id="cat-row"></div>
-      <div class="week-nav">
+      <div class="week-nav" style="position:relative">
         <button class="wbtn" onclick="changeWeek(-1)"><i class="ti ti-chevron-left"></i></button>
-        <span class="week-lbl" id="week-lbl">—</span>
+        <button class="week-lbl-btn" id="week-lbl" onclick="toggleCal('victor-cal')" title="Obrir calendari">—</button>
         <button class="wbtn" onclick="changeWeek(1)"><i class="ti ti-chevron-right"></i></button>
+        <div id="victor-cal" class="cal-dropdown hidden"></div>
       </div>
     </div>
     <div class="stats-row">
@@ -390,10 +416,16 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
       </div>
       <div id="etab-setmana-content">
         <div class="card" style="padding:10px 14px">
-          <div class="ent-week-nav">
+          <div class="ent-week-nav" style="position:relative">
             <button class="wbtn" onclick="changeEntWeek(-1)"><i class="ti ti-chevron-left"></i></button>
-            <span class="week-lbl" id="ent-week-lbl">—</span>
+            <button class="week-lbl-btn" id="ent-week-lbl" onclick="toggleCal('ent-cal')" title="Obrir calendari">—</button>
             <button class="wbtn" onclick="changeEntWeek(1)"><i class="ti ti-chevron-right"></i></button>
+            <div id="ent-cal" class="cal-dropdown hidden"></div>
+          </div>
+          <!-- Dies d'entrenament -->
+          <div style="margin-top:8px">
+            <div class="sec-label" style="margin-bottom:6px">Dies d'entrenament del meu equip</div>
+            <div class="train-days-row" id="train-days-selector"></div>
           </div>
         </div>
         <div id="ent-content"></div>
@@ -562,6 +594,121 @@ function gP(k){return DB.partits[fk(k)];}
 // ── Toast ─────────────────────────────────────────────────────────
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2200);}
 
+// ── Calendari desplegable ─────────────────────────────────────────
+let _calState = {}; // { calId: { year, month } }
+
+function toggleCal(calId){
+  const el = document.getElementById(calId);
+  if(!el) return;
+  if(!el.classList.contains('hidden')){ el.classList.add('hidden'); return; }
+  // Inicialitza estat si cal
+  const now = new Date();
+  if(!_calState[calId]) _calState[calId] = { year: now.getFullYear(), month: now.getMonth() };
+  renderCal(calId);
+  el.classList.remove('hidden');
+  // Tanca en clicar fora
+  setTimeout(()=>{
+    const close = e => { if(!el.contains(e.target)){ el.classList.add('hidden'); document.removeEventListener('click', close); }};
+    document.addEventListener('click', close);
+  }, 50);
+}
+
+function renderCal(calId){
+  const el = document.getElementById(calId); if(!el) return;
+  const isEnt = calId === 'ent-cal';
+  const {year, month} = _calState[calId];
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  // Primer dia del mes i quants dies té
+  const firstDay = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  // Dia de la setmana del primer dia (0=dg → convertim a dll=0)
+  let startDow = firstDay.getDay() - 1; if(startDow < 0) startDow = 6;
+
+  // Setmana seleccionada actual
+  const selOff = isEnt ? ST.entWeekOff : ST.weekOff;
+  const selMon = new Date(); selMon.setDate(selMon.getDate() - selMon.getDay() + 1 + selOff*7);
+  selMon.setHours(0,0,0,0);
+  const selSun = new Date(selMon); selSun.setDate(selMon.getDate()+6);
+
+  const MESOS = ['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost','Setembre','Octubre','Novembre','Desembre'];
+  const DOWS = ['Dl','Dm','Dc','Dj','Dv','Ds','Dg'];
+
+  let html = `<div class="cal-header">
+    <button onclick="calNav('${calId}',-1)">‹</button>
+    <span>${MESOS[month]} ${year}</span>
+    <button onclick="calNav('${calId}',1)">›</button>
+  </div>
+  <div class="cal-grid">
+    ${DOWS.map(d=>`<div class="cal-dow">${d}</div>`).join('')}`;
+
+  // Buits inicials
+  for(let i=0;i<startDow;i++) html+=`<div></div>`;
+
+  for(let d=1;d<=daysInMonth;d++){
+    const date = new Date(year, month, d);
+    const isToday = date.getTime()===today.getTime();
+    const inSelWeek = date >= selMon && date <= selSun;
+    const isWe = date.getDay()===0 || date.getDay()===6;
+    let cls = 'cal-day cur-month';
+    if(isToday) cls+=' today';
+    else if(inSelWeek) cls+=' selected-week';
+    if(isWe && !isToday && !inSelWeek) cls+=' we-day';
+    html+=`<div class="${cls}" onclick="calSelectDay('${calId}',${year},${month},${d})">${d}</div>`;
+  }
+  html+=`</div>`;
+  el.innerHTML=html;
+}
+
+function calNav(calId, dir){
+  if(!_calState[calId]) return;
+  let {year, month} = _calState[calId];
+  month += dir;
+  if(month > 11){ month=0; year++; }
+  if(month < 0){ month=11; year--; }
+  _calState[calId] = {year, month};
+  renderCal(calId);
+}
+
+function calSelectDay(calId, year, month, day){
+  // Calcula a quina setmana cau aquest dia
+  const clicked = new Date(year, month, day);
+  const now = new Date(); now.setHours(0,0,0,0);
+  const nowMon = new Date(now); nowMon.setDate(now.getDate()-now.getDay()+1);
+  const clickMon = new Date(clicked); clickMon.setDate(clicked.getDate()-clicked.getDay()+1);
+  const diff = Math.round((clickMon-nowMon)/(7*24*3600*1000));
+  const isEnt = calId==='ent-cal';
+  if(isEnt){ ST.entWeekOff=diff; updateEntLabel(); ST.expandedDays={}; renderEntContent(); }
+  else { ST.weekOff=diff; updateLabels(); renderPlanner(); }
+  document.getElementById(calId).classList.add('hidden');
+}
+
+// ── Dies d'entrenament ────────────────────────────────────────────
+// Guardem per equip a localStorage (és preferència local de cada entrenador)
+function getTrainDays(equipId){
+  try{ return JSON.parse(localStorage.getItem('train_'+equipId)||'[]'); }catch(e){ return []; }
+}
+function setTrainDays(equipId, days){
+  try{ localStorage.setItem('train_'+equipId, JSON.stringify(days)); }catch(e){}
+}
+function renderTrainDaysSelector(){
+  if(!ST.entEquipo) return;
+  const days = getTrainDays(ST.entEquipo);
+  document.getElementById('train-days-selector').innerHTML =
+    DIAS.map((d,i)=>`<button class="train-day-btn${days.includes(i)?' active':''}"
+      onclick="toggleTrainDay(${i},this)">${d}</button>`).join('');
+}
+function toggleTrainDay(di, btn){
+  if(!ST.entEquipo) return;
+  const days = getTrainDays(ST.entEquipo);
+  const idx = days.indexOf(di);
+  if(idx>=0) days.splice(idx,1); else days.push(di);
+  setTrainDays(ST.entEquipo, days);
+  btn.className='train-day-btn'+(days.includes(di)?' active':'');
+  renderEntContent();
+}
+
 // ── Week labels ───────────────────────────────────────────────────
 function wLabel(o){
   const d=new Date();d.setDate(d.getDate()-d.getDay()+1+o*7);
@@ -569,8 +716,22 @@ function wLabel(o){
   const f=x=>x.toLocaleDateString('ca-ES',{day:'numeric',month:'short'});
   return f(d)+' – '+f(d2);
 }
-function updateLabels(){const l=wLabel(ST.weekOff);['week-lbl','c-week-lbl','exp-week-lbl'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=l;});}
-function updateEntLabel(){const el=document.getElementById('ent-week-lbl');if(el)el.textContent=wLabel(ST.entWeekOff);}
+function updateLabels(){
+  const l=wLabel(ST.weekOff);
+  ['c-week-lbl','exp-week-lbl'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=l;});
+  const btn=document.getElementById('week-lbl');
+  if(btn){
+    btn.textContent=l;
+    btn.className='week-lbl-btn'+(ST.weekOff===0?' current-week':'');
+  }
+}
+function updateEntLabel(){
+  const el=document.getElementById('ent-week-lbl');
+  if(el){
+    el.textContent=wLabel(ST.entWeekOff);
+    el.className='week-lbl-btn'+(ST.entWeekOff===0?' current-week':'');
+  }
+}
 
 // ── Render helper ─────────────────────────────────────────────────
 function renderAll(){
@@ -1200,7 +1361,8 @@ function selEntEquipo(catName,name){
   ST.entEquipo=catName+'|'+name;ST.entCat=catName;ST.expandedDays={};
   document.getElementById('ent-placeholder').classList.add('hidden');
   document.getElementById('ent-main').classList.remove('hidden');
-  updateEntLabel();setEntTab(ST.entTab);renderEntSelector();renderEntContent();
+  updateEntLabel();setEntTab(ST.entTab);
+  renderEntSelector();renderTrainDaysSelector();renderEntContent();
 }
 function toggleDayDetail(keyId){ST.expandedDays[keyId]=!ST.expandedDays[keyId];renderEntContent();}
 function renderEntContent(){
@@ -1209,11 +1371,16 @@ function renderEntContent(){
   const cat=getCatByName(catName)||{color:'#C0152A',light:'#FDEAEA',name:catName};
   updateEntLabel();
   let html=`<div class="card" style="border-top:3px solid ${cat.color}"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div><span style="font-size:15px;font-weight:700">${team}</span><span style="font-size:11px;color:${cat.color};font-weight:700;margin-left:8px;background:${cat.light};padding:2px 8px;border-radius:10px">${catName}</span></div><span style="font-size:11px;color:var(--text2)">${wLabel(wo)}</span></div>`;
+  const trainDays = getTrainDays(ST.entEquipo);
   for(let di=0;di<7;di++){
     const dia=DIAS_FULL[di];const isWE=WE.includes(di);
+    const isTrainDay = trainDays.includes(di);
     const key=sk(catName,team,di,wo);const s=gS(key);const fb=gF(key);const isP=gP(key);
     const keyId=fk(key);const expanded=!!ST.expandedDays[keyId];
-    html+=`<div class="wday-row"><div class="wday-top"><span class="wday-name${isWE?' we':''}">${dia}</span>`;
+    const rowStyle = isTrainDay && !isWE
+      ? `border-left:3px solid ${cat.color};padding-left:8px;background:${cat.light}`
+      : '';
+    html+=`<div class="wday-row" style="${rowStyle}"><div class="wday-top"><span class="wday-name${isWE?' we':''}">${dia}${isTrainDay&&!isWE?` <span style="font-size:9px;background:${cat.color};color:#fff;padding:1px 5px;border-radius:8px;margin-left:3px">Entren</span>`:''}</span>`;
     if(isP){html+=`<span class="spill p-partido" style="flex:none;padding:4px 10px;font-size:11px">🤾 Partit</span><button class="partido-btn active" style="margin-left:auto" onclick="togglePartit('${catName}','${team}',${di},${wo})">✅ Treure</button>`;}
     else if(isWE){html+=`<span style="font-size:11px;color:var(--text3);font-style:italic">Cap activitat</span><button class="partido-btn" style="margin-left:auto" onclick="togglePartit('${catName}','${team}',${di},${wo})">🤾 Marcar partit</button>`;}
     else if(s){
