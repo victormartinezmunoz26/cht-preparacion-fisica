@@ -292,11 +292,20 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
       <div class="sec-label">Feedback rebut</div>
       <div id="fb-list"><span style="font-size:12px;color:var(--text3)">Sense feedback.</span></div>
     </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div class="sec-label" style="margin:0">Horaris d'entrenament</div>
+        <span style="font-size:10px;color:var(--text3)">Marcats pels entrenadors</span>
+      </div>
+      <div id="horaris-resum"></div>
+    </div>
   </div>
 
   <div id="tab-cargas" class="main hidden">
     <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div class="card">
+      <div class="cfg-section" style="margin-bottom:0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
         <div class="sec-label" style="margin:0">Càrrega per categoria</div>
         <div class="week-nav" style="gap:6px">
           <button class="wbtn" onclick="changeWeek(-1);renderCargas()"><i class="ti ti-chevron-left"></i></button>
@@ -385,8 +394,47 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
     </div>
 
     <div class="card">
-      <div class="cfg-section" style="margin-bottom:0">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div class="cfg-section">
+        <div class="cfg-section-title">🎨 Aspecte visual</div>
+
+        <label class="mlbl">Estil general</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+          <button class="style-opt" data-style="default" onclick="setVisualStyle('default',this)"
+            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">
+            ⬜ Estàndard
+          </button>
+          <button class="style-opt" data-style="compact" onclick="setVisualStyle('compact',this)"
+            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">
+            📐 Compacte
+          </button>
+          <button class="style-opt" data-style="rounded" onclick="setVisualStyle('rounded',this)"
+            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">
+            🔵 Arrodonit
+          </button>
+        </div>
+
+        <label class="mlbl">Mida de lletra</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+          <button class="font-opt" data-size="small" onclick="setFontSize('small',this)"
+            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:11px;font-weight:700;background:var(--bg)">
+            A petit
+          </button>
+          <button class="font-opt" data-size="medium" onclick="setFontSize('medium',this)"
+            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:13px;font-weight:700;background:var(--bg)">
+            A normal
+          </button>
+          <button class="font-opt" data-size="large" onclick="setFontSize('large',this)"
+            style="padding:10px;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;font-size:15px;font-weight:700;background:var(--bg)">
+            A gran
+          </button>
+        </div>
+
+        <label class="mlbl">Text a la topbar (entrenadors)</label>
+        <input type="text" id="cfg-topbar-sub" placeholder="Ex: Temporada 2024-25">
+
+        <button onclick="saveVisualConfig()" style="width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">Guardar aspecte</button>
+      </div>
+    </div>
           <div class="cfg-section-title" style="margin:0;border:none;padding:0">📋 Categories i equips</div>
           <button onclick="addCategoria()" style="padding:6px 14px;font-size:12px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">+ Categoria</button>
         </div>
@@ -573,7 +621,7 @@ function applyConfig(){
 }
 
 // ── State ─────────────────────────────────────────────────────────
-let DB={sessions:{},feedbacks:{},partits:{}};
+let DB={sessions:{},feedbacks:{},partits:{},traindays:{}};
 let ST={
   mode:'entrenador',tab:'planificador',
   catIdx:0, weekOff:0, entWeekOff:0,
@@ -685,12 +733,14 @@ function calSelectDay(calId, year, month, day){
 }
 
 // ── Dies d'entrenament ────────────────────────────────────────────
-// Guardem per equip a localStorage (és preferència local de cada entrenador)
+// Guardem a Firebase sota /traindays/[fk(equipId)] per compartir amb Víctor
 function getTrainDays(equipId){
-  try{ return JSON.parse(localStorage.getItem('train_'+equipId)||'[]'); }catch(e){ return []; }
+  return DB.traindays?.[fk(equipId)] ?? [];
 }
-function setTrainDays(equipId, days){
-  try{ localStorage.setItem('train_'+equipId, JSON.stringify(days)); }catch(e){}
+async function setTrainDays(equipId, days){
+  if(!DB.traindays) DB.traindays={};
+  DB.traindays[fk(equipId)]=days;
+  try{ await fbSet('/traindays/'+fk(equipId), days); }catch(e){ dbg('TRAINDAYS ERR: '+e.message); }
 }
 function renderTrainDaysSelector(){
   if(!ST.entEquipo) return;
@@ -699,14 +749,16 @@ function renderTrainDaysSelector(){
     DIAS.map((d,i)=>`<button class="train-day-btn${days.includes(i)?' active':''}"
       onclick="toggleTrainDay(${i},this)">${d}</button>`).join('');
 }
-function toggleTrainDay(di, btn){
+async function toggleTrainDay(di, btn){
   if(!ST.entEquipo) return;
-  const days = getTrainDays(ST.entEquipo);
+  const days = [...getTrainDays(ST.entEquipo)];
   const idx = days.indexOf(di);
   if(idx>=0) days.splice(idx,1); else days.push(di);
-  setTrainDays(ST.entEquipo, days);
+  await setTrainDays(ST.entEquipo, days);
   btn.className='train-day-btn'+(days.includes(di)?' active':'');
   renderEntContent();
+  // Actualitza el planificador de Víctor si està obert
+  if(ST.mode==='victor') renderPlanner();
 }
 
 // ── Week labels ───────────────────────────────────────────────────
@@ -737,11 +789,13 @@ function updateEntLabel(){
 function renderAll(){
   if(ST.mode==='victor'){renderPlanner();renderFbList();}
   else if(ST.entEquipo){renderEntContent();}
+  // Actualitza biblioteca entrenador si està oberta
+  if(ST.entTab==='biblioteca') renderBiblioteca('e');
 }
 
 // ── SSE ───────────────────────────────────────────────────────────
-const _sse={sessions:null,feedbacks:null,partits:null};
-const _sseTimer={sessions:null,feedbacks:null,partits:null};
+const _sse={sessions:null,feedbacks:null,partits:null,traindays:null};
+const _sseTimer={sessions:null,feedbacks:null,partits:null,traindays:null};
 const SSE_TIMEOUT=45000;
 function openSSE(node){
   if(_sse[node]){try{_sse[node].close();}catch(e){}_sse[node]=null;}
@@ -786,19 +840,63 @@ async function manualRefresh(){
   finally{btn.classList.remove('spinning');}
 }
 
+// ── Opcions visuals ───────────────────────────────────────────────
+const VISUAL_STYLES = {
+  default:  { radius:'12px', radiusSm:'8px',  spacing:'14px' },
+  compact:  { radius:'6px',  radiusSm:'4px',  spacing:'8px'  },
+  rounded:  { radius:'20px', radiusSm:'14px', spacing:'14px' }
+};
+const FONT_SIZES = { small:'13px', medium:'15px', large:'17px' };
+
+function applyVisualConfig(cfg){
+  if(!cfg) return;
+  const style = VISUAL_STYLES[cfg.style||'default'];
+  document.documentElement.style.setProperty('--radius', style.radius);
+  document.documentElement.style.setProperty('--radius-sm', style.radiusSm);
+  // Mida de lletra base
+  document.body.style.fontSize = FONT_SIZES[cfg.fontSize||'medium'];
+  // Text topbar sub
+  if(cfg.topbarSub){
+    const sub = document.getElementById('db-status');
+    if(sub && !sub._sse_set) sub.dataset.custom = cfg.topbarSub;
+  }
+  // Marca els botons actius
+  document.querySelectorAll('.style-opt').forEach(b=>
+    b.style.borderColor = b.dataset.style===(cfg.style||'default') ? 'var(--brand)' : 'var(--border)');
+  document.querySelectorAll('.font-opt').forEach(b=>
+    b.style.borderColor = b.dataset.size===(cfg.fontSize||'medium') ? 'var(--brand)' : 'var(--border)');
+}
+
+let _visualCfg = { style:'default', fontSize:'medium', topbarSub:'' };
+
+function setVisualStyle(s, btn){
+  _visualCfg.style = s;
+  applyVisualConfig(_visualCfg);
+}
+function setFontSize(s, btn){
+  _visualCfg.fontSize = s;
+  applyVisualConfig(_visualCfg);
+}
+async function saveVisualConfig(){
+  _visualCfg.topbarSub = document.getElementById('cfg-topbar-sub').value.trim();
+  applyVisualConfig(_visualCfg);
+  toast('✅ Aspecte guardat');
+  try{ await fbSet('/config/visual', _visualCfg); }catch(e){ dbg('VISUAL CFG ERR: '+e.message); }
+}
+
 // ── Config — càrrega i guardat ────────────────────────────────────
 function loadConfig(cfg){
-  if(!cfg)return;
-  if(cfg.club)CFG.club={...CFG.club,...cfg.club};
+  if(!cfg) return;
+  if(cfg.club) CFG.club={...CFG.club,...cfg.club};
   if(cfg.categories&&Array.isArray(cfg.categories)&&cfg.categories.length){
     CFG.categories=cfg.categories.map(c=>({
-      ...c,
-      light:c.light||lightColor(c.color||'#888'),
+      ...c, light:c.light||lightColor(c.color||'#888'),
       equips:Array.isArray(c.equips)?c.equips.map(e=>({...e})):[]
     }));
   }
+  if(cfg.visual){ _visualCfg={..._visualCfg,...cfg.visual}; applyVisualConfig(_visualCfg); }
   applyConfig();
-  if(ST.catIdx>=CFG.categories.length)ST.catIdx=0;
+  if(ST.catIdx>=CFG.categories.length) ST.catIdx=0;
 }
 
 async function saveClubConfig(){
@@ -844,6 +942,8 @@ function renderConfigTab(){
   document.getElementById('cfg-club-name').value=name;
   document.getElementById('cfg-club-badge').value=badge;
   document.getElementById('cfg-club-color').value=color;
+  document.getElementById('cfg-topbar-sub').value=_visualCfg.topbarSub||'';
+  applyVisualConfig(_visualCfg);
   renderCfgCats();
 }
 
@@ -1245,6 +1345,25 @@ function renderFbList(){
     }
   }));
   el.innerHTML=items.length?items.join(''):'<span style="font-size:12px;color:var(--text3)">Sense feedback aquesta setmana.</span>';
+  renderHorarisResum();
+}
+
+function renderHorarisResum(){
+  const el=document.getElementById('horaris-resum');if(!el)return;
+  const cat=currentCat();if(!cat)return;
+  let html='';
+  cat.equips.forEach(eq=>{
+    const days=getTrainDays(cat.name+'|'+eq.n);
+    if(!days.length) return;
+    html+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+      <span style="font-size:11px;font-weight:700;min-width:90px">${eq.n}</span>
+      ${DIAS.map((d,i)=>`<span style="font-size:10px;padding:2px 7px;border-radius:10px;font-weight:700;
+        background:${days.includes(i)?cat.color:'var(--bg)'};
+        color:${days.includes(i)?'#fff':'var(--text3)'};
+        border:1px solid ${days.includes(i)?cat.color:'var(--border)'}">${d}</span>`).join('')}
+    </div>`;
+  });
+  el.innerHTML=html||'<span style="font-size:12px;color:var(--text3)">Cap entrenador ha marcat els seus dies encara.</span>';
 }
 
 // ── Càrregues ─────────────────────────────────────────────────────
@@ -1430,6 +1549,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     DB.sessions=(data?.sessions)||{};
     DB.feedbacks=(data?.feedbacks)||{};
     DB.partits=(data?.partits)||{};
+    DB.traindays=(data?.traindays)||{};
     setConnected();
   }catch(e){applyConfig();setDisconnected();}
 
@@ -1437,7 +1557,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
   initCatRow();renderEntSelector();renderPlanner();
 
   // SSE per actualitzacions en temps real
-  openSSE('sessions');openSSE('feedbacks');openSSE('partits');
+  openSSE('sessions');openSSE('feedbacks');openSSE('partits');openSSE('traindays');
 });
 </script>
 </body>
