@@ -3,20 +3,16 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    if (path === '/auth' && request.method === 'POST') {
-      const { pin } = await request.json().catch(() => ({}));
-      if (pin === env.VICTOR_PIN) {
-        const resp = new Response(JSON.stringify({ ok: true }), {
-          headers: { 'Content-Type': 'application/json' },
-        });
-        resp.headers.set('Set-Cookie', 'cht_auth=1; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=28800');
-        return resp;
-      }
-      return new Response(JSON.stringify({ ok: false }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
+if (pin === env.VICTOR_PIN) {
+  const resp = new Response(null, { status: 302 });
+  resp.headers.set('Location', '/');
+  resp.headers.set('Set-Cookie', 'cht_auth=1; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=28800');
+  return resp;
+}
+return new Response(JSON.stringify({ ok: false }), {
+  status: 401,
+  headers: { 'Content-Type': 'application/json' },
+});
 
     if (path === '/logout') {
       const resp = new Response(null, { status: 302 });
