@@ -603,14 +603,17 @@ async function fbGetAll(){const r=await fetch(FB+'/.json?shallow=false');if(!r.o
 
 // PIN verificat via Worker (/auth) — no hi ha PIN local
 async function tryPin(){
-  const input=document.getElementById('pin-input');
-  const errEl=document.getElementById('pin-error');
-  try{
-    const r=await fetch('/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:input.value})});
-    const data=await r.json();
-    if(data.ok){window.location.reload();}
-    else{errEl.textContent='PIN incorrecte';input.value='';input.focus();}
-  }catch(e){errEl.textContent='Error de connexió';}
+  const PIN='7159';
+  if(document.getElementById('pin-input').value===PIN){
+    ST.pinVerified=true;
+    sessionStorage.setItem('cht_pin','1');
+    document.getElementById('pin-modal').classList.add('hidden');
+    activateVictor();
+  }else{
+    document.getElementById('pin-error').textContent='PIN incorrecte';
+    document.getElementById('pin-input').value='';
+    document.getElementById('pin-input').focus();
+  }
 }
 
 const DIAS=['Dll','Dm','Dc','Dj','Dv','Ds','Dg'];
@@ -1574,7 +1577,7 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(
 document.addEventListener('DOMContentLoaded',async()=>{
   // Detecta si el Worker ja ha autenticat (cookie cht_auth=1 → pàgina recarregada)
   // En aquest cas activem directament el mode Víctor
-  const isAuth=document.cookie.includes('cht_auth=1');
+const isAuth=sessionStorage.getItem('cht_pin')==='1';
   try{
     const data=await fbGetAll();
     if(data?.config)loadConfig(data.config);else applyConfig();
