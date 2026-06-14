@@ -35,38 +35,14 @@ export default {
     const htmlResp = await env.ASSETS.fetch(new Request(new URL('/index.html', request.url)));
     const html = await htmlResp.text();
 
-    if (isVictor) {
-      return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
-    }
+    // Inyecta un meta tag que el HTML puede leer para saber si Víctor está autenticado
+    const finalHtml = html.replace(
+      '<meta name="theme-color"',
+      `<meta name="cht-victor" content="${isVictor ? '1' : '0'}">\n<meta name="theme-color"`
+    );
 
-    const protectedHtml = html.replace('</body>', `
-<script>
-window.addEventListener('DOMContentLoaded', function() {
-  window.tryPin = async function() {
-    const input = document.getElementById('pin-input');
-    const errEl = document.getElementById('pin-error');
-    try {
-      const r = await fetch('/auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pin: input.value })
-      });
-      const data = await r.json();
-      if (data.ok) {
-        window.location.reload();
-      } else {
-        errEl.textContent = 'PIN incorrecte';
-        input.value = '';
-        input.focus();
-      }
-    } catch(e) {
-      errEl.textContent = 'Error de connexió';
-    }
-  };
-});
-</script>
-</body>`);
-
-    return new Response(protectedHtml, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+    return new Response(finalHtml, {
+      headers: { 'Content-Type': 'text/html; charset=utf-8' },
+    });
   },
 };
