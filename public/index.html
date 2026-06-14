@@ -959,37 +959,28 @@ function getEqColor(cat,eq){return eq.color||cat.color;}
 function getEqLight(cat,eq){return eq.color?lightColor(eq.color):cat.light;}
 
 // ── PIN ───────────────────────────────────────────────────────────
-function tryPin(){
-  if(document.getElementById('pin-input').value===PIN){
-    ST.pinVerified=true;sessionStorage.setItem('cht_pin','1');
-    document.getElementById('pin-modal').classList.add('hidden');activateVictor();
-  }else{
-    document.getElementById('pin-error').textContent='PIN incorrecte';
-    document.getElementById('pin-input').value='';document.getElementById('pin-input').focus();
+async function tryPin(){
+  const input=document.getElementById('pin-input');
+  const errEl=document.getElementById('pin-error');
+  try{
+    const r=await fetch('/auth',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({pin:input.value})
+    });
+    const data=await r.json();
+    if(data.ok){
+      window.location.reload();
+    }else{
+      errEl.textContent='PIN incorrecte';
+      input.value='';
+      input.focus();
+    }
+  }catch(e){
+    errEl.textContent='Error de connexió';
   }
 }
-function activateVictor(){
-  ST.mode='victor';
-  document.getElementById('view-victor').classList.remove('hidden');
-  document.getElementById('view-entrenador').classList.add('hidden');
-  document.getElementById('mbtn-victor').classList.add('active');
-  document.getElementById('mbtn-ent').classList.remove('active');
-  initCatRow();updateLabels();renderPlanner();
-}
-function setMode(m){
-  if(m==='victor'){
-    if(ST.pinVerified||sessionStorage.getItem('cht_pin')==='1'){ST.pinVerified=true;activateVictor();return;}
-    document.getElementById('pin-modal').classList.remove('hidden');
-    setTimeout(()=>document.getElementById('pin-input').focus(),80);return;
-  }
-  ST.mode='entrenador';
-  document.getElementById('view-victor').classList.add('hidden');
-  document.getElementById('view-entrenador').classList.remove('hidden');
-  document.getElementById('mbtn-victor').classList.remove('active');
-  document.getElementById('mbtn-ent').classList.add('active');
-  renderEntSelector();
-}
-
+  
 // ── Tabs ──────────────────────────────────────────────────────────
 function setTab(t){
   ST.tab=t;
