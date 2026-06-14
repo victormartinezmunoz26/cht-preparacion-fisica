@@ -1,7 +1,3 @@
-import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
-import manifestJSON from '__STATIC_CONTENT_MANIFEST';
-const assetManifest = JSON.parse(manifestJSON);
-
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -39,39 +35,27 @@ export default {
 
     // ── Fitxers estàtics (manifest.json, sw.js, icons...) ────────
     if (path !== '/' && path !== '/index.html') {
-      try {
-        return await getAssetFromKV(
-          { request, waitUntil: ctx.waitUntil.bind(ctx) },
-          { ASSET_NAMESPACE: env.__STATIC_CONTENT, ASSET_MANIFEST: assetManifest }
-        );
-      } catch {
-        return new Response('Not found', { status: 404 });
-      }
+      return env.ASSETS.fetch(request);
     }
 
     // ── Llegir cookie ─────────────────────────────────────────────
     const cookie = request.headers.get('Cookie') || '';
     const isVictor = cookie.includes('cht_auth=1');
 
-    // ── Llegir index.html des de KV ───────────────────────────────
-    let html;
-    try {
-      const htmlResp = await getAssetFromKV(
-        { request: new Request(new URL('/index.html', request.url)), waitUntil: ctx.waitUntil.bind(ctx) },
-        { ASSET_NAMESPACE: env.__STATIC_CONTENT, ASSET_MANIFEST: assetManifest }
-      );
-      html = await htmlResp.text();
-    } catch (e) {
-      return new Response('Error carregant la app: ' + e.message, { status: 500 });
-    }
+    // ── Llegir index.html ─────────────────────────────────────────
+    const htmlResp = await env.ASSETS.fetch(
+      new Request(new URL('/index.html', request.url))
+    );
+    const html = await htmlResp.text();
 
+    // ── Víctor autenticat: HTML complet ───────────────────────────
     if (isVictor) {
       return new Response(html, {
         headers: { 'Content-Type': 'text/html; charset=utf-8' },
       });
     }
 
-    // ── No autenticat: injecta verificació PIN via servidor ───────
+    // ── No autenticat: PIN es verifica al servidor ────────────────
     const protectedHtml = html.replace('</body>', `
 <script>
 window.addEventListener('DOMContentLoaded', function() {
