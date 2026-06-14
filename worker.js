@@ -1,9 +1,13 @@
+import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
+import manifestJSON from '__STATIC_CONTENT_MANIFEST';
+const assetManifest = JSON.parse(manifestJSON);
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // Autenticació PIN (POST /auth)
+    // ── Autenticació PIN (POST /auth) ─────────────────────────────
     if (path === '/auth' && request.method === 'POST') {
       const { pin } = await request.json().catch(() => ({}));
       if (pin === env.VICTOR_PIN) {
@@ -22,7 +26,7 @@ export default {
       });
     }
 
-    // Logout
+    // ── Logout ────────────────────────────────────────────────────
     if (path === '/logout') {
       const resp = new Response(null, { status: 302 });
       resp.headers.set('Location', '/');
@@ -33,20 +37,33 @@ export default {
       return resp;
     }
 
-    // Llegir cookie
+    // ── Fitxers estàtics (manifest.json, sw.js, icons...) ────────
+    if (path !== '/' && path !== '/index.html') {
+      try {
+        return await getAssetFromKV(
+          { request, waitUntil: ctx.waitUntil.bind(ctx) },
+          { ASSET_NAMESPACE: env.__STATIC_CONTENT, ASSET_MANIFEST: assetManifest }
+        );
+      } catch {
+        return new Response('Not found', { status: 404 });
+      }
+    }
+
+    // ── Llegir cookie ─────────────────────────────────────────────
     const cookie = request.headers.get('Cookie') || '';
     const isVictor = cookie.includes('cht_auth=1');
 
-    // Fitxers estàtics (manifest, icons, sw.js...)
-    if (path !== '/' && path !== '/index.html') {
-      return env.ASSETS.fetch(request);
+    // ── Llegir index.html des de KV ───────────────────────────────
+    let html;
+    try {
+      const htmlResp = await getAssetFromKV(
+        { request: new Request(new URL('/index.html', request.url)), waitUntil: ctx.waitUntil.bind(ctx) },
+        { ASSET_NAMESPACE: env.__STATIC_CONTENT, ASSET_MANIFEST: assetManifest }
+      );
+      html = await htmlResp.text();
+    } catch (e) {
+      return new Response('Error carregant la app: ' + e.message, { status: 500 });
     }
-
-    // Llegir el HTML
-    const assetResp = await env.ASSETS.fetch(
-      new Request(new URL('/index.html', request.url))
-    );
-    const html = await assetResp.text();
 
     if (isVictor) {
       return new Response(html, {
@@ -54,7 +71,7 @@ export default {
       });
     }
 
-    // No autenticat: injecta verificació PIN via servidor
+    // ── No autenticat: injecta verificació PIN via servidor ───────
     const protectedHtml = html.replace('</body>', `
 <script>
 window.addEventListener('DOMContentLoaded', function() {
