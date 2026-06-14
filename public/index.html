@@ -76,14 +76,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .gbadge{font-size:9px;padding:1px 4px;border-radius:4px;font-weight:700}
 .bm{background:var(--blue-l);color:var(--brand)}
 .bf{background:var(--pink-l);color:var(--pink)}
-/* Drag & drop */
 .scell{padding:3px;cursor:pointer;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:44px;transition:background .15s;position:relative}
 .scell:last-child{border-right:none}
 .scell:active{background:var(--bg)}
 .scell.we-cell{background:rgba(0,0,0,.012)}
 .scell.drag-over{background:rgba(192,21,42,.08);border:2px dashed var(--brand)}
 .scell.dragging-source{opacity:.4}
-/* Sel mode */
 .scell.sel-mode{cursor:default}
 .scell.selected{outline:2px solid var(--brand);outline-offset:-2px;background:var(--blue-l)}
 .spill{padding:3px 4px;border-radius:6px;font-size:9px;font-weight:700;line-height:1.3;text-align:center;width:100%;cursor:grab}
@@ -99,7 +97,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .cbar-wrap{height:3px;background:rgba(0,0,0,.08);border-radius:3px;margin-top:2px;overflow:hidden}
 .cbar-fill{height:100%;border-radius:3px}
 .add-icon{font-size:22px;color:var(--text3);line-height:1}
-/* Copy week modal */
 .copy-week-modal{background:var(--surface);border-radius:20px 20px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom));width:100%;max-height:80dvh;overflow-y:auto}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;display:flex;align-items:flex-end}
 .modal{background:var(--surface);border-radius:20px 20px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom));width:100%;max-height:92dvh;overflow-y:auto}
@@ -178,12 +175,10 @@ textarea.fb-note{min-height:46px;font-size:12px;margin:7px 0 0;padding:9px 10px}
 .expand-btn{padding:5px 10px;font-size:10px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;background:var(--bg);color:var(--text2);font-weight:700;white-space:nowrap;flex-shrink:0}
 .session-detail{background:var(--bg);border-radius:var(--radius-sm);padding:12px;margin-top:8px;border:1px solid var(--border)}
 .session-detail-title{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-/* RPE slider */
 .rpe-row{margin:8px 0 12px}
 .rpe-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:4px}
 .rpe-val{font-weight:700;color:var(--brand);font-size:14px}
 input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;cursor:pointer}
-/* Calendari */
 .cal-dropdown{position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;box-shadow:0 8px 30px rgba(0,0,0,.15);width:280px}
 .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .cal-header span{font-size:13px;font-weight:700}
@@ -200,11 +195,9 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
 .week-lbl-btn{flex:1;text-align:center;font-size:13px;font-weight:700;background:none;border:none;cursor:pointer;color:var(--text);padding:4px 8px;border-radius:var(--radius-sm)}
 .week-lbl-btn:hover{background:var(--bg)}
 .week-lbl-btn.current-week::after{content:'● Setmana actual';display:block;font-size:9px;color:var(--brand);font-weight:700;margin-top:1px}
-/* Dies entrenament */
 .train-days-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
 .train-day-btn{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);background:var(--bg);color:var(--text2);font-size:10px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .train-day-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
-/* Configuració */
 .cfg-section-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--border)}
 .cat-cfg-block{background:var(--bg);border-radius:var(--radius-sm);padding:12px;margin-bottom:8px;border:1px solid var(--border)}
 .cat-cfg-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -216,7 +209,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
 .eq-cfg-row .del-btn{width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--red-b);border-radius:var(--radius-sm);background:var(--red-l);color:var(--red);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
 .add-eq-btn{width:100%;padding:8px;font-size:12px;border:1.5px dashed var(--border);border-radius:var(--radius-sm);cursor:pointer;background:transparent;color:var(--text2);font-weight:700;margin-top:4px}
 .color-preview{width:28px;height:28px;border-radius:50%;flex-shrink:0;border:2px solid rgba(0,0,0,.1)}
-/* Emoji picker */
 .emoji-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-bottom:14px}
 .emoji-opt{font-size:22px;padding:6px;border-radius:8px;cursor:pointer;text-align:center;border:2px solid transparent;background:var(--bg)}
 .emoji-opt:hover{background:var(--blue-l)}
@@ -236,15 +228,12 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
 .ent-tab{flex:1;padding:10px;font-size:12px;font-weight:700;border:2px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;background:var(--bg);color:var(--text2);text-align:center}
 .ent-tab.active{color:#fff;border-color:transparent}
 .ent-week-nav{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-/* Selecció multi-cel·la */
 .sel-toolbar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--brand);color:#fff;border-radius:var(--radius-sm);margin-bottom:10px;flex-wrap:wrap}
 .sel-toolbar span{font-size:12px;font-weight:700;flex:1}
 .sel-toolbar button{padding:6px 12px;font-size:11px;font-weight:700;border:1.5px solid rgba(255,255,255,.5);border-radius:6px;cursor:pointer;background:transparent;color:#fff}
 .sel-toolbar button.confirm{background:#fff;color:var(--brand);border-color:#fff}
-/* Botó del mode selecció al header del grid */
 .sel-mode-btn{padding:5px 10px;font-size:10px;font-weight:700;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;background:var(--bg);color:var(--text2)}
 .sel-mode-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
-/* Treure feedback btn */
 .clear-fb-btn{padding:5px 11px;font-size:10px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;background:var(--bg);color:var(--text3);font-weight:700;white-space:nowrap}
 .clear-fb-btn:hover{border-color:var(--red-b);color:var(--red);background:var(--red-l)}
 </style>
@@ -295,7 +284,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
     <button class="bnav-item" data-tab="exportar" onclick="setTab('exportar')"><i class="ti ti-send"></i><span>Exportar</span></button>
     <button class="bnav-item" data-tab="configuracio" onclick="setTab('configuracio')"><i class="ti ti-settings"></i><span>Config</span></button>
   </nav>
-
   <div id="tab-planificador" class="main">
     <div class="card">
       <div class="cat-row" id="cat-row"></div>
@@ -310,7 +298,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
         <button onclick="openCopyWeekModal()" title="Copiar setmana" style="width:34px;height:34px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">📋</button>
       </div>
     </div>
-    <!-- Toolbar selecció -->
     <div id="sel-toolbar" class="hidden">
       <div class="sel-toolbar">
         <span id="sel-count-lbl">0 sessions seleccionades</span>
@@ -319,10 +306,9 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
         <button onclick="toggleSelMode()" class="confirm">✓ Fet</button>
       </div>
     </div>
-    <!-- Toolbar enganxar -->
     <div id="paste-toolbar" class="hidden">
       <div class="sel-toolbar" style="background:#047857">
-        <span id="paste-count-lbl">0 sessions copiades — clica una cel·la per enganxar</span>
+        <span id="paste-count-lbl">0 sessions copiades</span>
         <button onclick="cancelPaste()" class="confirm" style="background:#fff;color:#047857">Cancel·lar</button>
       </div>
     </div>
@@ -345,7 +331,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
       <div id="horaris-resum"></div>
     </div>
   </div>
-
   <div id="tab-cargas" class="main hidden">
     <div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
@@ -361,7 +346,7 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
         <div class="legend-item"><div class="legend-sq" style="background:#FAEEDA;border:1px solid #BA7517"></div>Mitjana</div>
         <div class="legend-item"><div class="legend-sq" style="background:#FAECE7;border:1px solid #D85A30"></div>Alta</div>
         <div class="legend-item"><div class="legend-sq" style="background:#FCEBEB;border:1px solid #E24B4A"></div>Màxima</div>
-        <div class="legend-item"><div class="legend-sq" style="background:rgba(99,153,34,.5);border:1px solid #3B6D11"></div>RPE</div>
+        <div class="legend-item"><div class="legend-sq" style="background:rgba(59,109,17,.5);border:1px solid #3B6D11"></div>RPE</div>
       </div>
       <div id="cat-charts"></div>
     </div>
@@ -370,7 +355,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
       <div class="resumen-grid" id="carga-resumen"></div>
     </div>
   </div>
-
   <div id="tab-biblioteca" class="main hidden">
     <div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
@@ -381,7 +365,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
     </div>
     <div id="lib-detail-v"></div>
   </div>
-
   <div id="tab-exportar" class="main hidden">
     <div class="card">
       <div class="sec-label" style="margin-bottom:10px">Exportar</div>
@@ -418,8 +401,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
       </div>
     </div>
   </div>
-
-  <!-- Tab Configuració -->
   <div id="tab-configuracio" class="main hidden">
     <div class="card">
       <div class="cfg-section-title">🏟️ Club</div>
@@ -438,7 +419,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
       <div class="emoji-grid" id="cfg-emoji-grid"></div>
       <button onclick="saveClubConfig()" style="width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">Guardar canvis del club</button>
     </div>
-
     <div class="card">
       <div class="cfg-section-title">🎨 Aspecte visual</div>
       <label class="mlbl">Estil general</label>
@@ -457,7 +437,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
       <input type="text" id="cfg-topbar-sub" placeholder="Ex: Temporada 2024-25">
       <button onclick="saveVisualConfig()" style="width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">Guardar aspecte</button>
     </div>
-
     <div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
         <div class="cfg-section-title" style="margin:0;border:none;padding:0">📋 Categories i equips</div>
@@ -514,7 +493,7 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
   <div class="copy-week-modal">
     <div class="modal-handle"></div>
     <div class="modal-title">📋 Copiar setmana</div>
-    <div class="modal-sub">Copia totes les sessions de la setmana actual a una altra setmana</div>
+    <div class="modal-sub">Copia les sessions de la setmana actual a una altra setmana</div>
     <label class="mlbl">Setmana de destí</label>
     <div class="week-nav" style="margin-bottom:14px">
       <button class="wbtn" onclick="changeCopyTarget(-1)"><i class="ti ti-chevron-left"></i></button>
@@ -525,7 +504,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
     <select id="copy-scope">
       <option value="all">Totes les categories</option>
       <option value="cat">Només la categoria activa</option>
-      <option value="equip">Equip actiu (copiar a altra setmana)</option>
     </select>
     <label style="display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:12px;color:var(--text2);font-weight:700;cursor:pointer">
       <input type="checkbox" id="copy-overwrite" style="width:18px;height:18px;accent-color:var(--brand)">
@@ -623,7 +601,18 @@ async function fbSet(path,data){const r=await fetch(FB+path+'.json',{method:'PUT
 async function fbDel(path){const r=await fetch(FB+path+'.json',{method:'DELETE'});if(!r.ok)throw new Error('HTTP '+r.status);}
 async function fbGetAll(){const r=await fetch(FB+'/.json?shallow=false');if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
 
-const PIN='';
+// PIN verificat via Worker (/auth) — no hi ha PIN local
+async function tryPin(){
+  const input=document.getElementById('pin-input');
+  const errEl=document.getElementById('pin-error');
+  try{
+    const r=await fetch('/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:input.value})});
+    const data=await r.json();
+    if(data.ok){window.location.reload();}
+    else{errEl.textContent='PIN incorrecte';input.value='';input.focus();}
+  }catch(e){errEl.textContent='Error de connexió';}
+}
+
 const DIAS=['Dll','Dm','Dc','Dj','Dv','Ds','Dg'];
 const DIAS_FULL=['Dilluns','Dimarts','Dimecres','Dijous','Divendres','Dissabte','Diumenge'];
 const WE=[5,6];
@@ -645,14 +634,16 @@ let CFG={
 };
 
 function getCats(){return CFG.categories||[];}
-function getCatByName(name){return (CFG.categories||[]).find(c=>c.name===name);}
+function getCatByName(n){return (CFG.categories||[]).find(c=>c.name===n);}
 function lightColor(hex){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return `rgba(${r},${g},${b},0.12)`;}
+function getEqColor(cat,eq){return eq.color||cat.color;}
+function getEqLight(cat,eq){return eq.color?lightColor(eq.color):cat.light;}
 
 function applyConfig(){
   const {name,badge,color,emoji,img}=CFG.club;
   document.getElementById('club-name-lbl').textContent=name;
   const badgeEl=document.getElementById('club-badge');
-  if(img){badgeEl.innerHTML=`<img src="${img}" alt="${badge}" onerror="this.parentElement.innerHTML='${emoji||badge}'">`;badgeEl.style.fontSize='11px';}
+  if(img){badgeEl.innerHTML=`<img src="${img}" alt="${badge}" onerror="this.parentElement.textContent='${emoji||badge}'">`;badgeEl.style.fontSize='11px';}
   else{badgeEl.textContent=emoji||badge;badgeEl.style.fontSize=emoji?'20px':'11px';}
   document.documentElement.style.setProperty('--brand',color);
   document.getElementById('topbar').style.background=color;
@@ -669,12 +660,8 @@ let ST={
   expEquipos:{},expTab:'resum',
   libSelV:null,libSelE:null,
   catCharts:{},pinVerified:false,expandedDays:{},
-  copyTargetOff:1,
-  dragSrc:null,
-  selMode:false,
-  selCells:[],    // [{catName,team,di,wo,key}]
-  clipboard:[],   // [{data,srcDi}] — sessió copiada
-  pasteMode:false
+  copyTargetOff:1,dragSrc:null,
+  selMode:false,selCells:[],clipboard:[],pasteMode:false
 };
 
 function fk(k){return btoa(unescape(encodeURIComponent(String(k)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
@@ -682,7 +669,6 @@ function sk(catName,team,di,wo){return catName+'|'+team+'|'+di+'|'+wo;}
 function gS(k){return DB.sessions[fk(k)];}
 function gF(k){return DB.feedbacks[fk(k)];}
 function gP(k){return DB.partits[fk(k)];}
-
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2200);}
 
 // ── Calendari ─────────────────────────────────────────────────────
@@ -693,15 +679,11 @@ function toggleCal(calId){
   const now=new Date();
   if(!_calState[calId])_calState[calId]={year:now.getFullYear(),month:now.getMonth()};
   renderCal(calId);el.classList.remove('hidden');
-  setTimeout(()=>{
-    const close=e=>{if(!el.contains(e.target)&&e.target.id!==calId){el.classList.add('hidden');document.removeEventListener('click',close);}};
-    document.addEventListener('click',close);
-  },50);
+  setTimeout(()=>{const close=e=>{if(!el.contains(e.target)){el.classList.add('hidden');document.removeEventListener('click',close);}};document.addEventListener('click',close);},50);
 }
 function renderCal(calId){
   const el=document.getElementById(calId);if(!el)return;
-  const isEnt=calId==='ent-cal';
-  const {year,month}=_calState[calId];
+  const isEnt=calId==='ent-cal';const {year,month}=_calState[calId];
   const now=new Date();const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
   const firstDay=new Date(year,month,1);const daysInMonth=new Date(year,month+1,0).getDate();
   let startDow=firstDay.getDay()-1;if(startDow<0)startDow=6;
@@ -710,11 +692,7 @@ function renderCal(calId){
   const selSun=new Date(selMon);selSun.setDate(selMon.getDate()+6);
   const MESOS=['Gener','Febrer','Març','Abril','Maig','Juny','Juliol','Agost','Setembre','Octubre','Novembre','Desembre'];
   const DOWS=['Dl','Dm','Dc','Dj','Dv','Ds','Dg'];
-  let html=`<div class="cal-header">
-    <button onclick="event.stopPropagation();calNav('${calId}',-1)">‹</button>
-    <span>${MESOS[month]} ${year}</span>
-    <button onclick="event.stopPropagation();calNav('${calId}',1)">›</button>
-  </div><div class="cal-grid">${DOWS.map(d=>`<div class="cal-dow">${d}</div>`).join('')}`;
+  let html=`<div class="cal-header"><button onclick="event.stopPropagation();calNav('${calId}',-1)">‹</button><span>${MESOS[month]} ${year}</span><button onclick="event.stopPropagation();calNav('${calId}',1)">›</button></div><div class="cal-grid">${DOWS.map(d=>`<div class="cal-dow">${d}</div>`).join('')}`;
   for(let i=0;i<startDow;i++)html+=`<div></div>`;
   for(let d=1;d<=daysInMonth;d++){
     const date=new Date(year,month,d);const isToday=date.getTime()===today.getTime();
@@ -743,10 +721,13 @@ function calSelectDay(calId,year,month,day){
   document.getElementById(calId).classList.add('hidden');
 }
 
-// ── Dies entrenament ────────────────────────────────────────────
+// ── Dies entrenament ───────────────────────────────────────────────
 function getTrainDays(equipId){return DB.traindays?.[fk(equipId)]??[];}
 async function setTrainDays(equipId,days){
-  if(!DB.traindays)DB.traindays={};DB.traindays[fk(equipId)]=days;
+  if(!DB.traindays)DB.traindays={};
+  DB.traindays[fk(equipId)]=days;
+  // FIX: actualitza el planificador de Víctor en temps real
+  if(ST.mode==='victor')renderPlanner();
   try{await fbSet('/traindays/'+fk(equipId),days);}catch(e){dbg('TRAINDAYS ERR: '+e.message);}
 }
 function renderTrainDaysSelector(){
@@ -759,12 +740,12 @@ async function toggleTrainDay(di,btn){
   if(!ST.entEquipo)return;
   const days=[...getTrainDays(ST.entEquipo)];
   const idx=days.indexOf(di);if(idx>=0)days.splice(idx,1);else days.push(di);
-  await setTrainDays(ST.entEquipo,days);
   btn.className='train-day-btn'+(days.includes(di)?' active':'');
-  renderEntContent();if(ST.mode==='victor')renderPlanner();
+  await setTrainDays(ST.entEquipo,days);
+  renderEntContent();
 }
 
-// ── Week labels ───────────────────────────────────────────────────
+// ── Week labels ────────────────────────────────────────────────────
 function wLabel(o){
   const d=new Date();d.setDate(d.getDate()-d.getDay()+1+o*7);
   const d2=new Date(d);d2.setDate(d.getDate()+6);
@@ -782,14 +763,14 @@ function updateEntLabel(){
   if(el){el.textContent=wLabel(ST.entWeekOff);el.className='week-lbl-btn'+(ST.entWeekOff===0?' current-week':'');}
 }
 
-// ── Render ────────────────────────────────────────────────────────
+// ── Render ─────────────────────────────────────────────────────────
 function renderAll(){
   if(ST.mode==='victor'){renderPlanner();renderFbList();}
   else if(ST.entEquipo){renderEntContent();}
   if(ST.entTab==='biblioteca')renderBiblioteca('e');
 }
 
-// ── SSE ───────────────────────────────────────────────────────────
+// ── SSE ────────────────────────────────────────────────────────────
 const _sse={sessions:null,feedbacks:null,partits:null,traindays:null};
 const _sseTimer={sessions:null,feedbacks:null,partits:null,traindays:null};
 const SSE_TIMEOUT=45000;
@@ -821,7 +802,6 @@ function openSSE(node){
 }
 function setConnected(){document.getElementById('db-dot').style.background='#4ade80';document.getElementById('db-status').textContent='En directe';document.getElementById('refresh-btn').classList.remove('spinning');}
 function setDisconnected(){document.getElementById('db-dot').style.background='#f87171';document.getElementById('db-status').textContent='Reconnectant...';}
-
 async function manualRefresh(){
   const btn=document.getElementById('refresh-btn');btn.classList.add('spinning');
   try{
@@ -832,10 +812,10 @@ async function manualRefresh(){
     if(data?.config)loadConfig(data.config);
     setConnected();toast('✅ Dades actualitzades');renderAll();
   }catch(e){setDisconnected();toast('❌ Error de connexió');}
-  finally{btn.classList.remove('spinning');}
+  finally{document.getElementById('refresh-btn').classList.remove('spinning');}
 }
 
-// ── Opcions visuals ───────────────────────────────────────────────
+// ── Visual ─────────────────────────────────────────────────────────
 const VISUAL_STYLES={default:{radius:'12px',radiusSm:'8px'},compact:{radius:'6px',radiusSm:'4px'},rounded:{radius:'20px',radiusSm:'14px'}};
 const FONT_SIZES={small:'13px',medium:'15px',large:'17px'};
 let _visualCfg={style:'default',fontSize:'medium',topbarSub:''};
@@ -856,12 +836,17 @@ async function saveVisualConfig(){
   try{await fbSet('/config/visual',_visualCfg);}catch(e){dbg('VISUAL ERR: '+e.message);}
 }
 
-// ── Config ────────────────────────────────────────────────────────
+// ── Config ─────────────────────────────────────────────────────────
 function loadConfig(cfg){
   if(!cfg)return;
   if(cfg.club)CFG.club={...CFG.club,...cfg.club};
   if(cfg.categories&&Array.isArray(cfg.categories)&&cfg.categories.length){
-    CFG.categories=cfg.categories.map(c=>({...c,light:c.light||lightColor(c.color||'#888'),equips:Array.isArray(c.equips)?c.equips.map(e=>({...e})):[]}));
+    // FIX: preserva el color individual de cada equip en carregar config
+    CFG.categories=cfg.categories.map(c=>({
+      ...c,
+      light:c.light||lightColor(c.color||'#888'),
+      equips:Array.isArray(c.equips)?c.equips.map(e=>({...e})):[]
+    }));
   }
   if(cfg.visual){_visualCfg={..._visualCfg,...cfg.visual};applyVisualConfig(_visualCfg);}
   applyConfig();
@@ -891,7 +876,7 @@ async function saveCatsConfig(){
       const eqId=row.dataset.eqId;
       const n=row.querySelector('input[type=text]').value.trim();
       const g=row.querySelector('.g-toggle').dataset.g;
-      // color individual de l'equip
+      // FIX: recull el color individual de l'equip correctament
       const eqColorEl=row.querySelector('.eq-color-input');
       const eqColor=eqColorEl?eqColorEl.value:'';
       if(n)equips.push({id:eqId||('eq_'+Date.now()+'_'+Math.random().toString(36).slice(2,6)),n,g,color:eqColor});
@@ -899,8 +884,10 @@ async function saveCatsConfig(){
     newCats.push({id:catId||('cat_'+Date.now()),name:catName,color:catColor,light:lightColor(catColor),equips});
   });
   if(!newCats.length){toast('⚠️ Cal tenir almenys una categoria');return;}
-  CFG.categories=newCats;if(ST.catIdx>=CFG.categories.length)ST.catIdx=0;
-  applyConfig();initCatRow();toast('✅ Categories i equips guardats');
+  CFG.categories=newCats;
+  if(ST.catIdx>=CFG.categories.length)ST.catIdx=0;
+  applyConfig();initCatRow();renderPlanner();toast('✅ Categories i equips guardats');
+  // FIX: guarda categories senceres incloent color de cada equip
   try{await fbSet('/config/categories',CFG.categories);}catch(e){dbg('CATS ERR: '+e.message);}
 }
 function renderConfigTab(){
@@ -914,9 +901,7 @@ function renderConfigTab(){
     ['—',...CLUB_EMOJIS].map(e=>`<div class="emoji-opt${(emoji||'')===e&&e!=='—'?' sel':''}" data-emoji="${e==='—'?'':e}" onclick="selClubEmoji(this)">${e}</div>`).join('');
   applyVisualConfig(_visualCfg);renderCfgCats();
 }
-function selClubEmoji(el){
-  document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');
-}
+function selClubEmoji(el){document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');}
 function renderCfgCats(){
   document.getElementById('cfg-cats').innerHTML=(CFG.categories||[]).map(cat=>`
     <div class="cat-cfg-block" data-cat-id="${cat.id}">
@@ -926,13 +911,12 @@ function renderCfgCats(){
         <input type="text" class="cat-name-input" value="${cat.name}" placeholder="Nom categoria" style="flex:1;margin-bottom:0;font-weight:700">
         <button onclick="removeCategoria(this)" style="width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--red-b);border-radius:var(--radius-sm);background:var(--red-l);color:var(--red);cursor:pointer;font-size:16px">×</button>
       </div>
-      <div class="eq-list">${(cat.equips||[]).map(eq=>renderEqCfgRow(eq,cat.color)).join('')}
-      </div>
+      <div class="eq-list">${(cat.equips||[]).map(eq=>renderEqCfgRow(eq,cat.color)).join('')}</div>
       <button class="add-eq-btn" onclick="addEquip(this)">+ Afegir equip</button>
     </div>`).join('');
 }
 function renderEqCfgRow(eq,catColor){
-  const c=eq.color||catColor||'#888';
+  const c=eq.color||catColor||'#888888';
   return `<div class="eq-cfg-row" data-eq-id="${eq.id}">
     <input type="text" value="${eq.n}" placeholder="Nom equip" style="flex:1;min-width:80px">
     <button class="g-toggle ${eq.g}" data-g="${eq.g}" onclick="toggleGender(this)">${eq.g==='m'?'M':'F'}</button>
@@ -948,40 +932,36 @@ function addCategoria(){
 function removeCategoria(btn){if(!confirm('Eliminar categoria?'))return;btn.closest('.cat-cfg-block').remove();}
 function addEquip(btn){
   const row=document.createElement('div');row.className='eq-cfg-row';row.dataset.eqId='eq_'+Date.now();
-  const catColor=btn.closest('.cat-cfg-block').querySelector('.cat-color-input').value||'#888';
+  const catColor=btn.closest('.cat-cfg-block').querySelector('.cat-color-input').value||'#888888';
   row.innerHTML=`<input type="text" value="" placeholder="Nom equip" style="flex:1;min-width:80px"><button class="g-toggle m" data-g="m" onclick="toggleGender(this)">M</button><input type="color" class="eq-color-input" value="${catColor}" title="Color de l'equip" style="width:34px;height:34px;padding:2px 4px;margin-bottom:0;flex-shrink:0;border-radius:var(--radius-sm)"><button class="del-btn" onclick="this.closest('.eq-cfg-row').remove()">×</button>`;
   btn.closest('.cat-cfg-block').querySelector('.eq-list').appendChild(row);
 }
 function toggleGender(btn){const g=btn.dataset.g==='m'?'f':'m';btn.dataset.g=g;btn.className='g-toggle '+g;btn.textContent=g==='m'?'M':'F';}
 
-// Helper: retorna el color efectiu d'un equip (individual o de categoria)
-function getEqColor(cat,eq){return eq.color||cat.color;}
-function getEqLight(cat,eq){return eq.color?lightColor(eq.color):cat.light;}
-
-// ── PIN ───────────────────────────────────────────────────────────
-async function tryPin(){
-  const input=document.getElementById('pin-input');
-  const errEl=document.getElementById('pin-error');
-  try{
-    const r=await fetch('/auth',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({pin:input.value})
-    });
-    const data=await r.json();
-    if(data.ok){
-      window.location.reload();
-    }else{
-      errEl.textContent='PIN incorrecte';
-      input.value='';
-      input.focus();
-    }
-  }catch(e){
-    errEl.textContent='Error de connexió';
-  }
+// ── PIN / Mode ─────────────────────────────────────────────────────
+function activateVictor(){
+  ST.mode='victor';ST.pinVerified=true;
+  document.getElementById('view-victor').classList.remove('hidden');
+  document.getElementById('view-entrenador').classList.add('hidden');
+  document.getElementById('mbtn-victor').classList.add('active');
+  document.getElementById('mbtn-ent').classList.remove('active');
+  initCatRow();updateLabels();renderPlanner();
 }
-  
-// ── Tabs ──────────────────────────────────────────────────────────
+function setMode(m){
+  if(m==='victor'){
+    if(ST.pinVerified){activateVictor();return;}
+    document.getElementById('pin-modal').classList.remove('hidden');
+    setTimeout(()=>document.getElementById('pin-input').focus(),80);return;
+  }
+  ST.mode='entrenador';ST.pinVerified=false;
+  document.getElementById('view-victor').classList.add('hidden');
+  document.getElementById('view-entrenador').classList.remove('hidden');
+  document.getElementById('mbtn-victor').classList.remove('active');
+  document.getElementById('mbtn-ent').classList.add('active');
+  renderEntSelector();
+}
+
+// ── Tabs ───────────────────────────────────────────────────────────
 function setTab(t){
   ST.tab=t;
   ['planificador','cargas','biblioteca','exportar','configuracio'].forEach(x=>
@@ -1017,46 +997,33 @@ function currentCat(){return getCats()[ST.catIdx]||getCats()[0];}
 function changeWeek(d){ST.weekOff+=d;updateLabels();renderPlanner();}
 function changeEntWeek(d){ST.entWeekOff+=d;updateEntLabel();ST.expandedDays={};renderEntContent();}
 
-// ── Copiar setmana ────────────────────────────────────────────────
-function openCopyWeekModal(){
-  ST.copyTargetOff=ST.weekOff+1;
-  document.getElementById('copy-target-lbl').textContent=wLabel(ST.copyTargetOff);
-  document.getElementById('copy-week-overlay').classList.remove('hidden');
-}
+// ── Copiar setmana ─────────────────────────────────────────────────
+function openCopyWeekModal(){ST.copyTargetOff=ST.weekOff+1;document.getElementById('copy-target-lbl').textContent=wLabel(ST.copyTargetOff);document.getElementById('copy-week-overlay').classList.remove('hidden');}
 function closeCopyWeekModal(){document.getElementById('copy-week-overlay').classList.add('hidden');}
-function changeCopyTarget(d){
-  ST.copyTargetOff+=d;document.getElementById('copy-target-lbl').textContent=wLabel(ST.copyTargetOff);
-}
+function changeCopyTarget(d){ST.copyTargetOff+=d;document.getElementById('copy-target-lbl').textContent=wLabel(ST.copyTargetOff);}
 async function doCopyWeek(){
   const srcWo=ST.weekOff;const dstWo=ST.copyTargetOff;
   if(srcWo===dstWo){toast('⚠️ La setmana destí ha de ser diferent');return;}
   const scope=document.getElementById('copy-scope').value;
   const overwrite=document.getElementById('copy-overwrite').checked;
-  let cats,eqFilter=null;
-  if(scope==='all')cats=getCats();
-  else if(scope==='cat')cats=[currentCat()];
-  else{cats=[currentCat()];eqFilter=ST.entEquipo?.split('|')[1];}
+  const cats=scope==='cat'?[currentCat()]:getCats();
   let count=0;const promises=[];
-  cats.forEach(cat=>{
-    (cat.equips||[]).forEach(eq=>{
-      if(eqFilter&&eq.n!==eqFilter)return;
-      for(let di=0;di<7;di++){
-        const srcKey=sk(cat.name,eq.n,di,srcWo);const dstKey=sk(cat.name,eq.n,di,dstWo);
-        const srcData=gS(srcKey);if(!srcData)continue;
-        if(!overwrite&&gS(dstKey))continue;
-        DB.sessions[fk(dstKey)]={...srcData};count++;
-        promises.push(fbSet('/sessions/'+fk(dstKey),srcData));
-      }
-    });
-  });
+  cats.forEach(cat=>{(cat.equips||[]).forEach(eq=>{
+    for(let di=0;di<7;di++){
+      const srcKey=sk(cat.name,eq.n,di,srcWo);const dstKey=sk(cat.name,eq.n,di,dstWo);
+      const srcData=gS(srcKey);if(!srcData)continue;
+      if(!overwrite&&gS(dstKey))continue;
+      DB.sessions[fk(dstKey)]={...srcData};count++;
+      promises.push(fbSet('/sessions/'+fk(dstKey),srcData));
+    }
+  });});
   await Promise.allSettled(promises);
   closeCopyWeekModal();renderPlanner();toast(`✅ ${count} sessions copiades a ${wLabel(dstWo)}`);
 }
 
-// ── Mode selecció individual (planificador) ────────────────────────
+// ── Mode selecció ──────────────────────────────────────────────────
 function toggleSelMode(){
-  ST.selMode=!ST.selMode;
-  ST.selCells=[];ST.pasteMode=false;
+  ST.selMode=!ST.selMode;ST.selCells=[];ST.pasteMode=false;
   document.getElementById('sel-mode-btn').className='sel-mode-btn'+(ST.selMode?' active':'');
   document.getElementById('sel-toolbar').classList.toggle('hidden',!ST.selMode);
   document.getElementById('paste-toolbar').classList.add('hidden');
@@ -1065,45 +1032,32 @@ function toggleSelMode(){
 function toggleCellSel(catName,team,di,wo){
   const key=sk(catName,team,di,wo);
   const idx=ST.selCells.findIndex(c=>c.key===key);
-  if(idx>=0)ST.selCells.splice(idx,1);
-  else ST.selCells.push({catName,team,di,wo,key});
-  updateSelToolbar();
-  renderPlanner();
-}
-function updateSelToolbar(){
+  if(idx>=0)ST.selCells.splice(idx,1);else ST.selCells.push({catName,team,di,wo,key});
   document.getElementById('sel-count-lbl').textContent=`${ST.selCells.length} sessions seleccionades`;
+  renderPlanner();
 }
 function copySelSessions(){
   if(!ST.selCells.length){toast('⚠️ Selecciona almenys una sessió');return;}
-  // Guardem les dades de les sessions seleccionades
   ST.clipboard=ST.selCells.map(c=>({...c,data:{...gS(c.key)}})).filter(c=>c.data&&c.data.tipo);
-  if(!ST.clipboard.length){toast('⚠️ Les cel·les seleccionades no tenen sessió');return;}
+  if(!ST.clipboard.length){toast('⚠️ Les cel·les no tenen sessió');return;}
   ST.pasteMode=true;ST.selMode=false;ST.selCells=[];
   document.getElementById('sel-toolbar').classList.add('hidden');
   document.getElementById('paste-toolbar').classList.remove('hidden');
-  document.getElementById('paste-count-lbl').textContent=`${ST.clipboard.length} sessions copiades — clica una cel·la destí`;
+  document.getElementById('paste-count-lbl').textContent=`${ST.clipboard.length} sessions copiades — clica cel·la destí`;
   document.getElementById('sel-mode-btn').className='sel-mode-btn';
-  renderPlanner();toast('📋 Ara clica la primera cel·la destí');
+  renderPlanner();toast('📋 Clica la primera cel·la destí');
 }
-function cancelPaste(){
-  ST.pasteMode=false;ST.clipboard=[];
-  document.getElementById('paste-toolbar').classList.add('hidden');
-  renderPlanner();
-}
+function cancelPaste(){ST.pasteMode=false;ST.clipboard=[];document.getElementById('paste-toolbar').classList.add('hidden');renderPlanner();}
 async function pasteFromClipboard(catName,team,di,wo){
   if(!ST.clipboard.length)return;
-  // Enganxem relatiu: la primera cel·la del clipboard es mapeja a la cel·la destí
-  // Calculem el delta de dia del primer element (ignorem equips, enganxa a l'equip destí)
   const firstDi=ST.clipboard[0].di;const diDelta=di-firstDi;
   const promises=[];let count=0;
   ST.clipboard.forEach(c=>{
-    const newDi=(c.di+diDelta+7)%7;// wrapa dins la setmana
-    const newKey=sk(catName,team,newDi,wo);
+    const newDi=(c.di+diDelta+7)%7;const newKey=sk(catName,team,newDi,wo);
     DB.sessions[fk(newKey)]={...c.data};count++;
     promises.push(fbSet('/sessions/'+fk(newKey),c.data));
   });
-  await Promise.allSettled(promises);
-  cancelPaste();renderPlanner();toast(`✅ ${count} sessions enganxades`);
+  await Promise.allSettled(promises);cancelPaste();renderPlanner();toast(`✅ ${count} sessions enganxades`);
 }
 async function clearSelSessions(){
   if(!ST.selCells.length){toast('⚠️ Selecciona sessions primer');return;}
@@ -1111,43 +1065,32 @@ async function clearSelSessions(){
   const promises=[];
   ST.selCells.forEach(c=>{
     delete DB.sessions[fk(c.key)];delete DB.feedbacks[fk(c.key)];
-    promises.push(fbDel('/sessions/'+fk(c.key)));
-    promises.push(fbDel('/feedbacks/'+fk(c.key)));
+    promises.push(fbDel('/sessions/'+fk(c.key)));promises.push(fbDel('/feedbacks/'+fk(c.key)));
   });
   ST.selCells=[];await Promise.allSettled(promises);
-  updateSelToolbar();renderPlanner();toast('🗑️ Sessions eliminades');
+  document.getElementById('sel-count-lbl').textContent='0 sessions seleccionades';
+  renderPlanner();toast('🗑️ Sessions eliminades');
 }
 
-// ── Drag & drop entre dies ────────────────────────────────────────
-function onDragStart(e,catName,team,di,wo){
-  ST.dragSrc={catName,team,di,wo};e.dataTransfer.effectAllowed='move';
-  e.currentTarget.closest('.scell').classList.add('dragging-source');
-}
-function onDragEnd(e){
-  document.querySelectorAll('.scell').forEach(c=>{c.classList.remove('dragging-source','drag-over');});ST.dragSrc=null;
-}
+// ── Drag & drop ────────────────────────────────────────────────────
+function onDragStart(e,catName,team,di,wo){ST.dragSrc={catName,team,di,wo};e.dataTransfer.effectAllowed='move';e.currentTarget.closest('.scell').classList.add('dragging-source');}
+function onDragEnd(){document.querySelectorAll('.scell').forEach(c=>{c.classList.remove('dragging-source','drag-over');});ST.dragSrc=null;}
 function onDragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';e.currentTarget.classList.add('drag-over');}
 function onDragLeave(e){e.currentTarget.classList.remove('drag-over');}
 async function onDrop(e,catName,team,di,wo){
   e.preventDefault();e.currentTarget.classList.remove('drag-over');
   if(!ST.dragSrc)return;
-  const src=ST.dragSrc;
-  if(src.catName===catName&&src.team===team&&src.di===di&&src.wo===wo)return;
-  const srcKey=sk(src.catName,src.team,src.di,src.wo);
-  const dstKey=sk(catName,team,di,wo);
+  const src=ST.dragSrc;if(src.catName===catName&&src.team===team&&src.di===di&&src.wo===wo)return;
+  const srcKey=sk(src.catName,src.team,src.di,src.wo);const dstKey=sk(catName,team,di,wo);
   const srcData=gS(srcKey);if(!srcData)return;
   const dstData=gS(dstKey);
   DB.sessions[fk(dstKey)]={...srcData};
-  if(dstData){DB.sessions[fk(srcKey)]={...dstData};}else{delete DB.sessions[fk(srcKey)];}
+  if(dstData)DB.sessions[fk(srcKey)]={...dstData};else delete DB.sessions[fk(srcKey)];
   renderPlanner();toast('↔️ Sessió moguda');
-  try{
-    await fbSet('/sessions/'+fk(dstKey),srcData);
-    if(dstData)await fbSet('/sessions/'+fk(srcKey),dstData);
-    else await fbDel('/sessions/'+fk(srcKey));
-  }catch(ex){dbg('DRAG DROP ERR: '+ex.message);}
+  try{await fbSet('/sessions/'+fk(dstKey),srcData);if(dstData)await fbSet('/sessions/'+fk(srcKey),dstData);else await fbDel('/sessions/'+fk(srcKey));}catch(ex){dbg('DROP ERR: '+ex.message);}
 }
 
-// ── Exportar ──────────────────────────────────────────────────────
+// ── Exportar ───────────────────────────────────────────────────────
 function setExpTab(t){
   ST.expTab=t;
   ['resum','partits','feedback'].forEach(x=>{
@@ -1176,7 +1119,7 @@ function renderExpEquipos(){
 }
 function toggleExpEq(cat,name,btn){
   if(!ST.expEquipos[cat])ST.expEquipos[cat]={};
-  ST.expEquipos[cat][name]=ST.expEquipos[cat][name]===false?true:false;
+  ST.expEquipos[cat][name]=ST.expEquipos[cat][name]===false;
   btn.className='eq-btn'+(ST.expEquipos[cat][name]!==false?' active':'');
 }
 function renderExport(){
@@ -1190,8 +1133,7 @@ function renderExport(){
       const key=sk(catName,eq.n,di,wo);const s=gS(key);const isP=gP(key);const fb=gF(key);
       if(isP){hasSes=true;txt+=`  ${dia}: 🤾 PARTIT\n`;}
       else if(s){
-        hasSes=true;
-        txt+=`  ${dia}: ${{baja:'🟢',media:'🟡',alta:'🟠',max:'🔴'}[s.carga]} ${s.tipo}\n`;
+        hasSes=true;txt+=`  ${dia}: ${{baja:'🟢',media:'🟡',alta:'🟠',max:'🔴'}[s.carga]} ${s.tipo}\n`;
         if(s.nota)txt+=`    📌 ${s.nota}\n`;
         if(fb&&fb.status){
           const st={ok:'✅',parcial:'⚠️',no:'❌'}[fb.status];
@@ -1228,12 +1170,7 @@ function renderFeedbackExport(){
       for(let di=0;di<7;di++){
         const key=sk(cat.name,eq.n,di,wo);const s=gS(key);const fb=gF(key);
         if(gP(key))continue;
-        if(s){sessions++;
-          if(fb&&fb.status){feedback++;
-            if(fb.rpe){eqRpeSum+=fb.rpe;eqRpeCnt++;rpeSum+=fb.rpe;rpeCnt++;}
-            if(fb.quality){eqQualSum+=fb.quality;eqQualCnt++;qualSum+=fb.quality;qualCnt++;}
-          }
-        }
+        if(s){sessions++;if(fb&&fb.status){feedback++;if(fb.rpe){eqRpeSum+=fb.rpe;eqRpeCnt++;rpeSum+=fb.rpe;rpeCnt++;}if(fb.quality){eqQualSum+=fb.quality;eqQualCnt++;qualSum+=fb.quality;qualCnt++;}}}
       }
       totalSes+=sessions;totalFb+=feedback;
       const pct=sessions>0?Math.round(feedback/sessions*100):null;
@@ -1258,7 +1195,7 @@ function copyBox(boxId,btnId){
   });
 }
 
-// ── Modal tabs ────────────────────────────────────────────────────
+// ── Modal sessió ───────────────────────────────────────────────────
 function setModalTab(t){
   ST.modalTab=t;
   document.getElementById('mtab-bib').className='modal-tab'+(t==='biblioteca'?' active':'');
@@ -1316,7 +1253,7 @@ async function doDelSession(){
   try{await fbDel('/sessions/'+fk(key));await fbDel('/feedbacks/'+fk(key));}catch(e){dbg('DEL ERR: '+e.message);}
 }
 
-// ── Biblioteca ────────────────────────────────────────────────────
+// ── Biblioteca ─────────────────────────────────────────────────────
 let BIBLIOTECA=[
   {id:'hiit1',name:'HIIT 1',tipo:'HIIT',sub:'Individual',carga:'Alta-Màxima',mat:[],desc:'3 sèries de 40" treball / 20" descans.',ex:[{n:'Sentadella amb salt',d:''},{n:'Escalador',d:''},{n:'Soldadets',d:''},{n:'Planxa lateral',d:'40"'},{n:'Zancada amb salt',d:''},{n:'Flexions diamant',d:''},{n:'Elevació isquios',d:''}]},
   {id:'hiit2',name:'HIIT 2',tipo:'HIIT',sub:'Parelles',carga:'Alta-Màxima',mat:['Pilota medicinal','Cons'],desc:"Treball per parelles. 3 sèries de 40\"/20\".",ex:[{n:'Planxa picar mà',d:''},{n:'Flexions tocar mà',d:''},{n:'Passada medicinal',d:''},{n:'Squat agafats',d:''},{n:'Caigudes nòrdiques',d:''},{n:'Mirall COD',d:''}]},
@@ -1356,15 +1293,7 @@ function addMatRow(val=''){
 function addExRow(n='',d='',gif=''){
   const row=document.createElement('div');row.className='ex-edit-row';
   row.style.cssText='flex-wrap:wrap;gap:6px;margin-bottom:10px;padding:8px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border)';
-  row.innerHTML=`<div style="display:flex;gap:6px;width:100%">
-    <input type="text" placeholder="Nom exercici" style="flex:1.5;margin-bottom:0;font-size:13px" value="${String(n).replace(/"/g,'&quot;')}">
-    <input type="text" placeholder="Detall (sèries, temps...)" style="flex:1;margin-bottom:0;font-size:13px" value="${String(d).replace(/"/g,'&quot;')}">
-    <button class="ex-del" onclick="this.closest('.ex-edit-row').remove()">×</button>
-  </div>
-  <div style="display:flex;gap:6px;align-items:center;width:100%;margin-top:4px">
-    <input type="text" class="ex-gif-url" placeholder="URL del GIF (opcional)" style="flex:1;margin-bottom:0;font-size:12px" value="${String(gif).replace(/"/g,'&quot;')}" oninput="previewGif(this)">
-  </div>
-  ${gif?`<div class="gif-preview" style="width:100%;margin-top:6px"><img src="${gif}" style="width:100%;max-height:160px;object-fit:contain;border-radius:6px;background:#000" onerror="this.style.display='none'"></div>`:'<div class="gif-preview" style="width:100%"></div>'}`;
+  row.innerHTML=`<div style="display:flex;gap:6px;width:100%"><input type="text" placeholder="Nom exercici" style="flex:1.5;margin-bottom:0;font-size:13px" value="${String(n).replace(/"/g,'&quot;')}"><input type="text" placeholder="Detall" style="flex:1;margin-bottom:0;font-size:13px" value="${String(d).replace(/"/g,'&quot;')}"><button class="ex-del" onclick="this.closest('.ex-edit-row').remove()">×</button></div><div style="display:flex;gap:6px;align-items:center;width:100%;margin-top:4px"><input type="text" class="ex-gif-url" placeholder="URL del GIF (opcional)" style="flex:1;margin-bottom:0;font-size:12px" value="${String(gif).replace(/"/g,'&quot;')}" oninput="previewGif(this)"></div>${gif?`<div class="gif-preview" style="width:100%;margin-top:6px"><img src="${gif}" style="width:100%;max-height:160px;object-fit:contain;border-radius:6px;background:#000" onerror="this.style.display='none'"></div>`:'<div class="gif-preview" style="width:100%"></div>'}`;
   document.getElementById('bm-ex-list').appendChild(row);
 }
 function previewGif(input){
@@ -1376,16 +1305,9 @@ function previewGif(input){
 async function doSaveBib(){
   const name=document.getElementById('bm-name').value.trim();if(!name){toast('⚠️ Escriu un nom');return;}
   const id=_bibEditId||('bib_'+Date.now());
-  const entry={id,name,
-    tipo:document.getElementById('bm-tipo').value,
-    sub:document.getElementById('bm-sub').value.trim(),
-    carga:document.getElementById('bm-carga').value.trim(),
-    desc:document.getElementById('bm-desc').value.trim(),
+  const entry={id,name,tipo:document.getElementById('bm-tipo').value,sub:document.getElementById('bm-sub').value.trim(),carga:document.getElementById('bm-carga').value.trim(),desc:document.getElementById('bm-desc').value.trim(),
     mat:[...document.getElementById('bm-mat-list').querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean),
-    ex:[...document.getElementById('bm-ex-list').querySelectorAll('.ex-edit-row')].map(row=>{
-      const ins=[...row.querySelectorAll('input[type=text]')];
-      return{n:ins[0]?.value.trim()||'',d:ins[1]?.value.trim()||'',gif:ins[2]?.value.trim()||''};
-    }).filter(e=>e.n)
+    ex:[...document.getElementById('bm-ex-list').querySelectorAll('.ex-edit-row')].map(row=>{const ins=[...row.querySelectorAll('input[type=text]')];return{n:ins[0]?.value.trim()||'',d:ins[1]?.value.trim()||'',gif:ins[2]?.value.trim()||''};}).filter(e=>e.n)
   };
   const idx=BIBLIOTECA.findIndex(x=>x.id===id);if(idx>=0)BIBLIOTECA[idx]=entry;else BIBLIOTECA.push(entry);
   closeBibModal();renderBiblioteca('v');toast('✅ Sessió guardada');
@@ -1405,10 +1327,8 @@ function loadLibreFromDB(bibData){
   if(!bibData)return;
   Object.values(bibData).forEach(entry=>{
     if(!entry||!entry.id)return;
-    const safe={mat:[],ex:[],...entry};
-    safe.mat=Array.isArray(safe.mat)?safe.mat:[];safe.ex=Array.isArray(safe.ex)?safe.ex:[];
-    const idx=BIBLIOTECA.findIndex(b=>b.id===safe.id);
-    if(idx>=0)BIBLIOTECA[idx]=safe;else BIBLIOTECA.push(safe);
+    const safe={mat:[],ex:[],...entry};safe.mat=Array.isArray(safe.mat)?safe.mat:[];safe.ex=Array.isArray(safe.ex)?safe.ex:[];
+    const idx=BIBLIOTECA.findIndex(b=>b.id===safe.id);if(idx>=0)BIBLIOTECA[idx]=safe;else BIBLIOTECA.push(safe);
   });
 }
 function renderBiblioteca(t){
@@ -1426,34 +1346,20 @@ function renderLibDetail(id,t){
   const s=BIBLIOTECA.find(x=>x.id===id);if(!s)return;
   const tc=T_COL[s.tipo]||'#888';const tb=T_BG[s.tipo]||'#eee';
   const el=document.getElementById(t==='v'?'lib-detail-v':'lib-detail-e');if(!el)return;
-  el.innerHTML=`<div class="lib-detail">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-      <span class="lib-type" style="background:${tb};color:${tc}">${s.tipo}</span>
-      <h3>${s.name}</h3>
-      <span style="margin-left:auto;font-size:11px;color:var(--text2);font-weight:700">${s.carga}</span>
-    </div>
-    <p>${s.desc||''}</p>
-    <div class="sec-label">Material</div>
-    <div style="margin-bottom:12px">${(s.mat||[]).length?(s.mat||[]).map(m=>`<span class="mat-tag">📦 ${m}</span>`).join(''):'<span class="mat-tag">Sense material</span>'}</div>
-    ${(s.ex||[]).length?`<div class="sec-label">Exercicis (${s.ex.length})</div><div class="ex-grid">${s.ex.map(e=>`<div class="ex-item">${e.n}${e.d?`<div class="ex-sub">${e.d}</div>`:''}${e.gif?`<img src="${e.gif}" style="width:100%;margin-top:6px;border-radius:4px;max-height:120px;object-fit:contain;background:#000" onerror="this.style.display='none'">`:''}</div>`).join('')}</div>`:''}
-  </div>`;
+  el.innerHTML=`<div class="lib-detail"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="lib-type" style="background:${tb};color:${tc}">${s.tipo}</span><h3>${s.name}</h3><span style="margin-left:auto;font-size:11px;color:var(--text2);font-weight:700">${s.carga}</span></div><p>${s.desc||''}</p><div class="sec-label">Material</div><div style="margin-bottom:12px">${(s.mat||[]).length?(s.mat||[]).map(m=>`<span class="mat-tag">📦 ${m}</span>`).join(''):'<span class="mat-tag">Sense material</span>'}</div>${(s.ex||[]).length?`<div class="sec-label">Exercicis (${s.ex.length})</div><div class="ex-grid">${s.ex.map(e=>`<div class="ex-item">${e.n}${e.d?`<div class="ex-sub">${e.d}</div>`:''}${e.gif?`<img src="${e.gif}" style="width:100%;margin-top:6px;border-radius:4px;max-height:120px;object-fit:contain;background:#000" onerror="this.style.display='none'">`:''}</div>`).join('')}</div>`:''}</div>`;
 }
 
-// ── Planner ───────────────────────────────────────────────────────
+// ── Planner ────────────────────────────────────────────────────────
 function renderPlanner(){
   const cat=currentCat();if(!cat)return;
   const wo=ST.weekOff;updateLabels();
   let tot=0,comp=0,fbct=0,csum=0;
   const cols='106px repeat(7,1fr)';
-  let html=`<div class="pgrid-header" style="grid-template-columns:${cols}">
-    <div class="ghc" style="color:${cat.color}">${cat.name}</div>
-    ${DIAS.map((d,i)=>`<div class="ghc${WE.includes(i)?' we':''}">${d}</div>`).join('')}
-  </div>`;
+  let html=`<div class="pgrid-header" style="grid-template-columns:${cols}"><div class="ghc" style="color:${cat.color}">${cat.name}</div>${DIAS.map((d,i)=>`<div class="ghc${WE.includes(i)?' we':''}">${d}</div>`).join('')}</div>`;
   (cat.equips||[]).forEach(eq=>{
     const trainDays=getTrainDays(cat.name+'|'+eq.n);
     const eqColor=getEqColor(cat,eq);const eqLight=getEqLight(cat,eq);
-    html+=`<div class="trow" style="grid-template-columns:${cols};border-left:3px solid ${eqColor}">
-      <div class="tname" style="border-left:0">${eq.n}<span class="gbadge b${eq.g}">${eq.g==='m'?'M':'F'}</span></div>`;
+    html+=`<div class="trow" style="grid-template-columns:${cols};border-left:3px solid ${eqColor}"><div class="tname">${eq.n}<span class="gbadge b${eq.g}">${eq.g==='m'?'M':'F'}</span></div>`;
     for(let di=0;di<7;di++){
       const key=sk(cat.name,eq.n,di,wo);
       const s=gS(key);const fb=gF(key);const isP=gP(key);const isWE=WE.includes(di);
@@ -1461,19 +1367,18 @@ function renderPlanner(){
       if(s){tot++;csum+=CV[s.carga];if(fb){fbct++;if(fb.status==='ok')comp++;}}
       const cellStyle=isTrain&&!isWE?`border-top:2px solid ${eqColor};background:${eqLight}`:'';
       const isSel=ST.selCells.some(c=>c.key===key);
-      const dragAttrs=s&&!ST.selMode&&!ST.pasteMode?`draggable="true" ondragstart="onDragStart(event,'${cat.name}','${eq.n}',${di},${wo})" ondragend="onDragEnd(event)"`:'';
+      const dragAttrs=s&&!ST.selMode&&!ST.pasteMode?`draggable="true" ondragstart="onDragStart(event,'${cat.name}','${eq.n}',${di},${wo})" ondragend="onDragEnd()"` :'';
       const cellCls=`scell${isWE?' we-cell':''}${isSel?' selected':''}${ST.pasteMode?' sel-mode':''}`;
-      html+=`<div class="${cellCls}" style="${cellStyle}"
-        ${!ST.selMode&&!ST.pasteMode?`ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'${cat.name}','${eq.n}',${di},${wo})"` : ''}
-        onclick="openModal('${cat.name}','${eq.n}',${di},${wo})">`;
-      if(isP){html+=`<div class="spill p-partido">🤾 Partit</div>`;}
+      const dropAttrs=!ST.selMode&&!ST.pasteMode?`ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'${cat.name}','${eq.n}',${di},${wo})"` :'';
+      html+=`<div class="${cellCls}" style="${cellStyle}" ${dropAttrs} onclick="openModal('${cat.name}','${eq.n}',${di},${wo})">`;
+      if(isP)html+=`<div class="spill p-partido">🤾 Partit</div>`;
       else if(s){
         const sd=fb?{ok:'✓',parcial:'~',no:'✗'}[fb.status]||'':'';
         const cls=s.esLliure?'p-libre':(TIPO_CLS[s.tipo]||'p-descanso');
         const short=s.tipo.length>9?s.tipo.slice(0,9)+'…':s.tipo;
         const rpeStr=fb?.rpe?` R:${fb.rpe}`:'';
         html+=`<div class="spill ${cls}" ${dragAttrs} onclick="event.stopPropagation()" ondblclick="openModal('${cat.name}','${eq.n}',${di},${wo})">${short}${sd?' '+sd:''}${rpeStr}<div class="cbar-wrap"><div class="cbar-fill" style="width:${CV[s.carga]*25}%;background:${CC[s.carga]}"></div></div></div>`;
-      }else{html+=`<span class="add-icon">+</span>`;}
+      }else html+=`<span class="add-icon">+</span>`;
       html+='</div>';
     }
     html+='</div>';
@@ -1496,12 +1401,7 @@ function renderFbList(){
       const lbl={ok:'✅ Completada',parcial:'⚠️ Parcial',no:'❌ No realitzada'}[fb.status];
       const rpeStr=fb.rpe?` · RPE <strong>${fb.rpe}</strong>`:'';
       const qualStr=fb.quality?` · Qualitat <strong>${fb.quality}/10</strong>`:'';
-      items.push(`<div class="fb-row"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-        <span style="font-weight:700;font-size:12px">${eq.n}</span>
-        <span style="font-size:11px;color:var(--text2)">${dia}</span>
-        <span style="font-size:11px;color:var(--text2)">${s.tipo}</span>
-        <span style="margin-left:auto;font-size:11px">${lbl}${rpeStr}${qualStr}</span></div>
-        ${fb.note?`<div style="font-size:10px;font-style:italic;color:var(--text2);margin-top:3px">"${fb.note}"</div>`:''}</div>`);
+      items.push(`<div class="fb-row"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-weight:700;font-size:12px">${eq.n}</span><span style="font-size:11px;color:var(--text2)">${dia}</span><span style="font-size:11px;color:var(--text2)">${s.tipo}</span><span style="margin-left:auto;font-size:11px">${lbl}${rpeStr}${qualStr}</span></div>${fb.note?`<div style="font-size:10px;font-style:italic;color:var(--text2);margin-top:3px">"${fb.note}"</div>`:''}</div>`);
     }
   }));
   el.innerHTML=items.length?items.join(''):'<span style="font-size:12px;color:var(--text3)">Sense feedback aquesta setmana.</span>';
@@ -1514,68 +1414,44 @@ function renderHorarisResum(){
   (cat.equips||[]).forEach(eq=>{
     const days=getTrainDays(cat.name+'|'+eq.n);if(!days.length)return;
     const eqColor=getEqColor(cat,eq);
-    html+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
-      <span style="font-size:11px;font-weight:700;min-width:90px">${eq.n}</span>
-      ${DIAS.map((d,i)=>`<span style="font-size:10px;padding:2px 7px;border-radius:10px;font-weight:700;background:${days.includes(i)?eqColor:'var(--bg)'};color:${days.includes(i)?'#fff':'var(--text3)'};border:1px solid ${days.includes(i)?eqColor:'var(--border)'}">${d}</span>`).join('')}
-    </div>`;
+    html+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap"><span style="font-size:11px;font-weight:700;min-width:90px">${eq.n}</span>${DIAS.map((d,i)=>`<span style="font-size:10px;padding:2px 7px;border-radius:10px;font-weight:700;background:${days.includes(i)?eqColor:'var(--bg)'};color:${days.includes(i)?'#fff':'var(--text3)'};border:1px solid ${days.includes(i)?eqColor:'var(--border)'}">${d}</span>`).join('')}</div>`;
   });
   el.innerHTML=html||'<span style="font-size:12px;color:var(--text3)">Cap entrenador ha marcat els seus dies encara.</span>';
 }
 
-// ── Càrregues (amb RPE) ───────────────────────────────────────────
+// ── Càrregues ──────────────────────────────────────────────────────
 function renderCargas(){
   document.getElementById('c-week-lbl').textContent=wLabel(ST.weekOff);
   const container=document.getElementById('cat-charts');container.innerHTML='';
   Object.values(ST.catCharts).forEach(c=>{try{c.destroy();}catch(e){}});ST.catCharts={};
   const resumen={};
   getCats().forEach(cat=>{
-    const labels=[];
-    const dataCarga=[];const bgColors=[];
-    const dataRpe=[];const hasRpe=[];
+    const labels=[];const dataCarga=[];const bgColors=[];const dataRpe=[];
     let catSum=0,catCnt=0;
     (cat.equips||[]).forEach(eq=>{
       let sum=0,cnt=0,rpeSum=0,rpeCnt=0;
       for(let di=0;di<5;di++){
-        const key=sk(cat.name,eq.n,di,ST.weekOff);
-        const s=gS(key);const fb=gF(key);
-        if(s){sum+=CV[s.carga];cnt++;}
-        if(fb?.rpe){rpeSum+=fb.rpe;rpeCnt++;}
+        const key=sk(cat.name,eq.n,di,ST.weekOff);const s=gS(key);const fb=gF(key);
+        if(s){sum+=CV[s.carga];cnt++;}if(fb?.rpe){rpeSum+=fb.rpe;rpeCnt++;}
       }
       const avg=cnt>0?sum/cnt:0;
       labels.push(eq.n);dataCarga.push(sum);
       bgColors.push(avg===0?'#e5e7eb':avg<=1.5?'#EAF3DE':avg<=2.5?'#FAEEDA':avg<=3.5?'#FAECE7':'#FCEBEB');
-      dataRpe.push(rpeCnt>0?parseFloat((rpeSum/rpeCnt*4/10).toFixed(2)):null); // escala 1-10 → 0-4
-      hasRpe.push(rpeCnt>0);
+      dataRpe.push(rpeCnt>0?parseFloat((rpeSum/rpeCnt*4/10).toFixed(2)):null);
       catSum+=sum;catCnt+=cnt;
     });
     const avgCat=catCnt>0?Math.round(catSum/catCnt*10)/10:0;
     const lblCat=avgCat===0?'Sense dades':avgCat<=1.5?'Baixa':avgCat<=2.5?'Mitjana':avgCat<=3.5?'Alta':'Màxima';
     const block=document.createElement('div');block.className='cat-chart-block';
-    block.innerHTML=`<div class="cat-chart-title" style="background:${cat.light};color:${cat.color}">${cat.name} <span style="font-weight:400;font-size:11px;margin-left:6px">Mitja càrrega: ${lblCat}</span></div><div class="chart-wrap-sm"><canvas id="chart-${cat.id}"></canvas></div>`;
+    block.innerHTML=`<div class="cat-chart-title" style="background:${cat.light};color:${cat.color}">${cat.name} <span style="font-weight:400;font-size:11px;margin-left:6px">Mitja: ${lblCat}</span></div><div class="chart-wrap-sm"><canvas id="chart-${cat.id}"></canvas></div>`;
     container.appendChild(block);
     ST.catCharts[cat.id]=new Chart(document.getElementById('chart-'+cat.id),{
       type:'bar',
-      data:{
-        labels,
-        datasets:[
-          {label:'Càrrega',data:dataCarga,backgroundColor:bgColors,borderColor:bgColors,borderWidth:1,borderRadius:4,order:2},
-          {label:'RPE mitjà',data:dataRpe,type:'line',borderColor:'rgba(59,109,17,.6)',backgroundColor:'rgba(59,109,17,.15)',borderWidth:2,pointRadius:4,pointBackgroundColor:'rgba(59,109,17,.8)',tension:.3,order:1,spanGaps:false}
-        ]
-      },
-      options:{
-        responsive:true,maintainAspectRatio:false,
-        plugins:{
-          legend:{display:false},
-          tooltip:{callbacks:{label:ctx=>{
-            if(ctx.dataset.label==='RPE mitjà'&&ctx.raw!=null)return `RPE: ${(ctx.raw*10/4).toFixed(1)}`;
-            return `Càrrega: ${ctx.raw}`;
-          }}}
-        },
-        scales:{
-          x:{ticks:{font:{size:9},autoSkip:false},grid:{display:false}},
-          y:{min:0,max:20,ticks:{stepSize:5,font:{size:9}},grid:{color:'rgba(128,128,128,.08)'}}
-        }
-      }
+      data:{labels,datasets:[
+        {label:'Càrrega',data:dataCarga,backgroundColor:bgColors,borderColor:bgColors,borderWidth:1,borderRadius:4,order:2},
+        {label:'RPE',data:dataRpe,type:'line',borderColor:'rgba(59,109,17,.6)',backgroundColor:'rgba(59,109,17,.15)',borderWidth:2,pointRadius:4,pointBackgroundColor:'rgba(59,109,17,.8)',tension:.3,order:1,spanGaps:false}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.dataset.label==='RPE'&&ctx.raw!=null?`RPE: ${(ctx.raw*10/4).toFixed(1)}`:`Càrrega: ${ctx.raw}`}}},scales:{x:{ticks:{font:{size:9},autoSkip:false},grid:{display:false}},y:{min:0,max:20,ticks:{stepSize:5,font:{size:9}},grid:{color:'rgba(128,128,128,.08)'}}}}
     });
     resumen[cat.id]={cat,sum:catSum,cnt:catCnt};
   });
@@ -1586,7 +1462,7 @@ function renderCargas(){
   }).join('');
 }
 
-// ── Entrenador ────────────────────────────────────────────────────
+// ── Entrenador ─────────────────────────────────────────────────────
 function renderEntSelector(){
   document.getElementById('ent-selector').innerHTML=getCats().flatMap(cat=>
     (cat.equips||[]).map(eq=>{
@@ -1605,7 +1481,6 @@ function selEntEquipo(catName,name){
 }
 function toggleDayDetail(keyId){ST.expandedDays[keyId]=!ST.expandedDays[keyId];renderEntContent();}
 
-// ── Treure feedback ───────────────────────────────────────────────
 async function clearFeedback(catName,team,di,wo){
   if(!confirm('Eliminar tot el feedback d\'aquesta sessió?'))return;
   const key=sk(catName,team,di,wo);
@@ -1618,91 +1493,52 @@ async function clearFeedback(catName,team,di,wo){
 function renderEntContent(){
   const cont=document.getElementById('ent-content');if(!cont||!ST.entEquipo)return;
   const [catName,team]=ST.entEquipo.split('|');const wo=ST.entWeekOff;
-  const cat=getCatByName(catName)||{color:'#C0152A',light:'#FDEAEA',name:catName};
+  const cat=getCatByName(catName)||{color:'#C0152A',light:'#FDEAEA',name:catName,equips:[]};
   const eqObj=(cat.equips||[]).find(e=>e.n===team)||{};
   const eqColor=getEqColor(cat,eqObj);const eqLight=getEqLight(cat,eqObj);
   updateEntLabel();
   const trainDays=getTrainDays(ST.entEquipo);
-  let html=`<div class="card" style="border-top:3px solid ${eqColor}">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div><span style="font-size:15px;font-weight:700">${team}</span>
-        <span style="font-size:11px;color:${eqColor};font-weight:700;margin-left:8px;background:${eqLight};padding:2px 8px;border-radius:10px">${catName}</span>
-      </div>
-      <span style="font-size:11px;color:var(--text2)">${wLabel(wo)}</span>
-    </div>`;
+  let html=`<div class="card" style="border-top:3px solid ${eqColor}"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div><span style="font-size:15px;font-weight:700">${team}</span><span style="font-size:11px;color:${eqColor};font-weight:700;margin-left:8px;background:${eqLight};padding:2px 8px;border-radius:10px">${catName}</span></div><span style="font-size:11px;color:var(--text2)">${wLabel(wo)}</span></div>`;
   for(let di=0;di<7;di++){
     const dia=DIAS_FULL[di];const isWE=WE.includes(di);const isTrainDay=trainDays.includes(di);
     const key=sk(catName,team,di,wo);const s=gS(key);const fb=gF(key);const isP=gP(key);
     const keyId=fk(key);const expanded=!!ST.expandedDays[keyId];
     const rowStyle=isTrainDay&&!isWE?`border-left:3px solid ${eqColor};padding-left:8px;background:${eqLight}`:'';
-    html+=`<div class="wday-row" style="${rowStyle}"><div class="wday-top">
-      <span class="wday-name${isWE?' we':''}">${dia}${isTrainDay&&!isWE?` <span style="font-size:9px;background:${eqColor};color:#fff;padding:1px 5px;border-radius:8px;margin-left:3px">Entren</span>`:''}</span>`;
+    html+=`<div class="wday-row" style="${rowStyle}"><div class="wday-top"><span class="wday-name${isWE?' we':''}">${dia}${isTrainDay&&!isWE?` <span style="font-size:9px;background:${eqColor};color:#fff;padding:1px 5px;border-radius:8px;margin-left:3px">Entren</span>`:''}</span>`;
     if(isP){
       html+=`<span class="spill p-partido" style="flex:none;padding:4px 10px;font-size:11px">🤾 Partit</span><button class="partido-btn active" style="margin-left:auto" onclick="togglePartit('${catName}','${team}',${di},${wo})">✅ Treure</button>`;
     }else if(isWE){
       html+=`<span style="font-size:11px;color:var(--text3);font-style:italic">Cap activitat</span><button class="partido-btn" style="margin-left:auto" onclick="togglePartit('${catName}','${team}',${di},${wo})">🤾 Marcar partit</button>`;
     }else if(s){
       const cls=s.esLliure?'p-libre':(TIPO_CLS[s.tipo]||'p-descanso');
-      html+=`<span class="spill ${cls}" style="flex:none;padding:4px 10px;font-size:11px">${s.tipo}</span>
-        <button class="expand-btn" onclick="toggleDayDetail('${keyId}')" style="margin-left:6px">${expanded?'▲ Tancar':'▼ Detalls'}</button>
-        <div style="margin-left:auto;display:flex;gap:4px">
-          <button class="fbbtn${fb&&fb.status==='ok'?' ok':''}" onclick="setFb('${catName}','${team}',${di},${wo},'ok')">✅</button>
-          <button class="fbbtn${fb&&fb.status==='parcial'?' parcial':''}" onclick="setFb('${catName}','${team}',${di},${wo},'parcial')">⚠️</button>
-          <button class="fbbtn${fb&&fb.status==='no'?' no':''}" onclick="setFb('${catName}','${team}',${di},${wo},'no')">❌</button>
-        </div>`;
+      html+=`<span class="spill ${cls}" style="flex:none;padding:4px 10px;font-size:11px">${s.tipo}</span><button class="expand-btn" onclick="toggleDayDetail('${keyId}')" style="margin-left:6px">${expanded?'▲ Tancar':'▼ Detalls'}</button><div style="margin-left:auto;display:flex;gap:4px"><button class="fbbtn${fb&&fb.status==='ok'?' ok':''}" onclick="setFb('${catName}','${team}',${di},${wo},'ok')">✅</button><button class="fbbtn${fb&&fb.status==='parcial'?' parcial':''}" onclick="setFb('${catName}','${team}',${di},${wo},'parcial')">⚠️</button><button class="fbbtn${fb&&fb.status==='no'?' no':''}" onclick="setFb('${catName}','${team}',${di},${wo},'no')">❌</button></div>`;
     }else{
       html+=`<span style="font-size:11px;color:var(--text3)">Sense sessió</span>`;
     }
     html+='</div>';
-
-    // Desglose expandit
     if(s&&expanded){
       html+=`<div class="session-detail">`;
       if(s.nota)html+=`<div class="session-detail-title">📌 Nota</div><div style="font-size:12px;margin-bottom:10px;font-style:italic">${s.nota}</div>`;
       if(s.esLliure&&s.desc)html+=`<div class="session-detail-title">📝 Prescripció</div><div style="font-size:12px;margin-bottom:10px;white-space:pre-wrap">${s.desc}</div>`;
-      if(!s.esLliure){
-        const lib=BIBLIOTECA.find(l=>l.name===s.tipo);
-        if(lib){
-          if(lib.desc)html+=`<div class="session-detail-title">ℹ️ Descripció</div><div style="font-size:12px;color:var(--text2);margin-bottom:10px">${lib.desc}</div>`;
-          if((lib.mat||[]).length)html+=`<div class="session-detail-title">🎒 Material</div><div style="margin-bottom:10px">${lib.mat.map(m=>`<span class="mat-tag">📦 ${m}</span>`).join('')}</div>`;
-          if((lib.ex||[]).length)html+=`<div class="session-detail-title">💪 Exercicis</div><div class="ex-grid">${lib.ex.map(e=>`<div class="ex-item">${e.n}${e.d?`<div class="ex-sub">${e.d}</div>`:''}${e.gif?`<img src="${e.gif}" style="width:100%;margin-top:6px;border-radius:4px;max-height:120px;object-fit:contain;background:#000" onerror="this.style.display='none'">`:''}</div>`).join('')}</div>`;
-        }
-      }
+      if(!s.esLliure){const lib=BIBLIOTECA.find(l=>l.name===s.tipo);if(lib){if(lib.desc)html+=`<div class="session-detail-title">ℹ️ Descripció</div><div style="font-size:12px;color:var(--text2);margin-bottom:10px">${lib.desc}</div>`;if((lib.mat||[]).length)html+=`<div class="session-detail-title">🎒 Material</div><div style="margin-bottom:10px">${lib.mat.map(m=>`<span class="mat-tag">📦 ${m}</span>`).join('')}</div>`;if((lib.ex||[]).length)html+=`<div class="session-detail-title">💪 Exercicis</div><div class="ex-grid">${lib.ex.map(e=>`<div class="ex-item">${e.n}${e.d?`<div class="ex-sub">${e.d}</div>`:''}${e.gif?`<img src="${e.gif}" style="width:100%;margin-top:6px;border-radius:4px;max-height:120px;object-fit:contain;background:#000" onerror="this.style.display='none'">`:''}</div>`).join('')}</div>`;}}
       html+=`</div>`;
     }
-
-    // Feedback: valoració + botó treure
     if(s&&!isWE&&fb&&fb.status){
-      const keyId2=fk(key);
-      html+=`
-        <div style="margin-top:8px;padding:10px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border)">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <div class="session-detail-title" style="margin:0">📊 Valoració de la sessió</div>
-            <button class="clear-fb-btn" onclick="clearFeedback('${catName}','${team}',${di},${wo})">🗑️ Treure feedback</button>
-          </div>
-          <div class="rpe-row">
-            <div class="rpe-label">
-              <span>💪 Esforç percebut (RPE)</span>
-              <span class="rpe-val" id="rpe-val-${keyId2}">${fb.rpe||5}</span>
-            </div>
-            <input type="range" min="1" max="10" value="${fb.rpe||5}"
-              oninput="document.getElementById('rpe-val-${keyId2}').textContent=this.value"
-              onchange="saveFbField('${catName}','${team}',${di},${wo},'rpe',parseInt(this.value))">
-            <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text3);margin-top:2px"><span>1 Suau</span><span>10 Màxim</span></div>
-          </div>
-          <div class="rpe-row">
-            <div class="rpe-label">
-              <span>⭐ Qualitat de l'entrenament</span>
-              <span class="rpe-val" id="qual-val-${keyId2}">${fb.quality||5}</span>
-            </div>
-            <input type="range" min="1" max="10" value="${fb.quality||5}"
-              oninput="document.getElementById('qual-val-${keyId2}').textContent=this.value"
-              onchange="saveFbField('${catName}','${team}',${di},${wo},'quality',parseInt(this.value))">
-            <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text3);margin-top:2px"><span>1 Dolent</span><span>10 Excel·lent</span></div>
-          </div>
-          <textarea class="fb-note" id="fbn-${keyId2}" placeholder="Nota per a Víctor...">${fb.note||''}</textarea>
-          <button class="save-note-btn" onclick="saveFbNote('${catName}','${team}',${di},${wo})">Guardar nota</button>
-        </div>`;
+      const k2=fk(key);
+      html+=`<div style="margin-top:8px;padding:10px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <div class="session-detail-title" style="margin:0">📊 Valoració</div>
+          <button class="clear-fb-btn" onclick="clearFeedback('${catName}','${team}',${di},${wo})">🗑️ Treure feedback</button>
+        </div>
+        <div class="rpe-row"><div class="rpe-label"><span>💪 RPE</span><span class="rpe-val" id="rpe-val-${k2}">${fb.rpe||5}</span></div>
+        <input type="range" min="1" max="10" value="${fb.rpe||5}" oninput="document.getElementById('rpe-val-${k2}').textContent=this.value" onchange="saveFbField('${catName}','${team}',${di},${wo},'rpe',parseInt(this.value))">
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text3);margin-top:2px"><span>1 Suau</span><span>10 Màxim</span></div></div>
+        <div class="rpe-row"><div class="rpe-label"><span>⭐ Qualitat</span><span class="rpe-val" id="qual-val-${k2}">${fb.quality||5}</span></div>
+        <input type="range" min="1" max="10" value="${fb.quality||5}" oninput="document.getElementById('qual-val-${k2}').textContent=this.value" onchange="saveFbField('${catName}','${team}',${di},${wo},'quality',parseInt(this.value))">
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text3);margin-top:2px"><span>1 Dolent</span><span>10 Excel·lent</span></div></div>
+        <textarea class="fb-note" id="fbn-${k2}" placeholder="Nota per a Víctor...">${fb.note||''}</textarea>
+        <button class="save-note-btn" onclick="saveFbNote('${catName}','${team}',${di},${wo})">Guardar nota</button>
+      </div>`;
     }
     html+='</div>';
   }
@@ -1711,8 +1547,7 @@ function renderEntContent(){
 
 async function saveFbField(catName,team,di,wo,field,value){
   const key=sk(catName,team,di,wo);const prev=gF(key)||{};
-  const data={...prev,[field]:value};
-  if(!data.status)data.status='ok';
+  const data={...prev,[field]:value};if(!data.status)data.status='ok';
   DB.feedbacks[fk(key)]=data;
   try{await fbSet('/feedbacks/'+fk(key),data);}catch(e){dbg('saveFbField ERR: '+e.message);}
 }
@@ -1724,8 +1559,7 @@ async function togglePartit(catName,team,di,wo){
 }
 async function setFb(catName,team,di,wo,status){
   const key=sk(catName,team,di,wo);const prev=gF(key)||{};
-  const data={...prev,status};
-  DB.feedbacks[fk(key)]=data;renderEntContent();toast('✅ Feedback guardat');
+  const data={...prev,status};DB.feedbacks[fk(key)]=data;renderEntContent();toast('✅ Feedback guardat');
   try{await fbSet('/feedbacks/'+fk(key),data);}catch(e){dbg('setFb ERR: '+e.message);}
 }
 async function saveFbNote(catName,team,di,wo){
@@ -1733,11 +1567,14 @@ async function saveFbNote(catName,team,di,wo){
   if(el){const data={...prev,note:el.value};DB.feedbacks[fk(key)]=data;toast('📝 Nota guardada');try{await fbSet('/feedbacks/'+fk(key),data);}catch(e){dbg('saveFbNote ERR: '+e.message);}}
 }
 
-// ── PWA ───────────────────────────────────────────────────────────
+// ── PWA ────────────────────────────────────────────────────────────
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(e=>dbg('SW ERR: '+e));
 
-// ── Init ──────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded',async ()=>{
+// ── Init ───────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',async()=>{
+  // Detecta si el Worker ja ha autenticat (cookie cht_auth=1 → pàgina recarregada)
+  // En aquest cas activem directament el mode Víctor
+  const isAuth=document.cookie.includes('cht_auth=1');
   try{
     const data=await fbGetAll();
     if(data?.config)loadConfig(data.config);else applyConfig();
@@ -1747,7 +1584,12 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     setConnected();
   }catch(e){applyConfig();setDisconnected();}
   updateLabels();updateEntLabel();
-  initCatRow();renderEntSelector();renderPlanner();
+  if(isAuth){
+    ST.pinVerified=true;
+    activateVictor();
+  }else{
+    initCatRow();renderEntSelector();renderPlanner();
+  }
   openSSE('sessions');openSSE('feedbacks');openSSE('partits');openSSE('traindays');
 });
 </script>
