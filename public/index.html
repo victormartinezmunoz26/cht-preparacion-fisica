@@ -608,8 +608,11 @@ async function tryPin(){
   try{
     const r=await fetch('/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:input.value})});
     const data=await r.json();
-    if(data.ok){window.location.reload();}
-    else{errEl.textContent='PIN incorrecte';input.value='';input.focus();}
+    if(data.ok){
+      window.location.href=window.location.href;
+    }else{
+      errEl.textContent='PIN incorrecte';input.value='';input.focus();
+    }
   }catch(e){errEl.textContent='Error de connexió';}
 }
 
