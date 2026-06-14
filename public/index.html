@@ -1574,7 +1574,7 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(
 document.addEventListener('DOMContentLoaded',async()=>{
   // Detecta si el Worker ja ha autenticat (cookie cht_auth=1 → pàgina recarregada)
   // En aquest cas activem directament el mode Víctor
-  const isAuth=document.cookie.includes('cht_auth=1');
+const isAuth=document.querySelector('meta[name="cht-victor"]')?.content==='1';
   try{
     const data=await fbGetAll();
     if(data?.config)loadConfig(data.config);else applyConfig();
