@@ -623,7 +623,7 @@ async function fbSet(path,data){const r=await fetch(FB+path+'.json',{method:'PUT
 async function fbDel(path){const r=await fetch(FB+path+'.json',{method:'DELETE'});if(!r.ok)throw new Error('HTTP '+r.status);}
 async function fbGetAll(){const r=await fetch(FB+'/.json?shallow=false');if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
 
-const PIN='7159';
+const PIN='';
 const DIAS=['Dll','Dm','Dc','Dj','Dv','Ds','Dg'];
 const DIAS_FULL=['Dilluns','Dimarts','Dimecres','Dijous','Divendres','Dissabte','Diumenge'];
 const WE=[5,6];
