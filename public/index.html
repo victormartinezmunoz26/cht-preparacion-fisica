@@ -606,13 +606,9 @@ async function tryPin(){
   const input=document.getElementById('pin-input');
   const errEl=document.getElementById('pin-error');
   try{
-    const r=await fetch('/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:input.value})});
-    const data=await r.json();
-    if(data.ok){
-      window.location.href=window.location.href;
-    }else{
-      errEl.textContent='PIN incorrecte';input.value='';input.focus();
-    }
+    const r=await fetch('/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:input.value}),redirect:'follow'});
+    if(r.ok||r.redirected){window.location.href='/';}
+    else{errEl.textContent='PIN incorrecte';input.value='';input.focus();}
   }catch(e){errEl.textContent='Error de connexió';}
 }
 
@@ -624,7 +620,7 @@ const CC={baja:'#639922',media:'#BA7517',alta:'#D85A30',max:'#E24B4A'};
 const T_COL={HIIT:'#185FA5',Fuerza:'#534AB7',Funcional:'#854F0B',Carrera:'#3B6D11',Gym:'#993556',Libre:'#3730A3'};
 const T_BG={HIIT:'#E6F1FB',Fuerza:'#EEEDFE',Funcional:'#FAEEDA',Carrera:'#EAF3DE',Gym:'#FBEAF0',Libre:'#F0F4FF'};
 const TIPO_CLS={'HIIT 1':'p-hiit','HIIT 2':'p-hiit','Fuerza Piernas':'p-fuerza','Fuerza Torso':'p-fuerza','Funcional 1':'p-funcional','Funcional 2':'p-funcional','Carrera Continua':'p-carrera','Carrera Intervalos Cortos':'p-carrera','Carrera Intervalos Largos':'p-carrera','Sprints Repetidos':'p-carrera','Circuito COD':'p-carrera','Gym Viernes':'p-gym','Descanso':'p-descanso'};
-const CLUB_EMOJIS=['⚽','🏀','🏐','🤾','🏋️','🥊','🎾','🏊','🚴','🏃','⚡','🔥','💪','🏆','⭐','🦁','🐯','🦅','🦊','🐺','🔵','🔴','⚫','🟡','🟢','🟠','🟣','🔷'];
+const CLUB_EMOJIS=['⚽','🏀','🏐','🤾','🏋️','🥊','🎾','🏊','🚴','🏃','⚡','💪','🏆','🔵','🔴','⚫','🟡','🟢','🟠','🟣',];
 
 let CFG={
   club:{name:'Handbol Terrassa',badge:'CHT',color:'#C0152A',emoji:'',img:''},
