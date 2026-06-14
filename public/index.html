@@ -82,7 +82,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .scell.we-cell{background:rgba(0,0,0,.012)}
 .scell.drag-over{background:rgba(192,21,42,.08);border:2px dashed var(--brand)}
 .scell.dragging-source{opacity:.4}
-.scell.sel-mode{cursor:default}
 .scell.selected{outline:2px solid var(--brand);outline-offset:-2px;background:var(--blue-l)}
 .spill{padding:3px 4px;border-radius:6px;font-size:9px;font-weight:700;line-height:1.3;text-align:center;width:100%;cursor:grab}
 .spill:active{cursor:grabbing}
@@ -294,21 +293,21 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
           <button class="wbtn" onclick="changeWeek(1)"><i class="ti ti-chevron-right"></i></button>
           <div id="victor-cal" class="cal-dropdown hidden"></div>
         </div>
-        <button id="sel-mode-btn" class="sel-mode-btn" onclick="toggleSelMode()" title="Mode selecció">☑️</button>
-        <button onclick="openCopyWeekModal()" title="Copiar setmana" style="width:34px;height:34px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">📋</button>
+        <button id="sel-mode-btn" class="sel-mode-btn" onclick="toggleSelMode()">☑️</button>
+        <button onclick="openCopyWeekModal()" style="width:34px;height:34px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">📋</button>
       </div>
     </div>
     <div id="sel-toolbar" class="hidden">
       <div class="sel-toolbar">
         <span id="sel-count-lbl">0 sessions seleccionades</span>
-        <button onclick="copySelSessions()">📋 Copiar selecció</button>
+        <button onclick="copySelSessions()">📋 Copiar</button>
         <button onclick="clearSelSessions()">🗑️ Esborrar</button>
         <button onclick="toggleSelMode()" class="confirm">✓ Fet</button>
       </div>
     </div>
     <div id="paste-toolbar" class="hidden">
       <div class="sel-toolbar" style="background:#047857">
-        <span id="paste-count-lbl">0 sessions copiades</span>
+        <span id="paste-count-lbl">Sessions copiades — clica destí</span>
         <button onclick="cancelPaste()" class="confirm" style="background:#fff;color:#047857">Cancel·lar</button>
       </div>
     </div>
@@ -409,13 +408,13 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
       <label class="mlbl">Sigles (badge de text)</label>
       <input type="text" id="cfg-club-badge" placeholder="Ex: CHT" maxlength="4" style="text-transform:uppercase">
       <label class="mlbl">URL d'imatge del badge (opcional)</label>
-      <input type="text" id="cfg-club-img" placeholder="https://... (PNG, JPG o SVG)">
+      <input type="text" id="cfg-club-img" placeholder="https://...">
       <label class="mlbl">Color principal</label>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
         <input type="color" id="cfg-club-color" style="width:60px;margin-bottom:0">
         <span style="font-size:12px;color:var(--text2)">Color de la capçalera i accents</span>
       </div>
-      <label class="mlbl">Emoticona del club (badge)</label>
+      <label class="mlbl">Emoticona del club</label>
       <div class="emoji-grid" id="cfg-emoji-grid"></div>
       <button onclick="saveClubConfig()" style="width:100%;padding:12px;font-size:14px;font-weight:700;border:none;border-radius:var(--radius-sm);background:var(--brand);color:#fff;cursor:pointer">Guardar canvis del club</button>
     </div>
@@ -488,7 +487,7 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
   </div>
 </div>
 
-<!-- Modal copiar setmana -->
+<!-- Modals -->
 <div id="copy-week-overlay" class="modal-overlay hidden" onclick="if(event.target===this)closeCopyWeekModal()">
   <div class="copy-week-modal">
     <div class="modal-handle"></div>
@@ -507,7 +506,7 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
     </select>
     <label style="display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:12px;color:var(--text2);font-weight:700;cursor:pointer">
       <input type="checkbox" id="copy-overwrite" style="width:18px;height:18px;accent-color:var(--brand)">
-      Sobreescriure sessions existents a la setmana destí
+      Sobreescriure sessions existents
     </label>
     <div class="modal-actions">
       <button class="btn btn-cancel" onclick="closeCopyWeekModal()">Cancel·lar</button>
@@ -516,7 +515,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
   </div>
 </div>
 
-<!-- Modal Biblioteca -->
 <div id="bib-modal-overlay" class="modal-overlay hidden" onclick="if(event.target===this)closeBibModal()">
   <div class="bib-modal">
     <div class="modal-handle"></div>
@@ -551,7 +549,6 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
   </div>
 </div>
 
-<!-- Modal sessió -->
 <div id="modal-overlay" class="modal-overlay hidden" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -594,6 +591,7 @@ input[type=range]{width:100%;margin:0;accent-color:var(--brand);height:6px;curso
 
 <script>
 const FB='https://cht-preparacionfisica-default-rtdb.europe-west1.firebasedatabase.app';
+const PIN='7159';
 function dbg(msg){try{const p=document.getElementById('dbg-panel');if(p){p.style.display='block';p.textContent=String(msg).slice(0,1200);}console.log(msg);}catch(e){}}
 window.addEventListener('error',e=>dbg('ERROR: '+e.message));
 window.addEventListener('unhandledrejection',e=>dbg('PROMISE: '+(e.reason?.message||String(e.reason))));
@@ -601,14 +599,10 @@ async function fbSet(path,data){const r=await fetch(FB+path+'.json',{method:'PUT
 async function fbDel(path){const r=await fetch(FB+path+'.json',{method:'DELETE'});if(!r.ok)throw new Error('HTTP '+r.status);}
 async function fbGetAll(){const r=await fetch(FB+'/.json?shallow=false');if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
 
-// PIN verificat via Worker (/auth) — no hi ha PIN local
-async function tryPin(){
-  const PIN='7159';
+function tryPin(){
   if(document.getElementById('pin-input').value===PIN){
-    ST.pinVerified=true;
-    sessionStorage.setItem('cht_pin','1');
-    document.getElementById('pin-modal').classList.add('hidden');
-    activateVictor();
+    ST.pinVerified=true;sessionStorage.setItem('cht_pin','1');
+    document.getElementById('pin-modal').classList.add('hidden');activateVictor();
   }else{
     document.getElementById('pin-error').textContent='PIN incorrecte';
     document.getElementById('pin-input').value='';
@@ -656,15 +650,12 @@ function applyConfig(){
 
 let DB={sessions:{},feedbacks:{},partits:{},traindays:{}};
 let ST={
-  mode:'entrenador',tab:'planificador',
-  catIdx:0,weekOff:0,entWeekOff:0,
+  mode:'entrenador',tab:'planificador',catIdx:0,weekOff:0,entWeekOff:0,
   modal:null,carga:null,modalTab:'biblioteca',
   entEquipo:null,entCat:null,entTab:'setmana',
-  expEquipos:{},expTab:'resum',
-  libSelV:null,libSelE:null,
-  catCharts:{},pinVerified:false,expandedDays:{},
-  copyTargetOff:1,dragSrc:null,
-  selMode:false,selCells:[],clipboard:[],pasteMode:false
+  expEquipos:{},expTab:'resum',libSelV:null,libSelE:null,
+  catCharts:{},pinVerified:false,expandedDays:{},copyTargetOff:1,
+  dragSrc:null,selMode:false,selCells:[],clipboard:[],pasteMode:false
 };
 
 function fk(k){return btoa(unescape(encodeURIComponent(String(k)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
@@ -674,7 +665,6 @@ function gF(k){return DB.feedbacks[fk(k)];}
 function gP(k){return DB.partits[fk(k)];}
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2200);}
 
-// ── Calendari ─────────────────────────────────────────────────────
 let _calState={};
 function toggleCal(calId){
   const el=document.getElementById(calId);if(!el)return;
@@ -724,12 +714,10 @@ function calSelectDay(calId,year,month,day){
   document.getElementById(calId).classList.add('hidden');
 }
 
-// ── Dies entrenament ───────────────────────────────────────────────
 function getTrainDays(equipId){return DB.traindays?.[fk(equipId)]??[];}
 async function setTrainDays(equipId,days){
   if(!DB.traindays)DB.traindays={};
   DB.traindays[fk(equipId)]=days;
-  // FIX: actualitza el planificador de Víctor en temps real
   if(ST.mode==='victor')renderPlanner();
   try{await fbSet('/traindays/'+fk(equipId),days);}catch(e){dbg('TRAINDAYS ERR: '+e.message);}
 }
@@ -748,7 +736,6 @@ async function toggleTrainDay(di,btn){
   renderEntContent();
 }
 
-// ── Week labels ────────────────────────────────────────────────────
 function wLabel(o){
   const d=new Date();d.setDate(d.getDate()-d.getDay()+1+o*7);
   const d2=new Date(d);d2.setDate(d.getDate()+6);
@@ -766,14 +753,12 @@ function updateEntLabel(){
   if(el){el.textContent=wLabel(ST.entWeekOff);el.className='week-lbl-btn'+(ST.entWeekOff===0?' current-week':'');}
 }
 
-// ── Render ─────────────────────────────────────────────────────────
 function renderAll(){
   if(ST.mode==='victor'){renderPlanner();renderFbList();}
-  else if(ST.entEquipo){renderEntContent();}
+  else if(ST.entEquipo)renderEntContent();
   if(ST.entTab==='biblioteca')renderBiblioteca('e');
 }
 
-// ── SSE ────────────────────────────────────────────────────────────
 const _sse={sessions:null,feedbacks:null,partits:null,traindays:null};
 const _sseTimer={sessions:null,feedbacks:null,partits:null,traindays:null};
 const SSE_TIMEOUT=45000;
@@ -782,23 +767,8 @@ function openSSE(node){
   clearTimeout(_sseTimer[node]);
   const es=new EventSource(FB+'/'+node+'.json');
   function resetTimer(){clearTimeout(_sseTimer[node]);_sseTimer[node]=setTimeout(()=>openSSE(node),SSE_TIMEOUT);}
-  es.addEventListener('put',e=>{
-    resetTimer();
-    try{
-      const {path,data}=JSON.parse(e.data);
-      if(path==='/'||path===''||path==null){DB[node]=data??{};}
-      else{const k=path.replace(/^\//,'');if(data==null){delete DB[node][k];}else{DB[node][k]=data;}}
-      setConnected();renderAll();
-    }catch(err){dbg('SSE put err: '+err);}
-  });
-  es.addEventListener('patch',e=>{
-    resetTimer();
-    try{
-      const {path,data}=JSON.parse(e.data);
-      const tgt=(path==='/'||path===''||path==null)?DB[node]:(DB[node][path.replace(/^\//,'')]=DB[node][path.replace(/^\//,'')]||{});
-      Object.assign(tgt,data??{});setConnected();renderAll();
-    }catch(err){dbg('SSE patch err: '+err);}
-  });
+  es.addEventListener('put',e=>{resetTimer();try{const {path,data}=JSON.parse(e.data);if(path==='/'||path===''||path==null){DB[node]=data??{};}else{const k=path.replace(/^\//,'');if(data==null){delete DB[node][k];}else{DB[node][k]=data;}}setConnected();renderAll();}catch(err){dbg('SSE put err: '+err);}});
+  es.addEventListener('patch',e=>{resetTimer();try{const {path,data}=JSON.parse(e.data);const tgt=(path==='/'||path===''||path==null)?DB[node]:(DB[node][path.replace(/^\//,'')]=DB[node][path.replace(/^\//,'')]||{});Object.assign(tgt,data??{});setConnected();renderAll();}catch(err){dbg('SSE patch err: '+err);}});
   es.addEventListener('cancel',()=>{try{es.close();}catch(e){}_sse[node]=null;setTimeout(()=>openSSE(node),3000);});
   es.onerror=()=>{setDisconnected();clearTimeout(_sseTimer[node]);_sseTimer[node]=setTimeout(()=>openSSE(node),10000);};
   _sse[node]=es;resetTimer();
@@ -809,16 +779,13 @@ async function manualRefresh(){
   const btn=document.getElementById('refresh-btn');btn.classList.add('spinning');
   try{
     const data=await fbGetAll();
-    DB.sessions=(data?.sessions)||{};DB.feedbacks=(data?.feedbacks)||{};
-    DB.partits=(data?.partits)||{};DB.traindays=(data?.traindays)||{};
-    if(data?.biblioteca)loadLibreFromDB(data.biblioteca);
-    if(data?.config)loadConfig(data.config);
+    DB.sessions=(data?.sessions)||{};DB.feedbacks=(data?.feedbacks)||{};DB.partits=(data?.partits)||{};DB.traindays=(data?.traindays)||{};
+    if(data?.biblioteca)loadLibreFromDB(data.biblioteca);if(data?.config)loadConfig(data.config);
     setConnected();toast('✅ Dades actualitzades');renderAll();
   }catch(e){setDisconnected();toast('❌ Error de connexió');}
   finally{document.getElementById('refresh-btn').classList.remove('spinning');}
 }
 
-// ── Visual ─────────────────────────────────────────────────────────
 const VISUAL_STYLES={default:{radius:'12px',radiusSm:'8px'},compact:{radius:'6px',radiusSm:'4px'},rounded:{radius:'20px',radiusSm:'14px'}};
 const FONT_SIZES={small:'13px',medium:'15px',large:'17px'};
 let _visualCfg={style:'default',fontSize:'medium',topbarSub:''};
@@ -839,17 +806,11 @@ async function saveVisualConfig(){
   try{await fbSet('/config/visual',_visualCfg);}catch(e){dbg('VISUAL ERR: '+e.message);}
 }
 
-// ── Config ─────────────────────────────────────────────────────────
 function loadConfig(cfg){
   if(!cfg)return;
   if(cfg.club)CFG.club={...CFG.club,...cfg.club};
   if(cfg.categories&&Array.isArray(cfg.categories)&&cfg.categories.length){
-    // FIX: preserva el color individual de cada equip en carregar config
-    CFG.categories=cfg.categories.map(c=>({
-      ...c,
-      light:c.light||lightColor(c.color||'#888'),
-      equips:Array.isArray(c.equips)?c.equips.map(e=>({...e})):[]
-    }));
+    CFG.categories=cfg.categories.map(c=>({...c,light:c.light||lightColor(c.color||'#888'),equips:Array.isArray(c.equips)?c.equips.map(e=>({...e})):[]}));
   }
   if(cfg.visual){_visualCfg={..._visualCfg,...cfg.visual};applyVisualConfig(_visualCfg);}
   applyConfig();
@@ -870,38 +831,27 @@ async function saveCatsConfig(){
   const blocks=document.getElementById('cfg-cats').querySelectorAll('.cat-cfg-block');
   const newCats=[];
   blocks.forEach(block=>{
-    const catId=block.dataset.catId;
-    const catName=block.querySelector('.cat-name-input').value.trim();
-    const catColor=block.querySelector('.cat-color-input').value;
+    const catId=block.dataset.catId;const catName=block.querySelector('.cat-name-input').value.trim();const catColor=block.querySelector('.cat-color-input').value;
     if(!catName)return;
     const equips=[];
     block.querySelectorAll('.eq-cfg-row').forEach(row=>{
-      const eqId=row.dataset.eqId;
-      const n=row.querySelector('input[type=text]').value.trim();
-      const g=row.querySelector('.g-toggle').dataset.g;
-      // FIX: recull el color individual de l'equip correctament
-      const eqColorEl=row.querySelector('.eq-color-input');
-      const eqColor=eqColorEl?eqColorEl.value:'';
+      const eqId=row.dataset.eqId;const n=row.querySelector('input[type=text]').value.trim();const g=row.querySelector('.g-toggle').dataset.g;
+      const eqColorEl=row.querySelector('.eq-color-input');const eqColor=eqColorEl?eqColorEl.value:'';
       if(n)equips.push({id:eqId||('eq_'+Date.now()+'_'+Math.random().toString(36).slice(2,6)),n,g,color:eqColor});
     });
     newCats.push({id:catId||('cat_'+Date.now()),name:catName,color:catColor,light:lightColor(catColor),equips});
   });
   if(!newCats.length){toast('⚠️ Cal tenir almenys una categoria');return;}
-  CFG.categories=newCats;
-  if(ST.catIdx>=CFG.categories.length)ST.catIdx=0;
+  CFG.categories=newCats;if(ST.catIdx>=CFG.categories.length)ST.catIdx=0;
   applyConfig();initCatRow();renderPlanner();toast('✅ Categories i equips guardats');
-  // FIX: guarda categories senceres incloent color de cada equip
   try{await fbSet('/config/categories',CFG.categories);}catch(e){dbg('CATS ERR: '+e.message);}
 }
 function renderConfigTab(){
   const {name,badge,color,emoji,img}=CFG.club;
-  document.getElementById('cfg-club-name').value=name;
-  document.getElementById('cfg-club-badge').value=badge;
-  document.getElementById('cfg-club-color').value=color;
-  document.getElementById('cfg-club-img').value=img||'';
+  document.getElementById('cfg-club-name').value=name;document.getElementById('cfg-club-badge').value=badge;
+  document.getElementById('cfg-club-color').value=color;document.getElementById('cfg-club-img').value=img||'';
   document.getElementById('cfg-topbar-sub').value=_visualCfg.topbarSub||'';
-  document.getElementById('cfg-emoji-grid').innerHTML=
-    ['—',...CLUB_EMOJIS].map(e=>`<div class="emoji-opt${(emoji||'')===e&&e!=='—'?' sel':''}" data-emoji="${e==='—'?'':e}" onclick="selClubEmoji(this)">${e}</div>`).join('');
+  document.getElementById('cfg-emoji-grid').innerHTML=['—',...CLUB_EMOJIS].map(e=>`<div class="emoji-opt${(emoji||'')===e&&e!=='—'?' sel':''}" data-emoji="${e==='—'?'':e}" onclick="selClubEmoji(this)">${e}</div>`).join('');
   applyVisualConfig(_visualCfg);renderCfgCats();
 }
 function selClubEmoji(el){document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');}
@@ -923,7 +873,7 @@ function renderEqCfgRow(eq,catColor){
   return `<div class="eq-cfg-row" data-eq-id="${eq.id}">
     <input type="text" value="${eq.n}" placeholder="Nom equip" style="flex:1;min-width:80px">
     <button class="g-toggle ${eq.g}" data-g="${eq.g}" onclick="toggleGender(this)">${eq.g==='m'?'M':'F'}</button>
-    <input type="color" class="eq-color-input" value="${c}" title="Color de l'equip" style="width:34px;height:34px;padding:2px 4px;margin-bottom:0;flex-shrink:0;border-radius:var(--radius-sm)">
+    <input type="color" class="eq-color-input" value="${c}" title="Color equip" style="width:34px;height:34px;padding:2px 4px;margin-bottom:0;flex-shrink:0;border-radius:var(--radius-sm)">
     <button class="del-btn" onclick="this.closest('.eq-cfg-row').remove()">×</button>
   </div>`;
 }
@@ -936,14 +886,13 @@ function removeCategoria(btn){if(!confirm('Eliminar categoria?'))return;btn.clos
 function addEquip(btn){
   const row=document.createElement('div');row.className='eq-cfg-row';row.dataset.eqId='eq_'+Date.now();
   const catColor=btn.closest('.cat-cfg-block').querySelector('.cat-color-input').value||'#888888';
-  row.innerHTML=`<input type="text" value="" placeholder="Nom equip" style="flex:1;min-width:80px"><button class="g-toggle m" data-g="m" onclick="toggleGender(this)">M</button><input type="color" class="eq-color-input" value="${catColor}" title="Color de l'equip" style="width:34px;height:34px;padding:2px 4px;margin-bottom:0;flex-shrink:0;border-radius:var(--radius-sm)"><button class="del-btn" onclick="this.closest('.eq-cfg-row').remove()">×</button>`;
+  row.innerHTML=`<input type="text" value="" placeholder="Nom equip" style="flex:1;min-width:80px"><button class="g-toggle m" data-g="m" onclick="toggleGender(this)">M</button><input type="color" class="eq-color-input" value="${catColor}" title="Color equip" style="width:34px;height:34px;padding:2px 4px;margin-bottom:0;flex-shrink:0;border-radius:var(--radius-sm)"><button class="del-btn" onclick="this.closest('.eq-cfg-row').remove()">×</button>`;
   btn.closest('.cat-cfg-block').querySelector('.eq-list').appendChild(row);
 }
 function toggleGender(btn){const g=btn.dataset.g==='m'?'f':'m';btn.dataset.g=g;btn.className='g-toggle '+g;btn.textContent=g==='m'?'M':'F';}
 
-// ── PIN / Mode ─────────────────────────────────────────────────────
 function activateVictor(){
-  ST.mode='victor';ST.pinVerified=true;
+  ST.mode='victor';
   document.getElementById('view-victor').classList.remove('hidden');
   document.getElementById('view-entrenador').classList.add('hidden');
   document.getElementById('mbtn-victor').classList.add('active');
@@ -952,7 +901,7 @@ function activateVictor(){
 }
 function setMode(m){
   if(m==='victor'){
-    if(ST.pinVerified){activateVictor();return;}
+    if(ST.pinVerified||sessionStorage.getItem('cht_pin')==='1'){ST.pinVerified=true;activateVictor();return;}
     document.getElementById('pin-modal').classList.remove('hidden');
     setTimeout(()=>document.getElementById('pin-input').focus(),80);return;
   }
@@ -964,14 +913,11 @@ function setMode(m){
   renderEntSelector();
 }
 
-// ── Tabs ───────────────────────────────────────────────────────────
 function setTab(t){
   ST.tab=t;
-  ['planificador','cargas','biblioteca','exportar','configuracio'].forEach(x=>
-    document.getElementById('tab-'+x).classList.toggle('hidden',x!==t));
+  ['planificador','cargas','biblioteca','exportar','configuracio'].forEach(x=>document.getElementById('tab-'+x).classList.toggle('hidden',x!==t));
   document.querySelectorAll('.bnav-item').forEach(b=>b.className='bnav-item'+(b.dataset.tab===t?' active':''));
-  if(t==='cargas')renderCargas();
-  if(t==='biblioteca')renderBiblioteca('v');
+  if(t==='cargas')renderCargas();if(t==='biblioteca')renderBiblioteca('v');
   if(t==='exportar'){renderExpCatSelect();renderExpEquipos();renderActiveExport();}
   if(t==='configuracio')renderConfigTab();
 }
@@ -982,10 +928,7 @@ function setEntTab(t){
   const col=ST.entCat?getCatByName(ST.entCat)||{color:'#C0152A',light:'#FDEAEA'}:{color:'#C0152A',light:'#FDEAEA'};
   [['s','setmana'],['b','biblioteca']].forEach(([x,v])=>{
     const el=document.getElementById('etab-'+x);const active=t===v;
-    el.className='ent-tab'+(active?' active':'');
-    el.style.background=active?col.color:col.light;
-    el.style.color=active?'#fff':col.color;
-    el.style.borderColor=active?col.color:'transparent';
+    el.className='ent-tab'+(active?' active':'');el.style.background=active?col.color:col.light;el.style.color=active?'#fff':col.color;el.style.borderColor=active?col.color:'transparent';
   });
   if(t==='biblioteca')renderBiblioteca('e');
 }
@@ -1000,112 +943,77 @@ function currentCat(){return getCats()[ST.catIdx]||getCats()[0];}
 function changeWeek(d){ST.weekOff+=d;updateLabels();renderPlanner();}
 function changeEntWeek(d){ST.entWeekOff+=d;updateEntLabel();ST.expandedDays={};renderEntContent();}
 
-// ── Copiar setmana ─────────────────────────────────────────────────
 function openCopyWeekModal(){ST.copyTargetOff=ST.weekOff+1;document.getElementById('copy-target-lbl').textContent=wLabel(ST.copyTargetOff);document.getElementById('copy-week-overlay').classList.remove('hidden');}
 function closeCopyWeekModal(){document.getElementById('copy-week-overlay').classList.add('hidden');}
 function changeCopyTarget(d){ST.copyTargetOff+=d;document.getElementById('copy-target-lbl').textContent=wLabel(ST.copyTargetOff);}
 async function doCopyWeek(){
   const srcWo=ST.weekOff;const dstWo=ST.copyTargetOff;
   if(srcWo===dstWo){toast('⚠️ La setmana destí ha de ser diferent');return;}
-  const scope=document.getElementById('copy-scope').value;
-  const overwrite=document.getElementById('copy-overwrite').checked;
+  const scope=document.getElementById('copy-scope').value;const overwrite=document.getElementById('copy-overwrite').checked;
   const cats=scope==='cat'?[currentCat()]:getCats();
   let count=0;const promises=[];
-  cats.forEach(cat=>{(cat.equips||[]).forEach(eq=>{
-    for(let di=0;di<7;di++){
-      const srcKey=sk(cat.name,eq.n,di,srcWo);const dstKey=sk(cat.name,eq.n,di,dstWo);
-      const srcData=gS(srcKey);if(!srcData)continue;
-      if(!overwrite&&gS(dstKey))continue;
-      DB.sessions[fk(dstKey)]={...srcData};count++;
-      promises.push(fbSet('/sessions/'+fk(dstKey),srcData));
-    }
-  });});
-  await Promise.allSettled(promises);
-  closeCopyWeekModal();renderPlanner();toast(`✅ ${count} sessions copiades a ${wLabel(dstWo)}`);
+  cats.forEach(cat=>{(cat.equips||[]).forEach(eq=>{for(let di=0;di<7;di++){
+    const srcKey=sk(cat.name,eq.n,di,srcWo);const dstKey=sk(cat.name,eq.n,di,dstWo);
+    const srcData=gS(srcKey);if(!srcData)continue;if(!overwrite&&gS(dstKey))continue;
+    DB.sessions[fk(dstKey)]={...srcData};count++;promises.push(fbSet('/sessions/'+fk(dstKey),srcData));
+  }});});
+  await Promise.allSettled(promises);closeCopyWeekModal();renderPlanner();toast(`✅ ${count} sessions copiades`);
 }
 
-// ── Mode selecció ──────────────────────────────────────────────────
 function toggleSelMode(){
   ST.selMode=!ST.selMode;ST.selCells=[];ST.pasteMode=false;
   document.getElementById('sel-mode-btn').className='sel-mode-btn'+(ST.selMode?' active':'');
   document.getElementById('sel-toolbar').classList.toggle('hidden',!ST.selMode);
-  document.getElementById('paste-toolbar').classList.add('hidden');
-  renderPlanner();
+  document.getElementById('paste-toolbar').classList.add('hidden');renderPlanner();
 }
 function toggleCellSel(catName,team,di,wo){
-  const key=sk(catName,team,di,wo);
-  const idx=ST.selCells.findIndex(c=>c.key===key);
+  const key=sk(catName,team,di,wo);const idx=ST.selCells.findIndex(c=>c.key===key);
   if(idx>=0)ST.selCells.splice(idx,1);else ST.selCells.push({catName,team,di,wo,key});
-  document.getElementById('sel-count-lbl').textContent=`${ST.selCells.length} sessions seleccionades`;
-  renderPlanner();
+  document.getElementById('sel-count-lbl').textContent=`${ST.selCells.length} sessions seleccionades`;renderPlanner();
 }
 function copySelSessions(){
   if(!ST.selCells.length){toast('⚠️ Selecciona almenys una sessió');return;}
   ST.clipboard=ST.selCells.map(c=>({...c,data:{...gS(c.key)}})).filter(c=>c.data&&c.data.tipo);
   if(!ST.clipboard.length){toast('⚠️ Les cel·les no tenen sessió');return;}
   ST.pasteMode=true;ST.selMode=false;ST.selCells=[];
-  document.getElementById('sel-toolbar').classList.add('hidden');
-  document.getElementById('paste-toolbar').classList.remove('hidden');
-  document.getElementById('paste-count-lbl').textContent=`${ST.clipboard.length} sessions copiades — clica cel·la destí`;
-  document.getElementById('sel-mode-btn').className='sel-mode-btn';
-  renderPlanner();toast('📋 Clica la primera cel·la destí');
+  document.getElementById('sel-toolbar').classList.add('hidden');document.getElementById('paste-toolbar').classList.remove('hidden');
+  document.getElementById('sel-mode-btn').className='sel-mode-btn';renderPlanner();toast('📋 Clica la cel·la destí');
 }
 function cancelPaste(){ST.pasteMode=false;ST.clipboard=[];document.getElementById('paste-toolbar').classList.add('hidden');renderPlanner();}
 async function pasteFromClipboard(catName,team,di,wo){
   if(!ST.clipboard.length)return;
-  const firstDi=ST.clipboard[0].di;const diDelta=di-firstDi;
-  const promises=[];let count=0;
-  ST.clipboard.forEach(c=>{
-    const newDi=(c.di+diDelta+7)%7;const newKey=sk(catName,team,newDi,wo);
-    DB.sessions[fk(newKey)]={...c.data};count++;
-    promises.push(fbSet('/sessions/'+fk(newKey),c.data));
-  });
+  const firstDi=ST.clipboard[0].di;const diDelta=di-firstDi;const promises=[];let count=0;
+  ST.clipboard.forEach(c=>{const newDi=(c.di+diDelta+7)%7;const newKey=sk(catName,team,newDi,wo);DB.sessions[fk(newKey)]={...c.data};count++;promises.push(fbSet('/sessions/'+fk(newKey),c.data));});
   await Promise.allSettled(promises);cancelPaste();renderPlanner();toast(`✅ ${count} sessions enganxades`);
 }
 async function clearSelSessions(){
   if(!ST.selCells.length){toast('⚠️ Selecciona sessions primer');return;}
   if(!confirm(`Eliminar ${ST.selCells.length} sessions?`))return;
   const promises=[];
-  ST.selCells.forEach(c=>{
-    delete DB.sessions[fk(c.key)];delete DB.feedbacks[fk(c.key)];
-    promises.push(fbDel('/sessions/'+fk(c.key)));promises.push(fbDel('/feedbacks/'+fk(c.key)));
-  });
-  ST.selCells=[];await Promise.allSettled(promises);
-  document.getElementById('sel-count-lbl').textContent='0 sessions seleccionades';
-  renderPlanner();toast('🗑️ Sessions eliminades');
+  ST.selCells.forEach(c=>{delete DB.sessions[fk(c.key)];delete DB.feedbacks[fk(c.key)];promises.push(fbDel('/sessions/'+fk(c.key)));promises.push(fbDel('/feedbacks/'+fk(c.key)));});
+  ST.selCells=[];await Promise.allSettled(promises);document.getElementById('sel-count-lbl').textContent='0 sessions seleccionades';renderPlanner();toast('🗑️ Sessions eliminades');
 }
 
-// ── Drag & drop ────────────────────────────────────────────────────
 function onDragStart(e,catName,team,di,wo){ST.dragSrc={catName,team,di,wo};e.dataTransfer.effectAllowed='move';e.currentTarget.closest('.scell').classList.add('dragging-source');}
 function onDragEnd(){document.querySelectorAll('.scell').forEach(c=>{c.classList.remove('dragging-source','drag-over');});ST.dragSrc=null;}
 function onDragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';e.currentTarget.classList.add('drag-over');}
 function onDragLeave(e){e.currentTarget.classList.remove('drag-over');}
 async function onDrop(e,catName,team,di,wo){
-  e.preventDefault();e.currentTarget.classList.remove('drag-over');
-  if(!ST.dragSrc)return;
+  e.preventDefault();e.currentTarget.classList.remove('drag-over');if(!ST.dragSrc)return;
   const src=ST.dragSrc;if(src.catName===catName&&src.team===team&&src.di===di&&src.wo===wo)return;
   const srcKey=sk(src.catName,src.team,src.di,src.wo);const dstKey=sk(catName,team,di,wo);
-  const srcData=gS(srcKey);if(!srcData)return;
-  const dstData=gS(dstKey);
-  DB.sessions[fk(dstKey)]={...srcData};
-  if(dstData)DB.sessions[fk(srcKey)]={...dstData};else delete DB.sessions[fk(srcKey)];
+  const srcData=gS(srcKey);if(!srcData)return;const dstData=gS(dstKey);
+  DB.sessions[fk(dstKey)]={...srcData};if(dstData)DB.sessions[fk(srcKey)]={...dstData};else delete DB.sessions[fk(srcKey)];
   renderPlanner();toast('↔️ Sessió moguda');
   try{await fbSet('/sessions/'+fk(dstKey),srcData);if(dstData)await fbSet('/sessions/'+fk(srcKey),dstData);else await fbDel('/sessions/'+fk(srcKey));}catch(ex){dbg('DROP ERR: '+ex.message);}
 }
 
-// ── Exportar ───────────────────────────────────────────────────────
 function setExpTab(t){
-  ST.expTab=t;
-  ['resum','partits','feedback'].forEach(x=>{
-    document.getElementById('etab-'+x).className='exp-tab'+(x===t?' active':'');
-    document.getElementById('epanel-'+x).classList.toggle('hidden',x!==t);
-  });renderActiveExport();
+  ST.expTab=t;['resum','partits','feedback'].forEach(x=>{document.getElementById('etab-'+x).className='exp-tab'+(x===t?' active':'');document.getElementById('epanel-'+x).classList.toggle('hidden',x!==t);});renderActiveExport();
 }
 function renderActiveExport(){
-  updateLabels();
-  if(ST.expTab==='resum'){renderExpCatSelect();renderExpEquipos();renderExport();}
-  else if(ST.expTab==='partits')renderPartitsExport();
-  else if(ST.expTab==='feedback')renderFeedbackExport();
+  updateLabels();if(ST.expTab==='resum'){renderExpCatSelect();renderExpEquipos();renderExport();}
+  else if(ST.expTab==='partits')renderPartitsExport();else if(ST.expTab==='feedback')renderFeedbackExport();
 }
 function renderExpCatSelect(){
   const sel=document.getElementById('exp-cat');const cur=sel.value;
@@ -1122,12 +1030,11 @@ function renderExpEquipos(){
 }
 function toggleExpEq(cat,name,btn){
   if(!ST.expEquipos[cat])ST.expEquipos[cat]={};
-  ST.expEquipos[cat][name]=ST.expEquipos[cat][name]===false;
+  ST.expEquipos[cat][name]=ST.expEquipos[cat][name]===false?true:false;
   btn.className='eq-btn'+(ST.expEquipos[cat][name]!==false?' active':'');
 }
 function renderExport(){
-  const catName=document.getElementById('exp-cat')?.value;const wo=ST.weekOff;
-  const cat=getCatByName(catName);if(!cat)return;
+  const catName=document.getElementById('exp-cat')?.value;const wo=ST.weekOff;const cat=getCatByName(catName);if(!cat)return;
   let txt=`🏐 *${CFG.club.name.toUpperCase()} — PREPARACIÓ FÍSICA*\n📋 Categoria: *${catName}*\n📅 Setmana: ${wLabel(wo)}\n━━━━━━━━━━━━━━━━━━\n\n`;
   (cat.equips||[]).forEach(eq=>{
     if(ST.expEquipos[catName]&&ST.expEquipos[catName][eq.n]===false)return;
@@ -1135,17 +1042,9 @@ function renderExport(){
     DIAS_FULL.forEach((dia,di)=>{
       const key=sk(catName,eq.n,di,wo);const s=gS(key);const isP=gP(key);const fb=gF(key);
       if(isP){hasSes=true;txt+=`  ${dia}: 🤾 PARTIT\n`;}
-      else if(s){
-        hasSes=true;txt+=`  ${dia}: ${{baja:'🟢',media:'🟡',alta:'🟠',max:'🔴'}[s.carga]} ${s.tipo}\n`;
+      else if(s){hasSes=true;txt+=`  ${dia}: ${{baja:'🟢',media:'🟡',alta:'🟠',max:'🔴'}[s.carga]} ${s.tipo}\n`;
         if(s.nota)txt+=`    📌 ${s.nota}\n`;
-        if(fb&&fb.status){
-          const st={ok:'✅',parcial:'⚠️',no:'❌'}[fb.status];
-          txt+=`    ${st} Feedback`;
-          if(fb.rpe)txt+=` · RPE: ${fb.rpe}/10`;
-          if(fb.quality)txt+=` · Qualitat: ${fb.quality}/10`;
-          txt+='\n';
-          if(fb.note)txt+=`    💬 "${fb.note}"\n`;
-        }
+        if(fb&&fb.status){const st={ok:'✅',parcial:'⚠️',no:'❌'}[fb.status];txt+=`    ${st} Feedback`;if(fb.rpe)txt+=` · RPE: ${fb.rpe}/10`;if(fb.quality)txt+=` · Qualitat: ${fb.quality}/10`;txt+='\n';if(fb.note)txt+=`    💬 "${fb.note}"\n`;}
       }
     });
     if(!hasSes)txt+=`  Sense sessions programades\n`;txt+='\n';
@@ -1170,24 +1069,17 @@ function renderFeedbackExport(){
     txt+=`*${cat.name}*\n`;
     (cat.equips||[]).forEach(eq=>{
       let sessions=0,feedback=0,eqRpeSum=0,eqRpeCnt=0,eqQualSum=0,eqQualCnt=0;
-      for(let di=0;di<7;di++){
-        const key=sk(cat.name,eq.n,di,wo);const s=gS(key);const fb=gF(key);
-        if(gP(key))continue;
-        if(s){sessions++;if(fb&&fb.status){feedback++;if(fb.rpe){eqRpeSum+=fb.rpe;eqRpeCnt++;rpeSum+=fb.rpe;rpeCnt++;}if(fb.quality){eqQualSum+=fb.quality;eqQualCnt++;qualSum+=fb.quality;qualCnt++;}}}
-      }
+      for(let di=0;di<7;di++){const key=sk(cat.name,eq.n,di,wo);const s=gS(key);const fb=gF(key);if(gP(key))continue;if(s){sessions++;if(fb&&fb.status){feedback++;if(fb.rpe){eqRpeSum+=fb.rpe;eqRpeCnt++;rpeSum+=fb.rpe;rpeCnt++;}if(fb.quality){eqQualSum+=fb.quality;eqQualCnt++;qualSum+=fb.quality;qualCnt++;}}}}
       totalSes+=sessions;totalFb+=feedback;
       const pct=sessions>0?Math.round(feedback/sessions*100):null;
       const icon=pct===null?'⚪':pct===100?'✅':pct>=50?'⚠️':'❌';
       txt+=`  ${icon} ${eq.n}: ${pct===null?'Sense sessions':`${feedback}/${sessions} (${pct}%)`}`;
-      if(eqRpeCnt>0)txt+=` · RPE ${(eqRpeSum/eqRpeCnt).toFixed(1)}`;
-      if(eqQualCnt>0)txt+=` · Qualitat ${(eqQualSum/eqQualCnt).toFixed(1)}`;
-      txt+='\n';
+      if(eqRpeCnt>0)txt+=` · RPE ${(eqRpeSum/eqRpeCnt).toFixed(1)}`;if(eqQualCnt>0)txt+=` · Qualitat ${(eqQualSum/eqQualCnt).toFixed(1)}`;txt+='\n';
     });txt+='\n';
   });
   const pctG=totalSes>0?Math.round(totalFb/totalSes*100):0;
   txt+=`━━━━━━━━━━━━━━━━━━\n📊 *Global: ${totalFb}/${totalSes} (${pctG}%)*`;
-  if(rpeCnt>0)txt+=` · RPE mitjà ${(rpeSum/rpeCnt).toFixed(1)}`;
-  if(qualCnt>0)txt+=` · Qualitat ${(qualSum/qualCnt).toFixed(1)}`;
+  if(rpeCnt>0)txt+=` · RPE mitjà ${(rpeSum/rpeCnt).toFixed(1)}`;if(qualCnt>0)txt+=` · Qualitat ${(qualSum/qualCnt).toFixed(1)}`;
   txt+=`\n_Víctor Martínez Muñoz · Preparador Físic_`;
   document.getElementById('feedback-box').textContent=txt;
 }
@@ -1198,7 +1090,6 @@ function copyBox(boxId,btnId){
   });
 }
 
-// ── Modal sessió ───────────────────────────────────────────────────
 function setModalTab(t){
   ST.modalTab=t;
   document.getElementById('mtab-bib').className='modal-tab'+(t==='biblioteca'?' active':'');
@@ -1236,18 +1127,15 @@ async function doSaveSession(){
   if(!ST.carga){toast('⚠️ Selecciona la càrrega');return;}
   let data;
   if(ST.modalTab==='libre'){
-    const titol=document.getElementById('m-libre-titol').value.trim();
-    const desc=document.getElementById('m-libre-desc').value.trim();
+    const titol=document.getElementById('m-libre-titol').value.trim();const desc=document.getElementById('m-libre-desc').value.trim();
     if(!titol){toast('⚠️ Escriu un títol');return;}
     data={tipo:titol,carga:ST.carga,nota:document.getElementById('m-nota').value||'',esLliure:true,desc};
     if(document.getElementById('m-libre-save-bib').checked)saveLibreToLibrary(titol,desc);
   }else{
-    const tipo=document.getElementById('m-tipo').value;
-    if(!tipo){toast('⚠️ Selecciona el tipus');return;}
+    const tipo=document.getElementById('m-tipo').value;if(!tipo){toast('⚠️ Selecciona el tipus');return;}
     data={tipo,carga:ST.carga,nota:document.getElementById('m-nota').value||''};
   }
-  const key=ST.modal.key;DB.sessions[fk(key)]=data;
-  closeModal();renderPlanner();toast('✅ Sessió guardada');
+  const key=ST.modal.key;DB.sessions[fk(key)]=data;closeModal();renderPlanner();toast('✅ Sessió guardada');
   try{await fbSet('/sessions/'+fk(key),data);}catch(e){toast('⚠️ Guardat localment.');}
 }
 async function doDelSession(){
@@ -1256,7 +1144,6 @@ async function doDelSession(){
   try{await fbDel('/sessions/'+fk(key));await fbDel('/feedbacks/'+fk(key));}catch(e){dbg('DEL ERR: '+e.message);}
 }
 
-// ── Biblioteca ─────────────────────────────────────────────────────
 let BIBLIOTECA=[
   {id:'hiit1',name:'HIIT 1',tipo:'HIIT',sub:'Individual',carga:'Alta-Màxima',mat:[],desc:'3 sèries de 40" treball / 20" descans.',ex:[{n:'Sentadella amb salt',d:''},{n:'Escalador',d:''},{n:'Soldadets',d:''},{n:'Planxa lateral',d:'40"'},{n:'Zancada amb salt',d:''},{n:'Flexions diamant',d:''},{n:'Elevació isquios',d:''}]},
   {id:'hiit2',name:'HIIT 2',tipo:'HIIT',sub:'Parelles',carga:'Alta-Màxima',mat:['Pilota medicinal','Cons'],desc:"Treball per parelles. 3 sèries de 40\"/20\".",ex:[{n:'Planxa picar mà',d:''},{n:'Flexions tocar mà',d:''},{n:'Passada medicinal',d:''},{n:'Squat agafats',d:''},{n:'Caigudes nòrdiques',d:''},{n:'Mirall COD',d:''}]},
@@ -1275,16 +1162,11 @@ let _bibEditId=null;
 function openBibModal(id){
   _bibEditId=id;const s=id?BIBLIOTECA.find(x=>x.id===id):null;
   document.getElementById('bm-title').textContent=s?'Editar sessió':'Nova sessió';
-  document.getElementById('bm-name').value=s?s.name:'';
-  document.getElementById('bm-tipo').value=s?(s.tipo||'Libre'):'HIIT';
-  document.getElementById('bm-sub').value=s?s.sub:'';
-  document.getElementById('bm-carga').value=s?s.carga:'';
-  document.getElementById('bm-desc').value=s?s.desc:'';
-  document.getElementById('bm-del').style.display=s?'flex':'none';
-  const matList=document.getElementById('bm-mat-list');matList.innerHTML='';
-  (s?s.mat:[]).forEach(m=>addMatRow(m));
-  const exList=document.getElementById('bm-ex-list');exList.innerHTML='';
-  (s?s.ex:[]).forEach(e=>addExRow(e.n,e.d,e.gif||''));
+  document.getElementById('bm-name').value=s?s.name:'';document.getElementById('bm-tipo').value=s?(s.tipo||'Libre'):'HIIT';
+  document.getElementById('bm-sub').value=s?s.sub:'';document.getElementById('bm-carga').value=s?s.carga:'';
+  document.getElementById('bm-desc').value=s?s.desc:'';document.getElementById('bm-del').style.display=s?'flex':'none';
+  const matList=document.getElementById('bm-mat-list');matList.innerHTML='';(s?s.mat:[]).forEach(m=>addMatRow(m));
+  const exList=document.getElementById('bm-ex-list');exList.innerHTML='';(s?s.ex:[]).forEach(e=>addExRow(e.n,e.d,e.gif||''));
   document.getElementById('bib-modal-overlay').classList.remove('hidden');
 }
 function closeBibModal(){document.getElementById('bib-modal-overlay').classList.add('hidden');_bibEditId=null;}
@@ -1300,8 +1182,7 @@ function addExRow(n='',d='',gif=''){
   document.getElementById('bm-ex-list').appendChild(row);
 }
 function previewGif(input){
-  const preview=input.closest('.ex-edit-row').querySelector('.gif-preview');
-  const url=input.value.trim();
+  const preview=input.closest('.ex-edit-row').querySelector('.gif-preview');const url=input.value.trim();
   if(url)preview.innerHTML=`<img src="${url}" style="width:100%;max-height:160px;object-fit:contain;border-radius:6px;background:#000;margin-top:6px" onerror="this.style.display='none'">`;
   else preview.innerHTML='';
 }
@@ -1352,7 +1233,6 @@ function renderLibDetail(id,t){
   el.innerHTML=`<div class="lib-detail"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="lib-type" style="background:${tb};color:${tc}">${s.tipo}</span><h3>${s.name}</h3><span style="margin-left:auto;font-size:11px;color:var(--text2);font-weight:700">${s.carga}</span></div><p>${s.desc||''}</p><div class="sec-label">Material</div><div style="margin-bottom:12px">${(s.mat||[]).length?(s.mat||[]).map(m=>`<span class="mat-tag">📦 ${m}</span>`).join(''):'<span class="mat-tag">Sense material</span>'}</div>${(s.ex||[]).length?`<div class="sec-label">Exercicis (${s.ex.length})</div><div class="ex-grid">${s.ex.map(e=>`<div class="ex-item">${e.n}${e.d?`<div class="ex-sub">${e.d}</div>`:''}${e.gif?`<img src="${e.gif}" style="width:100%;margin-top:6px;border-radius:4px;max-height:120px;object-fit:contain;background:#000" onerror="this.style.display='none'">`:''}</div>`).join('')}</div>`:''}</div>`;
 }
 
-// ── Planner ────────────────────────────────────────────────────────
 function renderPlanner(){
   const cat=currentCat();if(!cat)return;
   const wo=ST.weekOff;updateLabels();
@@ -1364,16 +1244,13 @@ function renderPlanner(){
     const eqColor=getEqColor(cat,eq);const eqLight=getEqLight(cat,eq);
     html+=`<div class="trow" style="grid-template-columns:${cols};border-left:3px solid ${eqColor}"><div class="tname">${eq.n}<span class="gbadge b${eq.g}">${eq.g==='m'?'M':'F'}</span></div>`;
     for(let di=0;di<7;di++){
-      const key=sk(cat.name,eq.n,di,wo);
-      const s=gS(key);const fb=gF(key);const isP=gP(key);const isWE=WE.includes(di);
-      const isTrain=trainDays.includes(di);
+      const key=sk(cat.name,eq.n,di,wo);const s=gS(key);const fb=gF(key);const isP=gP(key);const isWE=WE.includes(di);const isTrain=trainDays.includes(di);
       if(s){tot++;csum+=CV[s.carga];if(fb){fbct++;if(fb.status==='ok')comp++;}}
       const cellStyle=isTrain&&!isWE?`border-top:2px solid ${eqColor};background:${eqLight}`:'';
       const isSel=ST.selCells.some(c=>c.key===key);
       const dragAttrs=s&&!ST.selMode&&!ST.pasteMode?`draggable="true" ondragstart="onDragStart(event,'${cat.name}','${eq.n}',${di},${wo})" ondragend="onDragEnd()"` :'';
-      const cellCls=`scell${isWE?' we-cell':''}${isSel?' selected':''}${ST.pasteMode?' sel-mode':''}`;
       const dropAttrs=!ST.selMode&&!ST.pasteMode?`ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'${cat.name}','${eq.n}',${di},${wo})"` :'';
-      html+=`<div class="${cellCls}" style="${cellStyle}" ${dropAttrs} onclick="openModal('${cat.name}','${eq.n}',${di},${wo})">`;
+      html+=`<div class="scell${isWE?' we-cell':''}${isSel?' selected':''}" style="${cellStyle}" ${dropAttrs} onclick="openModal('${cat.name}','${eq.n}',${di},${wo})">`;
       if(isP)html+=`<div class="spill p-partido">🤾 Partit</div>`;
       else if(s){
         const sd=fb?{ok:'✓',parcial:'~',no:'✗'}[fb.status]||'':'';
@@ -1387,9 +1264,7 @@ function renderPlanner(){
     html+='</div>';
   });
   document.getElementById('pgrid').innerHTML=html;
-  document.getElementById('sv1').textContent=tot;
-  document.getElementById('sv2').textContent=comp;
-  document.getElementById('sv4').textContent=fbct;
+  document.getElementById('sv1').textContent=tot;document.getElementById('sv2').textContent=comp;document.getElementById('sv4').textContent=fbct;
   const avg=tot>0?Math.round(csum/tot*10)/10:0;
   document.getElementById('sv3').textContent=avg===0?'—':avg<=1.5?'Baixa':avg<=2.5?'Mitja':avg<=3.5?'Alta':'Màx';
   renderFbList();
@@ -1402,8 +1277,7 @@ function renderFbList(){
     const key=sk(cat.name,eq.n,di,wo);const s=gS(key);const fb=gF(key);
     if(s&&fb&&fb.status){
       const lbl={ok:'✅ Completada',parcial:'⚠️ Parcial',no:'❌ No realitzada'}[fb.status];
-      const rpeStr=fb.rpe?` · RPE <strong>${fb.rpe}</strong>`:'';
-      const qualStr=fb.quality?` · Qualitat <strong>${fb.quality}/10</strong>`:'';
+      const rpeStr=fb.rpe?` · RPE <strong>${fb.rpe}</strong>`:'';const qualStr=fb.quality?` · Qualitat <strong>${fb.quality}/10</strong>`:'';
       items.push(`<div class="fb-row"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-weight:700;font-size:12px">${eq.n}</span><span style="font-size:11px;color:var(--text2)">${dia}</span><span style="font-size:11px;color:var(--text2)">${s.tipo}</span><span style="margin-left:auto;font-size:11px">${lbl}${rpeStr}${qualStr}</span></div>${fb.note?`<div style="font-size:10px;font-style:italic;color:var(--text2);margin-top:3px">"${fb.note}"</div>`:''}</div>`);
     }
   }));
@@ -1412,8 +1286,7 @@ function renderFbList(){
 }
 function renderHorarisResum(){
   const el=document.getElementById('horaris-resum');if(!el)return;
-  const cat=currentCat();if(!cat)return;
-  let html='';
+  const cat=currentCat();if(!cat)return;let html='';
   (cat.equips||[]).forEach(eq=>{
     const days=getTrainDays(cat.name+'|'+eq.n);if(!days.length)return;
     const eqColor=getEqColor(cat,eq);
@@ -1422,21 +1295,16 @@ function renderHorarisResum(){
   el.innerHTML=html||'<span style="font-size:12px;color:var(--text3)">Cap entrenador ha marcat els seus dies encara.</span>';
 }
 
-// ── Càrregues ──────────────────────────────────────────────────────
 function renderCargas(){
   document.getElementById('c-week-lbl').textContent=wLabel(ST.weekOff);
   const container=document.getElementById('cat-charts');container.innerHTML='';
   Object.values(ST.catCharts).forEach(c=>{try{c.destroy();}catch(e){}});ST.catCharts={};
   const resumen={};
   getCats().forEach(cat=>{
-    const labels=[];const dataCarga=[];const bgColors=[];const dataRpe=[];
-    let catSum=0,catCnt=0;
+    const labels=[];const dataCarga=[];const bgColors=[];const dataRpe=[];let catSum=0,catCnt=0;
     (cat.equips||[]).forEach(eq=>{
       let sum=0,cnt=0,rpeSum=0,rpeCnt=0;
-      for(let di=0;di<5;di++){
-        const key=sk(cat.name,eq.n,di,ST.weekOff);const s=gS(key);const fb=gF(key);
-        if(s){sum+=CV[s.carga];cnt++;}if(fb?.rpe){rpeSum+=fb.rpe;rpeCnt++;}
-      }
+      for(let di=0;di<5;di++){const key=sk(cat.name,eq.n,di,ST.weekOff);const s=gS(key);const fb=gF(key);if(s){sum+=CV[s.carga];cnt++;}if(fb?.rpe){rpeSum+=fb.rpe;rpeCnt++;}}
       const avg=cnt>0?sum/cnt:0;
       labels.push(eq.n);dataCarga.push(sum);
       bgColors.push(avg===0?'#e5e7eb':avg<=1.5?'#EAF3DE':avg<=2.5?'#FAEEDA':avg<=3.5?'#FAECE7':'#FCEBEB');
@@ -1449,23 +1317,17 @@ function renderCargas(){
     block.innerHTML=`<div class="cat-chart-title" style="background:${cat.light};color:${cat.color}">${cat.name} <span style="font-weight:400;font-size:11px;margin-left:6px">Mitja: ${lblCat}</span></div><div class="chart-wrap-sm"><canvas id="chart-${cat.id}"></canvas></div>`;
     container.appendChild(block);
     ST.catCharts[cat.id]=new Chart(document.getElementById('chart-'+cat.id),{
-      type:'bar',
-      data:{labels,datasets:[
-        {label:'Càrrega',data:dataCarga,backgroundColor:bgColors,borderColor:bgColors,borderWidth:1,borderRadius:4,order:2},
-        {label:'RPE',data:dataRpe,type:'line',borderColor:'rgba(59,109,17,.6)',backgroundColor:'rgba(59,109,17,.15)',borderWidth:2,pointRadius:4,pointBackgroundColor:'rgba(59,109,17,.8)',tension:.3,order:1,spanGaps:false}
-      ]},
+      type:'bar',data:{labels,datasets:[{label:'Càrrega',data:dataCarga,backgroundColor:bgColors,borderColor:bgColors,borderWidth:1,borderRadius:4,order:2},{label:'RPE',data:dataRpe,type:'line',borderColor:'rgba(59,109,17,.6)',backgroundColor:'rgba(59,109,17,.15)',borderWidth:2,pointRadius:4,pointBackgroundColor:'rgba(59,109,17,.8)',tension:.3,order:1,spanGaps:false}]},
       options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.dataset.label==='RPE'&&ctx.raw!=null?`RPE: ${(ctx.raw*10/4).toFixed(1)}`:`Càrrega: ${ctx.raw}`}}},scales:{x:{ticks:{font:{size:9},autoSkip:false},grid:{display:false}},y:{min:0,max:20,ticks:{stepSize:5,font:{size:9}},grid:{color:'rgba(128,128,128,.08)'}}}}
     });
     resumen[cat.id]={cat,sum:catSum,cnt:catCnt};
   });
   document.getElementById('carga-resumen').innerHTML=Object.values(resumen).map(({cat,sum,cnt})=>{
-    const avg=cnt>0?Math.round(sum/cnt*10)/10:0;
-    const lbl=avg===0?'Sense dades':avg<=1.5?'Baixa':avg<=2.5?'Mitjana':avg<=3.5?'Alta':'Màxima';
+    const avg=cnt>0?Math.round(sum/cnt*10)/10:0;const lbl=avg===0?'Sense dades':avg<=1.5?'Baixa':avg<=2.5?'Mitjana':avg<=3.5?'Alta':'Màxima';
     return `<div style="background:${cat.light};border-radius:8px;padding:12px 14px"><div style="font-size:11px;font-weight:700;color:${cat.color};margin-bottom:3px">${cat.name} · ${cnt} sessions</div><div style="font-size:20px;font-weight:700;color:${cat.color}">${lbl}</div></div>`;
   }).join('');
 }
 
-// ── Entrenador ─────────────────────────────────────────────────────
 function renderEntSelector(){
   document.getElementById('ent-selector').innerHTML=getCats().flatMap(cat=>
     (cat.equips||[]).map(eq=>{
@@ -1477,19 +1339,15 @@ function renderEntSelector(){
 }
 function selEntEquipo(catName,name){
   ST.entEquipo=catName+'|'+name;ST.entCat=catName;ST.expandedDays={};
-  document.getElementById('ent-placeholder').classList.add('hidden');
-  document.getElementById('ent-main').classList.remove('hidden');
-  updateEntLabel();setEntTab(ST.entTab);
-  renderEntSelector();renderTrainDaysSelector();renderEntContent();
+  document.getElementById('ent-placeholder').classList.add('hidden');document.getElementById('ent-main').classList.remove('hidden');
+  updateEntLabel();setEntTab(ST.entTab);renderEntSelector();renderTrainDaysSelector();renderEntContent();
 }
 function toggleDayDetail(keyId){ST.expandedDays[keyId]=!ST.expandedDays[keyId];renderEntContent();}
 
 async function clearFeedback(catName,team,di,wo){
   if(!confirm('Eliminar tot el feedback d\'aquesta sessió?'))return;
-  const key=sk(catName,team,di,wo);
-  delete DB.feedbacks[fk(key)];
-  renderEntContent();if(ST.mode==='victor')renderPlanner();
-  toast('🗑️ Feedback eliminat');
+  const key=sk(catName,team,di,wo);delete DB.feedbacks[fk(key)];
+  renderEntContent();if(ST.mode==='victor')renderPlanner();toast('🗑️ Feedback eliminat');
   try{await fbDel('/feedbacks/'+fk(key));}catch(e){dbg('clearFb ERR: '+e.message);}
 }
 
@@ -1499,8 +1357,7 @@ function renderEntContent(){
   const cat=getCatByName(catName)||{color:'#C0152A',light:'#FDEAEA',name:catName,equips:[]};
   const eqObj=(cat.equips||[]).find(e=>e.n===team)||{};
   const eqColor=getEqColor(cat,eqObj);const eqLight=getEqLight(cat,eqObj);
-  updateEntLabel();
-  const trainDays=getTrainDays(ST.entEquipo);
+  updateEntLabel();const trainDays=getTrainDays(ST.entEquipo);
   let html=`<div class="card" style="border-top:3px solid ${eqColor}"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div><span style="font-size:15px;font-weight:700">${team}</span><span style="font-size:11px;color:${eqColor};font-weight:700;margin-left:8px;background:${eqLight};padding:2px 8px;border-radius:10px">${catName}</span></div><span style="font-size:11px;color:var(--text2)">${wLabel(wo)}</span></div>`;
   for(let di=0;di<7;di++){
     const dia=DIAS_FULL[di];const isWE=WE.includes(di);const isTrainDay=trainDays.includes(di);
@@ -1508,16 +1365,12 @@ function renderEntContent(){
     const keyId=fk(key);const expanded=!!ST.expandedDays[keyId];
     const rowStyle=isTrainDay&&!isWE?`border-left:3px solid ${eqColor};padding-left:8px;background:${eqLight}`:'';
     html+=`<div class="wday-row" style="${rowStyle}"><div class="wday-top"><span class="wday-name${isWE?' we':''}">${dia}${isTrainDay&&!isWE?` <span style="font-size:9px;background:${eqColor};color:#fff;padding:1px 5px;border-radius:8px;margin-left:3px">Entren</span>`:''}</span>`;
-    if(isP){
-      html+=`<span class="spill p-partido" style="flex:none;padding:4px 10px;font-size:11px">🤾 Partit</span><button class="partido-btn active" style="margin-left:auto" onclick="togglePartit('${catName}','${team}',${di},${wo})">✅ Treure</button>`;
-    }else if(isWE){
-      html+=`<span style="font-size:11px;color:var(--text3);font-style:italic">Cap activitat</span><button class="partido-btn" style="margin-left:auto" onclick="togglePartit('${catName}','${team}',${di},${wo})">🤾 Marcar partit</button>`;
-    }else if(s){
+    if(isP){html+=`<span class="spill p-partido" style="flex:none;padding:4px 10px;font-size:11px">🤾 Partit</span><button class="partido-btn active" style="margin-left:auto" onclick="togglePartit('${catName}','${team}',${di},${wo})">✅ Treure</button>`;}
+    else if(isWE){html+=`<span style="font-size:11px;color:var(--text3);font-style:italic">Cap activitat</span><button class="partido-btn" style="margin-left:auto" onclick="togglePartit('${catName}','${team}',${di},${wo})">🤾 Marcar partit</button>`;}
+    else if(s){
       const cls=s.esLliure?'p-libre':(TIPO_CLS[s.tipo]||'p-descanso');
       html+=`<span class="spill ${cls}" style="flex:none;padding:4px 10px;font-size:11px">${s.tipo}</span><button class="expand-btn" onclick="toggleDayDetail('${keyId}')" style="margin-left:6px">${expanded?'▲ Tancar':'▼ Detalls'}</button><div style="margin-left:auto;display:flex;gap:4px"><button class="fbbtn${fb&&fb.status==='ok'?' ok':''}" onclick="setFb('${catName}','${team}',${di},${wo},'ok')">✅</button><button class="fbbtn${fb&&fb.status==='parcial'?' parcial':''}" onclick="setFb('${catName}','${team}',${di},${wo},'parcial')">⚠️</button><button class="fbbtn${fb&&fb.status==='no'?' no':''}" onclick="setFb('${catName}','${team}',${di},${wo},'no')">❌</button></div>`;
-    }else{
-      html+=`<span style="font-size:11px;color:var(--text3)">Sense sessió</span>`;
-    }
+    }else{html+=`<span style="font-size:11px;color:var(--text3)">Sense sessió</span>`;}
     html+='</div>';
     if(s&&expanded){
       html+=`<div class="session-detail">`;
@@ -1529,10 +1382,7 @@ function renderEntContent(){
     if(s&&!isWE&&fb&&fb.status){
       const k2=fk(key);
       html+=`<div style="margin-top:8px;padding:10px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border)">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-          <div class="session-detail-title" style="margin:0">📊 Valoració</div>
-          <button class="clear-fb-btn" onclick="clearFeedback('${catName}','${team}',${di},${wo})">🗑️ Treure feedback</button>
-        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div class="session-detail-title" style="margin:0">📊 Valoració</div><button class="clear-fb-btn" onclick="clearFeedback('${catName}','${team}',${di},${wo})">🗑️ Treure feedback</button></div>
         <div class="rpe-row"><div class="rpe-label"><span>💪 RPE</span><span class="rpe-val" id="rpe-val-${k2}">${fb.rpe||5}</span></div>
         <input type="range" min="1" max="10" value="${fb.rpe||5}" oninput="document.getElementById('rpe-val-${k2}').textContent=this.value" onchange="saveFbField('${catName}','${team}',${di},${wo},'rpe',parseInt(this.value))">
         <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text3);margin-top:2px"><span>1 Suau</span><span>10 Màxim</span></div></div>
@@ -1549,10 +1399,8 @@ function renderEntContent(){
 }
 
 async function saveFbField(catName,team,di,wo,field,value){
-  const key=sk(catName,team,di,wo);const prev=gF(key)||{};
-  const data={...prev,[field]:value};if(!data.status)data.status='ok';
-  DB.feedbacks[fk(key)]=data;
-  try{await fbSet('/feedbacks/'+fk(key),data);}catch(e){dbg('saveFbField ERR: '+e.message);}
+  const key=sk(catName,team,di,wo);const prev=gF(key)||{};const data={...prev,[field]:value};if(!data.status)data.status='ok';
+  DB.feedbacks[fk(key)]=data;try{await fbSet('/feedbacks/'+fk(key),data);}catch(e){dbg('saveFbField ERR: '+e.message);}
 }
 async function togglePartit(catName,team,di,wo){
   const key=sk(catName,team,di,wo);const current=gP(key);
@@ -1561,8 +1409,8 @@ async function togglePartit(catName,team,di,wo){
   try{if(current)await fbDel('/partits/'+fk(key));else await fbSet('/partits/'+fk(key),true);}catch(e){dbg('togglePartit ERR: '+e.message);}
 }
 async function setFb(catName,team,di,wo,status){
-  const key=sk(catName,team,di,wo);const prev=gF(key)||{};
-  const data={...prev,status};DB.feedbacks[fk(key)]=data;renderEntContent();toast('✅ Feedback guardat');
+  const key=sk(catName,team,di,wo);const prev=gF(key)||{};const data={...prev,status};
+  DB.feedbacks[fk(key)]=data;renderEntContent();toast('✅ Feedback guardat');
   try{await fbSet('/feedbacks/'+fk(key),data);}catch(e){dbg('setFb ERR: '+e.message);}
 }
 async function saveFbNote(catName,team,di,wo){
@@ -1570,29 +1418,19 @@ async function saveFbNote(catName,team,di,wo){
   if(el){const data={...prev,note:el.value};DB.feedbacks[fk(key)]=data;toast('📝 Nota guardada');try{await fbSet('/feedbacks/'+fk(key),data);}catch(e){dbg('saveFbNote ERR: '+e.message);}}
 }
 
-// ── PWA ────────────────────────────────────────────────────────────
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(e=>dbg('SW ERR: '+e));
 
-// ── Init ───────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',async()=>{
-  // Detecta si el Worker ja ha autenticat (cookie cht_auth=1 → pàgina recarregada)
-  // En aquest cas activem directament el mode Víctor
-const isAuth=sessionStorage.getItem('cht_pin')==='1';
   try{
     const data=await fbGetAll();
     if(data?.config)loadConfig(data.config);else applyConfig();
     if(data?.biblioteca)loadLibreFromDB(data.biblioteca);
-    DB.sessions=(data?.sessions)||{};DB.feedbacks=(data?.feedbacks)||{};
-    DB.partits=(data?.partits)||{};DB.traindays=(data?.traindays)||{};
+    DB.sessions=(data?.sessions)||{};DB.feedbacks=(data?.feedbacks)||{};DB.partits=(data?.partits)||{};DB.traindays=(data?.traindays)||{};
     setConnected();
   }catch(e){applyConfig();setDisconnected();}
   updateLabels();updateEntLabel();
-  if(isAuth){
-    ST.pinVerified=true;
-    activateVictor();
-  }else{
-    initCatRow();renderEntSelector();renderPlanner();
-  }
+  if(sessionStorage.getItem('cht_pin')==='1'){ST.pinVerified=true;activateVictor();}
+  else{initCatRow();renderEntSelector();renderPlanner();}
   openSSE('sessions');openSSE('feedbacks');openSSE('partits');openSSE('traindays');
 });
 </script>
