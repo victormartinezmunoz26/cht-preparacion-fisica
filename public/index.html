@@ -1209,10 +1209,18 @@ function saveLibreToLibrary(titol,desc){
 }
 function loadLibreFromDB(bibData){
   if(!bibData)return;
+  // Sobreescriu completament la biblioteca amb les dades de Firebase
+  // Primer mantenim les sessions base que NO estiguin a Firebase
+  const fbIds=new Set(Object.values(bibData).filter(e=>e&&e.id).map(e=>e.id));
+  // Eliminem de la base les que Firebase ja té (Firebase mana)
+  BIBLIOTECA=BIBLIOTECA.filter(b=>!fbIds.has(b.id));
+  // Afegim totes les de Firebase
   Object.values(bibData).forEach(entry=>{
     if(!entry||!entry.id)return;
-    const safe={mat:[],ex:[],...entry};safe.mat=Array.isArray(safe.mat)?safe.mat:[];safe.ex=Array.isArray(safe.ex)?safe.ex:[];
-    const idx=BIBLIOTECA.findIndex(b=>b.id===safe.id);if(idx>=0)BIBLIOTECA[idx]=safe;else BIBLIOTECA.push(safe);
+    const safe={mat:[],ex:[],...entry};
+    safe.mat=Array.isArray(safe.mat)?safe.mat:[];
+    safe.ex=Array.isArray(safe.ex)?safe.ex:[];
+    BIBLIOTECA.push(safe);
   });
 }
 function renderBiblioteca(t){
