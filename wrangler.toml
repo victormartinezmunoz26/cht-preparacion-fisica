@@ -1,4 +1,4 @@
-name = "preparaciofisica-cht"
+name = "preparacionfisica-cht"
 main = "worker.js"
 compatibility_date = "2024-01-01"
 
